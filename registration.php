@@ -92,10 +92,9 @@
 				</p>
 				<label for="terms">
 					<span>Agree to terms</span>
-				</label>
-				<br>
-				<br>
+				</label><br><br><br>
 				<input type="checkbox" id="terms" name="terms" class="input-field" required>
+				<br><br>
 				<p>
 					<input type="submit" name="submit" value="Register">
 				</p>

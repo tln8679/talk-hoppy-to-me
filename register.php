@@ -4,7 +4,9 @@
     <section>
         <?php
             $name = $_REQUEST['fname'] . ' ' . $_REQUEST['lname'];
-            echo "Thanks for registering <strong>$name</strong>";
+            echo "<div class=\"alert alert-success\" role=\"alert\">
+                <p>Thanks for registering <strong>$name</strong></p>
+            </div>";
         ?>
     </section>
 <?php
