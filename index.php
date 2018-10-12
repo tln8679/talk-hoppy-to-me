@@ -31,7 +31,7 @@
                 <input id="email" style="width:250px" type="text" name="email" placeholder="Email address" class="input-field" required>
                 <label for="password"></label>
                 <span class="required">*</span>
-                <input type="password" id="password" style="width:250px" name="password" placeholder="New password" class="input-field" required>
+                <input type="password" id="password" style="width:250px" name="password" placeholder="Password" class="input-field" required>
                 <br><br>
                 <input type="submit" name="submit" value="Login">
             </form>
