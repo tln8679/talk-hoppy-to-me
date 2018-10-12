@@ -30,9 +30,9 @@
 					<input type="password" id="password" style="width:250px" name="password" placeholder="New password" class="input-field" required>
 				</p>
 				<p>
-					<label for="passwordverification"></label>
+					<label for="confirm-password"></label>
 					<span class="required">*</span>
-					<input type="password" id="passwordverification" style="width:250px" name="passwordverification" placeholder="New password"
+					<input type="password" id="confirm-password" style="width:250px" name="confirm-password" placeholder="Confirm password"
 					 class="input-field" required>
 				</p>
 				<br>
