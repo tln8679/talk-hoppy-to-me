@@ -1,4 +1,5 @@
 <?php
+    // Include header html here
     include('includes/header.html');
 ?>
     <section>
