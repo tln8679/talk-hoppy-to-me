@@ -62,7 +62,6 @@
             <input type="password" id="password" style="width:250px" name="password" placeholder="Password" class="input-field"
                 required>
         </p>
-        <br>
         <input type="submit" name="submit" value="Login">
     </form>
 </div>
