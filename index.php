@@ -1,11 +1,6 @@
 <?php
-<<<<<<< HEAD
-    // Include header html here
     $page_title = 'Beer, yum!';
-=======
-//Test
 	// Include header html here
->>>>>>> b15c86f4f21989d33b2a22d5746d4e814329c1c6
     include('includes/header.html');
 ?>
     <section>
