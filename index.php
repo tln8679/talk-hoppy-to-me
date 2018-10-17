@@ -3,45 +3,69 @@
 	// Include header html here
     include('includes/header.html');
 ?>
-    <section>
-        <h1>What are you drinking tonight?</h1>
-        <ul>
-            <li>
-                <span class="icon-follow"></span> Follow your friends' beer-adventures!
-                <br/>
-                <br/>
-            </li>
-            <li>
-                <span class="icon-log"></span> Log and rank your favorite brews!
-                <br/>
-                <br/>
-            </li>
-            <li>
-                <span class="icon-wish"></span> Compete with friends and see who can log the most brews!
-            </li>
-        </ul>
-        <?php
+
+<div class="page-header">
+    <h1>What are you drinking tonight?</h1>
+</div>
+
+<!-- Right-aligned media object -->
+<div class="media">
+    <div class="media-body">
+        <h4 class="media-heading">Don't drink alone when you can drink with friends!</h4>
+        <p>
+            <ul class="list-unstyled">
+                <li class="media">
+                    <img class="media-object" src="imgs/fans.png" alt="friends">
+                    <div class="media-body">
+                        <h5 class="mt-0 mb-1">Follow your friends on their beer-adventures!</h5>
+                    </div>
+                </li>
+                <li class="media my-4">
+                    <img class="media-object" src="imgs/rating.png" alt="rate">
+                    <div class="media-body">
+                        <h5 class="mt-0 mb-1">Log and rank your favorite brews!</h5>
+                    </div>
+                </li>
+                <li class="media">
+                    <img class="media-object" src="imgs/to-do.png" alt="compete">
+                    <div class="media-body">
+                        <h5 class="mt-0 mb-1">Compete with friends and see who can log the most brews!</h5>
+                    </div>
+                </li>
+            </ul>
+        </p>
+    </div>
+    <div class="media-right">
+        <div class="hidden-xs hidden-sm-4 hidden-md col-lg-4">
+            <img src="imgs/friends.jpg" class="media-object">
+        </div>
+    </div>
+</div>
+
+<?php
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 echo '<div class="alert alert-warning" role="alert"><p> Sorry!</p>
 		 <p class="text-danger">No database created, yet.</p></div>';
             }    
         ?>
-        <div class="form-style">
-            <form method="POST" action="index.php">
-                <label for="email"></label>
-                <span class="required">*</span>
-                <input id="email" style="width:250px" type="text" name="email" placeholder="Email address" class="input-field" required>
-                <label for="password"></label>
-                <span class="required">*</span>
-                <input type="password" id="password" style="width:250px" name="password" placeholder="Password" class="input-field" required>
-                <br><br>
-                <input type="submit" name="submit" value="Login">
-            </form>
-        </div>
-    </section>
-    <aside>
-        <img src="imgs/friends.jpg" alt="Photo by ELEVATE from Pexels">
-    </aside>
+<div class="form-style">
+    <form method="POST" action="index.php">
+        <p>
+            <label for="email"></label>
+            <span class="required">*</span>
+            <input id="email" style="width:250px" type="text" name="email" placeholder="Email address" class="input-field"
+                required>
+        </p>
+        <p>
+            <label for="password"></label>
+            <span class="required">*</span>
+            <input type="password" id="password" style="width:250px" name="password" placeholder="Password" class="input-field"
+                required>
+        </p>
+        <br>
+        <input type="submit" name="submit" value="Login">
+    </form>
+</div>
 <?php
     include('includes/footer.html');
 ?>
