@@ -1,5 +1,6 @@
 <?php
     // Include header html here
+    $page_title = 'Beer, yum!';
     include('includes/header.html');
 ?>
     <section>
