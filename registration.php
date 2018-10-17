@@ -66,11 +66,11 @@
 				<span class="required">*</span>
 				<input type="text" id="zip" name="zip" placeholder="Zip" class="input-field" required>
 			</p>
+			<br>
 			<p>
 				<label>
 					<span>Phone number</span>
 				</label>
-				<br>
 				<br>
 				<label for="phone"></label>
 				<input type="text" class="input-field" name="phone" placeholder="910-999-9999" maxlength="12" />
