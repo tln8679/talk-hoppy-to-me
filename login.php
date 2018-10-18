@@ -16,7 +16,7 @@
 
         <fieldset>
             <legend>
-                Welcome back!
+                <h2>Welcome back!</h2>
             </legend>
             <div class="row justify-content-center col-lg-6 offset-lg-3">
                 <p>
