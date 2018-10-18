@@ -52,13 +52,13 @@
     <form method="POST" action="index.php">
         <p>
             <label for="email">Email</label>
-            <span class="required">*</span>
+            <span class="required" style="color:red">*</span>
             <input id="email" style="width:250px" type="text" name="email" placeholder="Enter email" class="form-control"
                 required>
         </p>
         <p>
             <label for="password">Password</label>
-            <span class="required">*</span>
+            <span class="required" style="color:red">*</span>
             <input type="password" id="password" style="width:250px" name="password" placeholder="Enter password" class="form-control"
                 required>
         </p>
