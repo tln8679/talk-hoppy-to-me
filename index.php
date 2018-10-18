@@ -36,8 +36,18 @@
         </p>
     </div>
     <div class="media-right">
-        <div class="hidden-xs hidden-sm-4 hidden-md col-lg-4">
-            <img src="imgs/friends.jpg" class="media-object">
+        <!-- Photo size will be responsive. Photos are hidden/shown based on browser width. -->
+        <div class="hidden-xs col-sm-4 hidden-md hidden-lg">
+            <img src="imgs/friends-sm.jpg" class="media-object">
+        </div>
+        <div class="hidden-xs hidden-sm col-md-4 hidden-lg">
+            <img src="imgs/friends-md.jpg" class="media-object">
+        </div>
+        <div class="hidden-xs hidden-sm hidden-md col-lg-4">
+            <img src="imgs/friends-lg.jpg" class="media-object">
+        </div>
+        <div class="hidden-xs hidden-sm hidden-md hidden-lg col-xl-4">
+            <img src="imgs/friends-xl.jpg" class="media-object">
         </div>
     </div>
 </div>
