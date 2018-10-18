@@ -37,10 +37,27 @@
     </div>
     <div class="media-right">
         <div class="hidden-xs hidden-sm-4 hidden-md col-lg-4">
-            <img src="imgs/friends.jpg" class="media-object">
+            <div class="beer-pics">
+                <div>
+                    <img src="imgs/friends.jpg" class="media-object">
+                </div>
+                <div>
+                    <img src="imgs/rating.png" class="media-object">
+                </div>
+                <div>
+                    <img src="imgs/pint.png" class="media-object">
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+<!-- test -->
+
+
+
+
+<!-- end test -->
 
 <?php
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -68,3 +85,17 @@
 <?php
     include('includes/footer.html');
 ?>
+
+<!-- Script for the slick carousel -->
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="slick/slick.min.js"></script>
+<script type="text/javascript">
+    $('.beer-pics').slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        variableWidth: true
+    });
+</script>
