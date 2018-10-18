@@ -48,21 +48,21 @@
 		 <p class="text-danger">No database created, yet.</p></div>';
             }    
         ?>
-<div class="form-style">
+<div class="form-group">
     <form method="POST" action="index.php">
         <p>
             <label for="email"></label>
             <span class="required">*</span>
-            <input id="email" style="width:250px" type="text" name="email" placeholder="Email address" class="input-field"
+            <input id="email" style="width:250px" type="text" name="email" placeholder="Email address" class="form-control"
                 required>
         </p>
         <p>
             <label for="password"></label>
             <span class="required">*</span>
-            <input type="password" id="password" style="width:250px" name="password" placeholder="Password" class="input-field"
+            <input type="password" id="password" style="width:250px" name="password" placeholder="Password" class="form-control"
                 required>
         </p>
-        <input type="submit" name="submit" value="Login">
+        <input type="submit" name="submit" value="Login" class="btn btn-primary">
     </form>
 </div>
 <?php
