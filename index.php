@@ -51,15 +51,15 @@
 <div class="form-group">
     <form method="POST" action="index.php">
         <p>
-            <label for="email"></label>
+            <label for="email">Email</label>
             <span class="required">*</span>
-            <input id="email" style="width:250px" type="text" name="email" placeholder="Email address" class="form-control"
+            <input id="email" style="width:250px" type="text" name="email" placeholder="Enter email" class="form-control"
                 required>
         </p>
         <p>
-            <label for="password"></label>
+            <label for="password">Password</label>
             <span class="required">*</span>
-            <input type="password" id="password" style="width:250px" name="password" placeholder="Password" class="form-control"
+            <input type="password" id="password" style="width:250px" name="password" placeholder="Enter password" class="form-control"
                 required>
         </p>
         <input type="submit" name="submit" value="Login" class="btn btn-primary">
