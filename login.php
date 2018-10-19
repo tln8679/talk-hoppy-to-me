@@ -5,14 +5,14 @@
 ?>
 
 <?php
-            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                echo '<div class="alert alert-warning" role="alert"><p> Sorry!</p>
-		 <p class="text-danger">No database created, yet.</p></div>';
-            }    
-        ?>
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        echo '<div class="alert alert-warning" role="alert"><p> Sorry!</p>
+		<p class="text-danger">No database created, yet.</p></div>';
+    }    
+?>
 
 <div class="form-group">
-    <form method="POST" action="index.php">
+    <form method="POST" action="login.php">
 
         <fieldset>
             <legend>
