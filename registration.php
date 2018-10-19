@@ -9,6 +9,8 @@
         echo "<div class=\"alert alert-success\" role=\"alert\">
 		<p>Thanks for registering <strong>$name</strong></p>
 		</div>";
+		// Skip the form but add the footer
+    	include('includes/footer.html');
 		exit;
     }    
 ?>
