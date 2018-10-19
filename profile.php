@@ -74,7 +74,7 @@
         <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Beers</h2>
         <div class="w3-container">
           <h5 class="w3-opacity"><b>Miller Lite</b></h5>
-          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Birth<span class="w3-tag w3-teal w3-round">Current</span></h6>
+          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>October 2018</span></h6>
           <p>Solid American Brew.</p>
           <hr>
         </div>
