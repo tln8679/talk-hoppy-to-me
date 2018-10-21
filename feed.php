@@ -9,21 +9,25 @@
   <!-- The Grid -->
   <div class="w3-row-padding">
   <div class="w3-container w3-card w3-white w3-margin-bottom">
-        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Jane Doe</h2>
+        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-xxlarge w3-text-blue"></i>Jane Doe</h2>
         <div class="w3-container">
-          <h5 class="w3-opacity"><b>Miller Lite</b></h5>
-          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>October 2018</span></h6>
-          <p>Solid American Brew.</p>
+          <h6 class="w3-text-blue"><i class="fa fa-calendar fa-fw "></i>October 2018</span></h6>
+          <h5 class="w3-opacity"><b>Rating: 7/10</b></h5>
+          <h5 class="w3-opacity"><b>Name: Miller Lite</b></h5>
+          <h5 class="w3-opacity"><b>Brewer: </b></h5>
+          <p>Solid American Brew. One of my favorites of all time!</p>
           <hr>
         </div>
     </div>
 
       <div class="w3-container w3-card w3-white">
-        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-blue"></i>Jacob Thomas</h2>
+        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw w3-xxlarge w3-text-blue"></i>Jacob Thomas</h2>
         <div class="w3-container">
-          <h5 class="w3-opacity"><b>New Glarus Spotted Cow</b></h5>
-          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>July 2018</h6>
-          <p>Amazing</p>
+          <h6 class="w3-text-blue"><i class="fa fa-calendar "></i>July 2018</h6>
+          <h5 class="w3-opacity"><b>Rating: 9/10</b></h5>
+          <h5 class="w3-opacity"><b>Name: New Glarus Spotted Cow</b></h5>
+          <h5 class="w3-opacity"><b>Brewer: </b></h5>
+          <p>Amazing beer! Will get again!</p>
           <hr>
         </div>
       </div>
