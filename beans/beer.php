@@ -32,7 +32,7 @@
         return $this->location;
     }
     public function get_rating(){
-        return $this->beer_name;
+        return $this->rating;
     }
     public function get_abv(){
         return $this->abv;
