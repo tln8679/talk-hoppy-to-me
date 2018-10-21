@@ -6,7 +6,8 @@
 
 <?php
     // Instantiating an array that we will use to populate the cards
-    $BEERS = array("Miller Light", "\"18\" Imperial IPA", "\"The Great BOO\" Pumpkin Ale", "Wintah Ale", "Sierra Nevade, Pale Ale");
+    $BEERS = array("Miller Light", "\"18\" Imperial IPA", "\"The Great BOO\" Pumpkin Ale", "Wintah Ale", "Sierra Nevade, Pale Ale","Milwaukees Best",
+            "Orange krush kolsch", "Vienna Lager", "Bud Light");
     // Need to start a new row after the four columns have been filled
     $counter = 0;
     foreach($BEERS as $beer){
@@ -43,7 +44,7 @@
                         </div>
                     </div>";
         }
-        if ($counter%3===0 && $counter!=0){
+        if (($counter+1)%4===0){
             // Last card on the row, so close the row tag
             echo "</div>";
         }
