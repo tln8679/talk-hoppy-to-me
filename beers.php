@@ -12,7 +12,6 @@
             "Orange krush kolsch", "Vienna Lager", "Bud Light");
     // Need to start a new row after the four columns have been filled
     $counter = 0;
-    echo "test";
     // var_dump(count($beers_arr)); // Returns length of list
     foreach($beers_arr as $beer){
         // Get variables from the object
