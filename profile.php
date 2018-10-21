@@ -60,21 +60,24 @@
           <div class="w3-container">
             <h6 class="w3-text-blue"><i class="fa fa-calendar fa-fw "></i>October 2018</span></h6>
             <h5 class="w3-opacity"><b>Miller Lite by $beer->get_maker();</b></h5>
-            <h5 class="w3-opacity"><b>I rate this a: 7/10</b></h5>
+            <p><b><span class="w3-opacity">Global rating: </span><span class="w3-text-amber">6/10</span></b></p>
+            <p><b><span class="w3-opacity">I rate this a: </span><span class="w3-text-indigo">7/10</span></b></p>
             <p>Solid American Brew.</p>
             <hr>
           </div>
           <div class="w3-container">
             <h6 class="w3-text-blue"><i class="fa fa-calendar fa-fw "></i>Mar 2012</h6>
             <h5 class="w3-opacity"><b>Michelob Ultra by $beer->get_maker();</b></h5>
-            <h5 class="w3-opacity"><b>I rate this a: 9/10</b></h5>
+            <p><b><span class="w3-opacity">Global rating: </span><span class="w3-text-amber">8/10</span></b></p>
+            <p><b><span class="w3-opacity">I rate this a: </span><span class="w3-text-indigo">7/10</span></b></p>
             <p>Doesn't give me head aches.</p>
             <hr>
           </div>
           <div class="w3-container">
             <h6 class="w3-text-blue"><i class="fa fa-calendar fa-fw "></i>July 2018</h6>
             <h5 class="w3-opacity"><b>Spotted Cow by New Glarus</b></h5>
-            <h5 class="w3-opacity"><b>I rate this a: 10/10</b></h5>
+            <p><b><span class="w3-opacity">Global rating: </span><span class="w3-text-amber">10/10</span></b></p>
+            <p><b><span class="w3-opacity">I rate this a: </span><span class="w3-text-indigo">10/10</span></b></p>
             <p>Amazing. </p><br>
           </div>
         </div>
@@ -84,21 +87,24 @@
           <div class="w3-container">
             <h6 class="w3-text-blue"><i class="fa fa-calendar fa-fw "></i>July 2018</h6>
             <h5 class="w3-opacity"><b>Spotted Cow by New Glarus</b></h5>
-            <h5 class="w3-opacity"><b>I rate this a: 10/10</b></h5>
+            <p><b><span class="w3-opacity">Global rating: </span><span class="w3-text-amber">10/10</span></b></p>
+            <p><b><span class="w3-opacity">I rate this a: </span><span class="w3-text-indigo">10/10</span></b></p>
             <p>Amazing</p>
             <hr>
           </div>
           <div class="w3-container">
             <h6 class="w3-text-blue"><i class="fa fa-calendar fa-fw "></i>October 2013</h6>
             <h5 class="w3-opacity"><b>Busch by $beer->get_maker();</b></h5>
-            <h5 class="w3-opacity"><b>I rate this a: 1/10</b></h5>
+            <p><b><span class="w3-opacity">Global rating: </span><span class="w3-text-amber">4/10</span></b></p>
+            <p><b><span class="w3-opacity">I rate this a: </span><span class="w3-text-indigo">1/10</span></b></p>
             <p>Watery and cheap</p>
             <hr>
           </div>
           <div class="w3-container">
             <h6 class="w3-text-blue"><i class="fa fa-calendar fa-fw "></i>Birth</h6>
             <h5 class="w3-opacity"><b>Milwaukee's Best by $beer->get_maker();</b></h5>
-            <h5 class="w3-opacity"><b>I rate this a: 6/10</b></h5>
+            <p><b><span class="w3-opacity">Global rating: </span><span class="w3-text-amber">6/10</span></b></p>
+            <p><b><span class="w3-opacity">I rate this a: </span><span class="w3-text-indigo">6/10</span></b></p>
             <p>Best in Milwaukeee</p><br>
           </div>
         </div>
