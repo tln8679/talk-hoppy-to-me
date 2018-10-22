@@ -45,7 +45,12 @@
           <div class="w3-light-grey w3-round-xlarge w3-small">
             <div class="w3-container w3-center w3-round-xlarge w3-indigo" style="width:5%">5%</div>
           </div>
-        </div><br>
+        </div>
+        <hr>
+        <p class="w3-large"><b><i class="fa fa-asterisk fa-fw  w3-text-indigo"></i>Friends</b></p>
+        <p><i class="fa fa-briefcase fa-fw  w3-large w3-text-indigo"></i>Top 3 most logger right here</p>
+        <p><i class="fa fa-home fa-fw  w3-large w3-text-indigo"></i>Link to all friends</p>
+        <p><i class="fa fa-envelope fa-fw  w3-large w3-text-indigo"></i>Add friends</p>
       </div>
 
 
