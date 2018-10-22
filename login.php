@@ -1,7 +1,7 @@
 <?php
     $page_title = 'Login, yum!';
 	// Include header html here
-    include('includes/header.html');
+    include('includes/header.php');
 ?>
 
 <?php
@@ -37,5 +37,5 @@
     </form>
 </div>
 <?php
-    include('includes/footer.html');
+    include('includes/footer.php');
 ?>

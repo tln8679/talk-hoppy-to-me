@@ -1,7 +1,7 @@
 <?php
     $page_title = 'You, yum!';
 	// Include header html here
-    include('includes/header.html');
+    include('includes/header.php');
 ?>
 <!-- Page Container -->
 <div class="w3-content w3-margin-top" style="max-width:1400px;">
@@ -140,5 +140,5 @@
   <!-- End Page Container -->
 </div>
 <?php
-    include('includes/footer.html');
+    include('includes/footer.php');
 ?>

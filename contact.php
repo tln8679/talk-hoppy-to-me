@@ -1,6 +1,6 @@
 <?php
     $page_title = 'Contact us!';
-    include('includes/header.html');
+    include('includes/header.php');
 ?>
     <section>
         <h1>Contact info: </h1>
@@ -24,5 +24,5 @@
         </ul>
     </section>
 <?php
-    include('includes/footer.html');
+    include('includes/footer.php');
 ?>

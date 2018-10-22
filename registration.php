@@ -1,6 +1,6 @@
 <?php
 	$page_title = 'Register!';
-    include('includes/header.html');
+    include('includes/header.php');
 ?>
 
 <?php
@@ -10,7 +10,7 @@
 		<p>Thanks for registering <strong>$name</strong></p>
 		</div>";
 		// Skip the form but add the footer
-    	include('includes/footer.html');
+    	include('includes/footer.php');
 		exit;
     }    
 ?>
@@ -127,5 +127,5 @@
 </form>
 </div>
 <?php
-    include('includes/footer.html');
+    include('includes/footer.php');
 ?>

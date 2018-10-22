@@ -1,7 +1,7 @@
 <?php
     $page_title = 'Beers, yum!';
 	// Include header html here
-    include('includes/header.html');
+    include('includes/header.php');
     // You need this because the include in beer_data is now processed from this dir
     include("beans/beer.php");
     // getting the Array for populating the cards
@@ -95,5 +95,5 @@
     }
 ?>
 <?php
-    include('includes/footer.html');
+    include('includes/footer.php');
 ?>

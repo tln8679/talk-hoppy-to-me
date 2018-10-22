@@ -1,7 +1,7 @@
 <?php
     $page_title = 'Beer, yum!';
 	// Include header html here
-    include('includes/header.html');
+    include('includes/header.php');
 ?>
 
 <div class="page-header">
@@ -53,5 +53,5 @@
 </div>
 
 <?php
-    include('includes/footer.html');
+    include('includes/footer.php');
 ?>
