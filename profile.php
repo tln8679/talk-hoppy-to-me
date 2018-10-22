@@ -51,7 +51,6 @@
 
       <!-- End Left Column -->
     </div>
-    <br>
 
     <!-- Right Column -->
     <div class="w3-twothird">
