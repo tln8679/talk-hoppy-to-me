@@ -12,7 +12,7 @@
     <!-- Left Column -->
     <div class="w3-third">
 
-      <div class="w3-white w3-text-grey w3-card-4">
+      <div class="w3-white w3-text-grey w3-card-4 w3-margin-bottom">
         <div class="w3-display-container">
           <img src="imgs/jane.jpeg" style="width:100%" alt="Avatar">
           <div class="w3-display-bottomleft w3-container w3-text-black">
@@ -51,6 +51,7 @@
 
       <!-- End Left Column -->
     </div>
+    <br>
 
     <!-- Right Column -->
     <div class="w3-twothird">
@@ -82,7 +83,7 @@
         </div>
       </div>
 
-      <div class="w3-container w3-card w3-white">
+      <div class="w3-container w3-card w3-white w3-margin-bottom">
         <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw  w3-xxlarge w3-text-indigo"></i>Favorites</h2>
         <div class="w3-container">
           <h6 class="w3-text-indigo"><i class="fa fa-calendar fa-fw "></i>July 2018</h6>
@@ -106,6 +107,28 @@
           <p><b><span class="w3-opacity">Global rating: </span><span class="w3-text-amber">6/10</span></b></p>
           <p><b><span class="w3-opacity">I rate this a: </span><span class="w3-text-indigo">6/10</span></b></p>
           <p>Best in Milwaukeee</p><br>
+        </div>
+      </div>
+
+      <div class="w3-container w3-card w3-white">
+        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw  w3-xxlarge w3-text-indigo"></i>To
+          drink list</h2>
+        <div class="w3-container">
+          <h6 class="w3-text-indigo"><i class="fa fa-calendar fa-fw "></i>July 2018</h6>
+          <h5 class="w3-opacity"><b>Two Women by New Glarus</b></h5>
+          <p><b><span class="w3-opacity">Global rating: </span><span class="w3-text-amber">10/10</span></b></p>
+          <hr>
+        </div>
+        <div class="w3-container">
+          <h6 class="w3-text-indigo"><i class="fa fa-calendar fa-fw "></i>October 2013</h6>
+          <h5 class="w3-opacity"><b>Moon Man by New Glarus;</b></h5>
+          <p><b><span class="w3-opacity">Global rating: </span><span class="w3-text-amber">4/10</span></b></p>
+          <hr>
+        </div>
+        <div class="w3-container">
+          <h6 class="w3-text-indigo"><i class="fa fa-calendar fa-fw "></i>Birth</h6>
+          <h5 class="w3-opacity"><b>Beach Trip by Wrightsville Beach Brewery;</b></h5>
+          <p><b><span class="w3-opacity">Global rating: </span><span class="w3-text-amber">6/10</span></b></p>
         </div>
       </div>
 
