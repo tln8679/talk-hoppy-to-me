@@ -7,8 +7,31 @@
     // getting the Array for populating the cards
     include("tests/beer_data.php");
 
-    echo "<h1>Search functionality will go here</h1>";
+?>
+<div class="col-md-4 col-md-offset-4 w3-margin-bottom">
+    <div class="input-group">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search for...">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button">Go!</button>
+            </span>   
+        </div><!-- /input-group -->
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-primary active bg-primary">
+                <input type="radio" name="options" id="option1" autocomplete="off" checked> Name
+            </label>
+            <label class="btn btn-primary bg-primary">
+                <input type="radio" name="options" id="option2" autocomplete="off"> Brewer
+            </label>
+            <label class="btn btn-primary bg-primary">
+                <input type="radio" name="options" id="option3" autocomplete="off"> Style
+            </label>
+        </div>
+    </div><!-- /.col-lg-6 -->
+</div><!-- /.row -->
 
+
+<?php
     // Instantiating an array that we will use to populate the cards
     $BEERS = array("Miller Light", "\"18\" Imperial IPA", "\"The Great BOO\" Pumpkin Ale", "Wintah Ale", "Sierra Nevade, Pale Ale","Milwaukees Best",
             "Orange krush kolsch", "Vienna Lager", "Bud Light");
@@ -37,7 +60,7 @@
                                 <h5 class=\"w3-text-blue\"><b>$rating</b></h5>
                                 <h5 class=\"w3-opacity\"><b>Brewed by:</b> $maker</h5>
                                 <h5 class=\"w3-opacity\"><b>Brewed in:</b> $location</h5>
-                                <h5 class=\"w3-opacity\"><b>Brewed by:</b> $style</h5>
+                                <h5 class=\"w3-opacity\"><b>Style:</b> $style</h5>
                                 <h5 class=\"w3-opacity\"><b>ABV:</b> $abv</h5>
                                 <h5 class=\"w3-opacity\"><b>IBU:</b> $ibu</h5>
                                 <p>$description</p><br>
@@ -56,7 +79,7 @@
                                 <h5 class=\"w3-text-blue\"><b>$rating</b></h5>
                                 <h5 class=\"w3-opacity\"><b>Brewed by:</b> $maker</h5>
                                 <h5 class=\"w3-opacity\"><b>Brewed in:</b> $location</h5>
-                                <h5 class=\"w3-opacity\"><b>Brewed by:</b> $style</h5>
+                                <h5 class=\"w3-opacity\"><b>Style:</b> $style</h5>
                                 <h5 class=\"w3-opacity\"><b>ABV:</b> $abv</h5>
                                 <h5 class=\"w3-opacity\"><b>IBU:</b> $ibu</h5>
                                 <p>$description</p><br>
