@@ -1,5 +1,5 @@
 <?php
-    $page_title = 'You, yum!';
+    $page_title = 'Beers, yum!';
 	// Include header html here
     include('includes/header.html');
     // You need this because the include in beer_data is now processed from this dir

@@ -1,5 +1,5 @@
 <?php
-    $page_title = 'Beer, yum!';
+    $page_title = 'Login, yum!';
 	// Include header html here
     include('includes/header.html');
 ?>
