@@ -7,6 +7,8 @@
     // getting the Array for populating the cards
     include("tests/beer_data.php");
 
+    echo "<h1>Search functionality will go here</h1>";
+
     // Instantiating an array that we will use to populate the cards
     $BEERS = array("Miller Light", "\"18\" Imperial IPA", "\"The Great BOO\" Pumpkin Ale", "Wintah Ale", "Sierra Nevade, Pale Ale","Milwaukees Best",
             "Orange krush kolsch", "Vienna Lager", "Bud Light");
@@ -36,8 +38,8 @@
                                 <h5 class=\"w3-opacity\"><b>Brewed by:</b> $maker</h5>
                                 <h5 class=\"w3-opacity\"><b>Brewed in:</b> $location</h5>
                                 <h5 class=\"w3-opacity\"><b>Brewed by:</b> $style</h5>
-                                <h5 class=\"w3-opacity\"><b>Brewed in:</b> $abv</h5>
-                                <h5 class=\"w3-opacity\"><b>Brewed in:</b> $ibu</h5>
+                                <h5 class=\"w3-opacity\"><b>ABV:</b> $abv</h5>
+                                <h5 class=\"w3-opacity\"><b>IBU:</b> $ibu</h5>
                                 <p>$description</p><br>
                             </div>
                         </div> 
@@ -55,8 +57,8 @@
                                 <h5 class=\"w3-opacity\"><b>Brewed by:</b> $maker</h5>
                                 <h5 class=\"w3-opacity\"><b>Brewed in:</b> $location</h5>
                                 <h5 class=\"w3-opacity\"><b>Brewed by:</b> $style</h5>
-                                <h5 class=\"w3-opacity\"><b>Brewed in:</b> $abv</h5>
-                                <h5 class=\"w3-opacity\"><b>Brewed in:</b> $ibu</h5>
+                                <h5 class=\"w3-opacity\"><b>ABV:</b> $abv</h5>
+                                <h5 class=\"w3-opacity\"><b>IBU:</b> $ibu</h5>
                                 <p>$description</p><br>
                             </div> 
                         </div>
