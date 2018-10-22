@@ -38,16 +38,16 @@
     <div class="media-right">
         <!-- Photo size will be responsive. Photos are hidden/shown based on browser width. -->
         <div class="hidden-xs col-sm hidden-md hidden-lg">
-            <img src="imgs/friends-sm.jpg" class="media-object">
+            <img src="imgs/friends-sm.jpg" class="media-object w3-round">
         </div>
         <div class="hidden-xs hidden-sm col-md hidden-lg">
-            <img src="imgs/friends-md.jpg" class="media-object">
+            <img src="imgs/friends-md.jpg" class="media-object w3-round">
         </div>
         <div class="hidden-xs hidden-sm hidden-md col-lg">
-            <img src="imgs/friends-lg.jpg" class="media-object">
+            <img src="imgs/friends-lg.jpg" class="media-object w3-round">
         </div>
         <div class="hidden-xs hidden-sm hidden-md hidden-lg col-xl">
-            <img src="imgs/friends-xl.jpg" class="media-object">
+            <img src="imgs/friends-xl.jpg" class="media-object w3-round w3-grayscale-min">
         </div>
     </div>
 </div>
