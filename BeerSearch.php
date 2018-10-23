@@ -130,21 +130,21 @@
                                 <div class=\"w3-row-padding\">
                                     <div class=\"w3-third\">
                                         <form>
-                                            <button type=\"submit\" class=\"btn btn-link btn-lg\">
+                                            <button id=\"log\" type=\"submit\" title=\"log\" class=\"btn btn-link btn-lg\">
                                                 <span style=\"color:goldenrod;\" class=\"glyphicon glyphicon-th-list\"></span>
                                             </button>
                                         </form>
                                     </div>
                                     <div class=\"w3-third\">
                                         <form>
-                                            <button type=\"submit\" class=\"btn btn-link btn-lg\">
+                                            <button id=\"love\" type=\"submit\" title=\"love\" class=\"btn btn-link btn-lg\">
                                                 <span style=\"color:goldenrod;\" class=\"glyphicon glyphicon-heart\"></span>
                                             </button>
                                         </form>
                                     </div>
                                     <div class=\"w3-third\">
                                         <form>
-                                            <button type=\"submit\" class=\"btn btn-link btn-lg\">
+                                            <button id=\"later\" type=\"submit\" title=\"later\" class=\"btn btn-link btn-lg\">
                                                 <span style=\"color:goldenrod;\" class=\"glyphicon glyphicon-star\"></span>
                                             </button>
                                         </form>

@@ -63,7 +63,11 @@
     <div class="w3-twothird">
 
       <div class="w3-container w3-card w3-white w3-margin-bottom">
-        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw  w3-xxlarge w3-text-indigo"></i>Beers</h2>
+        <h2 class="w3-text-grey w3-padding-16">
+          <i class="fa fa-suitcase fa-fw  w3-xxlarge w3-text-indigo"></i>
+          <span style="color:goldenrod;" class="glyphicon glyphicon-list">
+          </span> Logged
+        </h2>
         <div class="w3-container">
           <h6 class="w3-text-indigo"><i class="fa fa-calendar fa-fw "></i>October 2018</span></h6>
           <h5 class="w3-opacity"><b>Miller Lite by $beer->get_maker();</b></h5>
@@ -90,7 +94,10 @@
       </div>
 
       <div class="w3-container w3-card w3-white w3-margin-bottom">
-        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw  w3-xxlarge w3-text-indigo"></i>Favorites</h2>
+        <h2 class="w3-text-grey w3-padding-16">
+        <i class="fa fa-certificate fa-fw  w3-xxlarge w3-text-indigo"></i>
+        <span style="color:goldenrod;" class="glyphicon glyphicon-heart"></span> Loved
+        </h2>
         <div class="w3-container">
           <h6 class="w3-text-indigo"><i class="fa fa-calendar fa-fw "></i>July 2018</h6>
           <h5 class="w3-opacity"><b>Spotted Cow by New Glarus</b></h5>
@@ -117,8 +124,10 @@
       </div>
 
       <div class="w3-container w3-card w3-white">
-        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw  w3-xxlarge w3-text-indigo"></i>To
-          drink list</h2>
+        <h2 class="w3-text-grey w3-padding-16">
+          <i class="fa fa-certificate fa-fw  w3-xxlarge w3-text-indigo"></i>
+          <span style="color:goldenrod;" class="glyphicon glyphicon-star"></span> Later
+        </h2>
         <div class="w3-container">
           <h6 class="w3-text-indigo"><i class="fa fa-calendar fa-fw "></i>July 2018</h6>
           <h5 class="w3-opacity"><b>Two Women by New Glarus</b></h5>
