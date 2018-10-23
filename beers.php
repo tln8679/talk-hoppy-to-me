@@ -64,6 +64,7 @@
                                 <h5 class=\"w3-opacity\"><b>ABV:</b> $abv</h5>
                                 <h5 class=\"w3-opacity\"><b>IBU:</b> $ibu</h5>
                                 <p>$description</p><br>
+                                <!-- This is where we will add the beer to the favorites table --!>
                                 <form>
                                     <button type=\"submit\" class=\"btn btn-link btn-lg\">
                                         <span style=\"color:goldenrod;\" class=\"glyphicon glyphicon-star\"></span>
@@ -88,6 +89,7 @@
                                 <h5 class=\"w3-opacity\"><b>ABV:</b> $abv</h5>
                                 <h5 class=\"w3-opacity\"><b>IBU:</b> $ibu</h5>
                                 <p>$description</p><br>
+                                <!-- This is where we will add the beer to the favorites table --!>
                                 <form>
                                     <button type=\"submit\" class=\"btn btn-link btn-lg\">
                                         <span style=\"color:goldenrod;\" class=\"glyphicon glyphicon-star\"></span>
