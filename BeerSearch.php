@@ -9,29 +9,40 @@
 
 ?>
 <div class="col-md-4 col-md-offset-4 w3-margin-bottom">
-    <div class="input-group">
-        <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search for...">
-            <span class="input-group-btn">
-                <button class="btn btn-default" type="button">Go!</button>
-            </span>
-        </div><!-- /input-group -->
-        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <label class="btn btn-primary active bg-primary">
-                <input type="radio" name="options" id="option1" autocomplete="off" checked> Name
-            </label>
-            <label class="btn btn-primary bg-primary">
-                <input type="radio" name="options" id="option2" autocomplete="off"> Brewer
-            </label>
-            <label class="btn btn-primary bg-primary">
-                <input type="radio" name="options" id="option3" autocomplete="off"> Style
-            </label>
-        </div>
-    </div><!-- /.col-lg-6 -->
-</div><!-- /.row -->
+    <form method="GET" action="BeerSearch.php">
+        <fieldset>
+            <legend>
+                <h2>Find your brews!</h2>
+            </legend>
+            <div class="form-group">
+                <label>
+                    Filter by
+                </label>
+                <div class="input-group w3-margin-bottom">
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-primary active bg-primary">
+                            <input type="radio" name="options" id="option1" value="beer_name" autocomplete="off" checked> Name
+                        </label>
+                        <label class="btn btn-primary bg-primary">
+                            <input type="radio" name="options" id="option2" value="beer_maker" autocomplete="off"> Brewer                            </label>
+                        <label class="btn btn-primary bg-primary">
+                            <input type="radio" name="options" id="option3" value="beer_style" autocomplete="off"> Style
+                        </label>
+                    </div>
+                </div>
+                <div class="input-group w3-margin-bottom">
+                    <input type="text" name="criteria" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                        <input type="submit" name="submit" value="Go!" class="btn btn-primary">
+                    </span>
+                </div>
+                    <!-- /input-group --> 
+            </div>
+        </fieldset>
+    </form> 
+</div>
 
-
-<?php
+        <?php
     // Instantiating an array that we will use to populate the cards
     $BEERS = array("Miller Light", "\"18\" Imperial IPA", "\"The Great BOO\" Pumpkin Ale", "Wintah Ale", "Sierra Nevade, Pale Ale","Milwaukees Best",
             "Orange krush kolsch", "Vienna Lager", "Bud Light");
@@ -151,7 +162,7 @@
     }
 ?>
 
-<script>
+        <script>
     function showMore(show_description) {
             show_description = show_description.toString();
             if (document.getElementById(show_description).style.display === "none") {
@@ -168,6 +179,6 @@
         }
 </script>
 
-<?php
+        <?php
     include('includes/footer.php');
 ?>
