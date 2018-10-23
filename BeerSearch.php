@@ -63,7 +63,11 @@
                                 <h5 class=\"w3-opacity\"><b>Style:</b> $style</h5>
                                 <h5 class=\"w3-opacity\"><b>ABV:</b> $abv</h5>
                                 <h5 class=\"w3-opacity\"><b>IBU:</b> $ibu</h5>
-                                <p>$description</p><br>
+                                <!-- Shows and hides description -->
+                                <div id=\"$counter\" style=\"display:none;\">
+                                    <p>$description</p><br>
+                                </div>
+                                <a href=\"javascript:showMore($counter)\" id=\"link\">Show description...</a>
                                 <!-- This is where we will add the beer to the favorites table --!>
                                 <div class=\"w3-row-padding\">
                                     <div class=\"w3-third\">
@@ -106,7 +110,11 @@
                                 <h5 class=\"w3-opacity\"><b>Style:</b> $style</h5>
                                 <h5 class=\"w3-opacity\"><b>ABV:</b> $abv</h5>
                                 <h5 class=\"w3-opacity\"><b>IBU:</b> $ibu</h5>
-                                <p>$description</p><br>
+                                <!-- Shows and hides description -->
+                                <div id=\"$counter\" style=\"display:none;\">
+                                    <p>$description</p><br>
+                                </div>
+                                <a href=\"javascript:showMore($counter)\" id=\"link\">Show description...</a>
                                 <!-- This is where we will add the beer to the favorites table --!>
                                 <div class=\"w3-row-padding\">
                                     <div class=\"w3-third\">
@@ -142,6 +150,23 @@
         $counter++;
     }
 ?>
+
+<script>
+    function showMore(show_description) {
+            show_description = show_description.toString();
+            if (document.getElementById(show_description).style.display === "none") {
+                // Change to hide
+                document.getElementById('link').innerHTML = "Hide description...";
+                // Show beer desciption
+                document.getElementById(show_description).style.display = "block";
+            }
+            else {
+                // back to original
+                document.getElementById('link').innerHTML = "Show description...";
+                document.getElementById(show_description).style.display = "none";
+            }
+        }
+</script>
 
 <?php
     include('includes/footer.php');
