@@ -14,7 +14,7 @@
             <input type="text" class="form-control" placeholder="Search for...">
             <span class="input-group-btn">
                 <button class="btn btn-default" type="button">Go!</button>
-            </span>   
+            </span>
         </div><!-- /input-group -->
         <div class="btn-group btn-group-toggle" data-toggle="buttons">
             <label class="btn btn-primary active bg-primary">
@@ -64,6 +64,11 @@
                                 <h5 class=\"w3-opacity\"><b>ABV:</b> $abv</h5>
                                 <h5 class=\"w3-opacity\"><b>IBU:</b> $ibu</h5>
                                 <p>$description</p><br>
+                                <form>
+                                    <button type=\"submit\" class=\"btn btn-link btn-lg\">
+                                        <span style=\"color:goldenrod;\" class=\"glyphicon glyphicon-star\"></span>
+                                    </button>
+                                </form>
                             </div>
                         </div> 
                     </div>";
@@ -83,6 +88,11 @@
                                 <h5 class=\"w3-opacity\"><b>ABV:</b> $abv</h5>
                                 <h5 class=\"w3-opacity\"><b>IBU:</b> $ibu</h5>
                                 <p>$description</p><br>
+                                <form>
+                                    <button type=\"submit\" class=\"btn btn-link btn-lg\">
+                                        <span style=\"color:goldenrod;\" class=\"glyphicon glyphicon-star\"></span>
+                                    </button>
+                                </form>
                             </div> 
                         </div>
                     </div>";
