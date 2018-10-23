@@ -65,11 +65,29 @@
                                 <h5 class=\"w3-opacity\"><b>IBU:</b> $ibu</h5>
                                 <p>$description</p><br>
                                 <!-- This is where we will add the beer to the favorites table --!>
-                                <form>
-                                    <button type=\"submit\" class=\"btn btn-link btn-lg\">
-                                        <span style=\"color:goldenrod;\" class=\"glyphicon glyphicon-star\"></span>
-                                    </button>
-                                </form>
+                                <div class=\"w3-row-padding\">
+                                    <div class=\"w3-third\">
+                                        <form>
+                                            <button type=\"submit\" class=\"btn btn-link btn-lg\">
+                                                <span style=\"color:goldenrod;\" class=\"glyphicon glyphicon-th-list\"></span>
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <div class=\"w3-third\">
+                                        <form>
+                                            <button type=\"submit\" class=\"btn btn-link btn-lg\">
+                                                <span style=\"color:goldenrod;\" class=\"glyphicon glyphicon-heart\"></span>
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <div class=\"w3-third\">
+                                        <form>
+                                            <button type=\"submit\" class=\"btn btn-link btn-lg\">
+                                                <span style=\"color:goldenrod;\" class=\"glyphicon glyphicon-star\"></span>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                         </div> 
                     </div>";
@@ -90,11 +108,29 @@
                                 <h5 class=\"w3-opacity\"><b>IBU:</b> $ibu</h5>
                                 <p>$description</p><br>
                                 <!-- This is where we will add the beer to the favorites table --!>
-                                <form>
-                                    <button type=\"submit\" class=\"btn btn-link btn-lg\">
-                                        <span style=\"color:goldenrod;\" class=\"glyphicon glyphicon-star\"></span>
-                                    </button>
-                                </form>
+                                <div class=\"w3-row-padding\">
+                                    <div class=\"w3-third\">
+                                        <form>
+                                            <button type=\"submit\" class=\"btn btn-link btn-lg\">
+                                                <span style=\"color:goldenrod;\" class=\"glyphicon glyphicon-th-list\"></span>
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <div class=\"w3-third\">
+                                        <form>
+                                            <button type=\"submit\" class=\"btn btn-link btn-lg\">
+                                                <span style=\"color:goldenrod;\" class=\"glyphicon glyphicon-heart\"></span>
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <div class=\"w3-third\">
+                                        <form>
+                                            <button type=\"submit\" class=\"btn btn-link btn-lg\">
+                                                <span style=\"color:goldenrod;\" class=\"glyphicon glyphicon-star\"></span>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
                             </div> 
                         </div>
                     </div>";
@@ -106,6 +142,7 @@
         $counter++;
     }
 ?>
+
 <?php
     include('includes/footer.php');
 ?>
