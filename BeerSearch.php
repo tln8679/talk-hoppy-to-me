@@ -11,7 +11,7 @@
     // You need this because the include in beer_data is now processed from this dir
     include("beans/beer.php");
     // getting the Array for populating the cards
-    include("tests/beer_data.php");
+    include("models/beer_data.php");
 
     // This form displays if the user has selected a beer to add to a list and then exits
     if ($_SERVER['REQUEST_METHOD']=='POST') {
@@ -118,7 +118,8 @@
                     <div class=\"w3-quarter\">
                     <!-- This is the first card in a new row -->
                         <div class=\"w3-container w3-card w3-white w3-margin-bottom\">";
-                            if (strlen($name) < 15) {
+                        // This is an effort to make the cards closet to the same size
+                            if (strlen($name) < 18) {
                                 echo "<h2 class=\"w3-text-grey w3-padding-16\"><i class=\"fa fa-suitcase fa-fw  w3-large\"></i>$name</h2>";
                             }
                             else if (strlen($name) < 25) {
@@ -182,7 +183,8 @@
                     <div class=\"w3-quarter\">
                     <!-- This is the card card # $counter -->
                         <div class=\"w3-container w3-card w3-white w3-margin-bottom\">";
-                        if (strlen($name) < 15) {
+                        // This is an effort to make the cards closet to the same size
+                        if (strlen($name) < 18) {
                             echo "<h2 class=\"w3-text-grey w3-padding-16\"><i class=\"fa fa-suitcase fa-fw  w3-large\"></i>$name</h2>";
                         }
                         else if (strlen($name) < 25) {

@@ -1,5 +1,6 @@
 <?php
     // Populating a list of beers for beers.php
+    // This will be replaced by SQL
     include("../beans/beer.php");
     $beers_arr = array();
 
@@ -36,7 +37,7 @@
     "20","American-Style Pale Ale");
     array_push($beers_arr,$beer5);
 
-    $beer6 = new Beer("\"Admiral\" Stache - Milwaukee Brewing Company", "Milwaukee Brewing Company", "Milwaukee Brewing Co’s take on a classic European 
+    $beer6 = new Beer("Admiral Stache - Milwaukee Brewing Company", "Milwaukee Brewing Company", "Milwaukee Brewing Co’s take on a classic European 
     style. Baltic Porters are the stronger lager fermented cousin of the classic London Porter. The higher strength 
     and cold fermentation help to create a smooth, less fruity porter, rich in roasted malt flavors and aromas.", 
     "Milwaukee, WI", "4.2/10","7%",
