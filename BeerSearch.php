@@ -13,6 +13,7 @@
     // getting the Array for populating the cards
     include("tests/beer_data.php");
 
+    // This form displays if the user has selected a beer to add to a list and then exits
     if ($_SERVER['REQUEST_METHOD']=='POST') {
         $beer_name = $_POST['beer-name'];
         $beer_maker = $_POST['beer-maker'];
@@ -51,12 +52,15 @@
                 </form>
             </div>
         ";
+        include(includes/footer.php);
         exit;
     }
+    // End form start html
 ?>
 
-<div class="col-md-4 col-md-offset-4 w3-margin-bottom">
-    <form method="GET" action="BeerSearch.php">
+<!-- Search form -->
+<div class="col-md-4 col-md-offset-4 w3-margin-bottom text-center">
+    <form method="GET" action="BeerSearch.php" class="justify-content-center">
         <fieldset>
             <legend>
                 <h2>Find your brews!</h2>
@@ -65,7 +69,7 @@
                 <label>
                     Filter by
                 </label>
-                <div class="input-group w3-margin-bottom">
+                <div class="input-group w3-margin-bottom cntr-form">
                     <div class="btn-group btn-group-toggle" data-toggle="buttons">
                         <label class="btn btn-primary active bg-primary">
                             <input type="radio" name="options" id="option1" value="beer_name" autocomplete="off" checked> Name
@@ -77,7 +81,7 @@
                         </label>
                     </div>
                 </div>
-                <div class="input-group w3-margin-bottom">
+                <div class="input-group w3-margin-bottom cntr-form">
                     <input type="text" name="criteria" class="form-control" placeholder="Search for...">
                     <span class="input-group-btn">
                         <input type="submit" name="add_beer" value="Go!" class="btn btn-primary">
