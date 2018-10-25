@@ -117,9 +117,17 @@
                 <div class=\"w3-row-padding\">
                     <div class=\"w3-quarter\">
                     <!-- This is the first card in a new row -->
-                        <div class=\"w3-container w3-card w3-white w3-margin-bottom\">
-                            <h2 class=\"w3-text-grey w3-padding-16\"><i class=\"fa fa-suitcase fa-fw  w3-large\"></i>$name</h2>
-                            <div class=\"w3-container\">
+                        <div class=\"w3-container w3-card w3-white w3-margin-bottom\">";
+                            if (strlen($name) < 15) {
+                                echo "<h2 class=\"w3-text-grey w3-padding-16\"><i class=\"fa fa-suitcase fa-fw  w3-large\"></i>$name</h2>";
+                            }
+                            else if (strlen($name) < 25) {
+                                echo "<h3 class=\"w3-text-grey w3-padding-16\"><i class=\"fa fa-suitcase fa-fw  w3-large\"></i>$name</h3>";
+                            }
+                            else {
+                                echo "<h4 class=\"w3-text-grey w3-padding-16\"><i class=\"fa fa-suitcase fa-fw  w3-large\"></i>$name</h4>";
+                            }
+                            echo "<div class=\"w3-container\">
                                 <h5 class=\"w3-text-blue\"><b>$rating</b></h5>
                                 <h5 class=\"w3-opacity\"><b>Brewed by:</b> $maker</h5>
                                 <h5 class=\"w3-opacity\"><b>Brewed in:</b> $location</h5>
@@ -173,9 +181,18 @@
             echo "
                     <div class=\"w3-quarter\">
                     <!-- This is the card card # $counter -->
-                        <div class=\"w3-container w3-card w3-white w3-margin-bottom\">
-                            <h2 class=\"w3-text-grey w3-padding-16\"><i class=\"fa fa-suitcase fa-fw  w3-xxlarge w3-text-teal\"></i>$name</h2>
-                            <div class=\"w3-container\">
+                        <div class=\"w3-container w3-card w3-white w3-margin-bottom\">";
+                        if (strlen($name) < 15) {
+                            echo "<h2 class=\"w3-text-grey w3-padding-16\"><i class=\"fa fa-suitcase fa-fw  w3-large\"></i>$name</h2>";
+                        }
+                        else if (strlen($name) < 25) {
+                            echo "<h3 class=\"w3-text-grey w3-padding-16\"><i class=\"fa fa-suitcase fa-fw  w3-large\"></i>$name</h3>";
+                        }
+                        else {
+                            echo "<h4 class=\"w3-text-grey w3-padding-16\"><i class=\"fa fa-suitcase fa-fw  w3-large\"></i>$name</h4>";
+                        }
+                        echo
+                                "<div class=\"w3-container\">
                                 <h5 class=\"w3-text-blue\"><b>$rating</b></h5>
                                 <h5 class=\"w3-opacity\"><b>Brewed by:</b> $maker</h5>
                                 <h5 class=\"w3-opacity\"><b>Brewed in:</b> $location</h5>
