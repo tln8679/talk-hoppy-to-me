@@ -1,4 +1,10 @@
 <?php
+    /* 
+    *  This page displays all beers and will have a search function. When the user chooses to add one to a list 
+    *  this same page loads with a form to add a comment and confirm the addition. User taken to 
+    *  log/love/or later.php to see their full list.
+    */
+
     $page_title = 'Beers, yum!';
 	// Include header html here
     include('includes/header.php');
@@ -7,7 +13,48 @@
     // getting the Array for populating the cards
     include("tests/beer_data.php");
 
+    if ($_SERVER['REQUEST_METHOD']=='POST') {
+        $beer_name = $_POST['beer-name'];
+        $beer_maker = $_POST['beer-maker'];
+        $log = $_POST['log-type'];
+        echo "
+            <div class=\"col-md-4 col-md-offset-4 w3-margin-bottom text-center\">
+                <form class=\"justify-content-center\" method=\"POST\" action=\"$log.php\">
+                    <fieldset>
+                        <legend>
+                            <h2>Log your brews!</h2>
+                        </legend>
+                        <div class=\"input-group w3-margin-bottom cntr-form\">
+                            <p>
+                                <label>Action</label>
+                                <input name=\"log-type\" type=\"text\" value=\"$log\" class=\"form-control\" readonly>
+                            </p>
+                            <p>
+                                <label>Beer</label>
+                                <input name=\"beer-name\" type=\"text\" value=\"$beer_name\" class=\"form-control\" readonly>
+                            </p>
+                            <p>
+                                <label>Brewed by</label>
+                                <input name=\"beer_maker\" type=\"text\" value=\"$beer_maker\" class=\"form-control\" readonly>
+                            </p>
+                            <div class=\"form-group\">
+                                <label for=\"comment\">Comment:</label>
+                                <textarea name=\"comment\" class=\"form-control\" rows=\"5\" id=\"comment\"></textarea>
+                            </div>
+                        </div> 
+                            <p>
+                                <span class=\"input-group-btn\">
+                                    <input type=\"submit\" name=\"submit\" value=\"$log\" class=\"btn btn-primary\">
+                                </span>
+                            </p>
+                    </fieldset>
+                </form>
+            </div>
+        ";
+        exit;
+    }
 ?>
+
 <div class="col-md-4 col-md-offset-4 w3-margin-bottom">
     <form method="GET" action="BeerSearch.php">
         <fieldset>
@@ -33,7 +80,7 @@
                 <div class="input-group w3-margin-bottom">
                     <input type="text" name="criteria" class="form-control" placeholder="Search for...">
                     <span class="input-group-btn">
-                        <input type="submit" name="submit" value="Go!" class="btn btn-primary">
+                        <input type="submit" name="add_beer" value="Go!" class="btn btn-primary">
                     </span>
                 </div>
                     <!-- /input-group --> 
@@ -42,7 +89,8 @@
     </form> 
 </div>
 
-        <?php
+
+    <?php
     // Instantiating an array that we will use to populate the cards
     $BEERS = array("Miller Light", "\"18\" Imperial IPA", "\"The Great BOO\" Pumpkin Ale", "Wintah Ale", "Sierra Nevade, Pale Ale","Milwaukees Best",
             "Orange krush kolsch", "Vienna Lager", "Bud Light");
@@ -79,24 +127,33 @@
                                     <p>$description</p><br>
                                 </div>
                                 <a href=\"javascript:showMore($counter)\" id=\"link\">Show description...</a>
-                                <!-- This is where we will add the beer to the favorites table --!>
+                                <!-- This is where we will add the beer to the favorites table -->
                                 <div class=\"w3-row-padding\">
                                     <div class=\"w3-third\">
-                                        <form>
+                                        <form method=\"POST\" action=\"BeerSearch.php\">
+                                            <input type=\"hidden\" name=\"beer-name\" value=\"$name\">
+                                            <input type=\"hidden\" name=\"beer-maker\" value=\"$maker\">
+                                            <input type=\"hidden\" name=\"log-type\" value=\"log\">
                                             <button type=\"submit\" class=\"btn btn-link btn-lg\">
                                                 <span style=\"color:goldenrod;\" class=\"glyphicon glyphicon-th-list\"></span>
                                             </button>
                                         </form>
                                     </div>
                                     <div class=\"w3-third\">
-                                        <form>
+                                        <form method=\"POST\" action=\"BeerSearch.php\">
+                                            <input type=\"hidden\" name=\"beer-name\" value=\"$name\">
+                                            <input type=\"hidden\" name=\"beer-maker\" value=\"$maker\">
+                                            <input type=\"hidden\" name=\"log-type\" value=\"love\">
                                             <button type=\"submit\" class=\"btn btn-link btn-lg\">
                                                 <span style=\"color:goldenrod;\" class=\"glyphicon glyphicon-heart\"></span>
                                             </button>
                                         </form>
                                     </div>
                                     <div class=\"w3-third\">
-                                        <form>
+                                        <form method=\"POST\" action=\"BeerSearch.php\">
+                                            <input type=\"hidden\" name=\"beer-name\" value=\"$name\">
+                                            <input type=\"hidden\" name=\"beer-maker\" value=\"$maker\">
+                                            <input type=\"hidden\" name=\"log-type\" value=\"later\">
                                             <button type=\"submit\" class=\"btn btn-link btn-lg\">
                                                 <span style=\"color:goldenrod;\" class=\"glyphicon glyphicon-star\"></span>
                                             </button>
@@ -129,21 +186,30 @@
                                 <!-- This is where we will add the beer to the favorites table --!>
                                 <div class=\"w3-row-padding\">
                                     <div class=\"w3-third\">
-                                        <form>
+                                        <form method=\"POST\" action=\"BeerSearch.php\">
+                                            <input type=\"hidden\" name=\"beer-name\" value=\"$name\">
+                                            <input type=\"hidden\" name=\"beer-maker\" value=\"$maker\">
+                                            <input type=\"hidden\" name=\"log-type\" value=\"log\">
                                             <button id=\"log\" type=\"submit\" title=\"log\" class=\"btn btn-link btn-lg\">
                                                 <span style=\"color:goldenrod;\" class=\"glyphicon glyphicon-th-list\"></span>
                                             </button>
                                         </form>
                                     </div>
                                     <div class=\"w3-third\">
-                                        <form>
+                                        <form method=\"POST\" action=\"BeerSearch.php\">
+                                            <input type=\"hidden\" name=\"beer-name\" value=\"$name\">
+                                            <input type=\"hidden\" name=\"beer-maker\" value=\"$maker\">
+                                            <input type=\"hidden\" name=\"log-type\" value=\"love\">
                                             <button id=\"love\" type=\"submit\" title=\"love\" class=\"btn btn-link btn-lg\">
                                                 <span style=\"color:goldenrod;\" class=\"glyphicon glyphicon-heart\"></span>
                                             </button>
                                         </form>
                                     </div>
                                     <div class=\"w3-third\">
-                                        <form>
+                                        <form method=\"POST\" action=\"BeerSearch.php\">
+                                            <input type=\"hidden\" name=\"beer-name\" value=\"$name\">
+                                            <input type=\"hidden\" name=\"beer-maker\" value=\"$maker\">
+                                            <input type=\"hidden\" name=\"log-type\" value=\"later\">
                                             <button id=\"later\" type=\"submit\" title=\"later\" class=\"btn btn-link btn-lg\">
                                                 <span style=\"color:goldenrod;\" class=\"glyphicon glyphicon-star\"></span>
                                             </button>
