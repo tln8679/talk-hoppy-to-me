@@ -138,8 +138,9 @@
                                 </div>
                                 <a href=\"javascript:showMore($counter)\" id=\"link\">Show description...</a>
                                 <!-- This is where we will add the beer to the favorites table -->
-                                <div class=\"w3-row-padding\">
-                                    <div class=\"w3-third\">
+                                <h5 class=\"w3-opacity text-center\"><b>Log/Love/Later:</b></h5>
+                                <div class=\"w3-row-padding cntr-form\">
+                                    <div class=\"w3-third \">
                                         <form method=\"POST\" action=\"BeerSearch.php\">
                                             <input type=\"hidden\" name=\"beer-name\" value=\"$name\">
                                             <input type=\"hidden\" name=\"beer-maker\" value=\"$maker\">
@@ -204,7 +205,8 @@
                                 </div>
                                 <a href=\"javascript:showMore($counter)\" id=\"link\">Show description...</a>
                                 <!-- This is where we will add the beer to the favorites table --!>
-                                <div class=\"w3-row-padding\">
+                                <h5 class=\"w3-opacity text-center\"><b>Log/Love/Later:</b></h5>
+                                <div class=\"w3-row-padding cntr-form\">
                                     <div class=\"w3-third\">
                                         <form method=\"POST\" action=\"BeerSearch.php\">
                                             <input type=\"hidden\" name=\"beer-name\" value=\"$name\">
