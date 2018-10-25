@@ -63,12 +63,9 @@
     <form method="GET" action="BeerSearch.php" class="justify-content-center">
         <fieldset>
             <legend>
-                <h2>Find your brews!</h2>
+                <h2>Filter by</h2>
             </legend>
             <div class="form-group">
-                <label>
-                    Filter by
-                </label>
                 <div class="input-group w3-margin-bottom cntr-form">
                     <div class="btn-group btn-group-toggle" data-toggle="buttons">
                         <label class="btn btn-primary active bg-primary">
