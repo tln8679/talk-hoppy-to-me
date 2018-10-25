@@ -52,7 +52,7 @@
                 </form>
             </div>
         ";
-        include(includes/footer.php);
+        include("includes/footer.php");
         exit;
     }
     // End form start html
