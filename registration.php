@@ -1,89 +1,161 @@
 <?php
 	$page_title = 'Register!';
-    include('includes/header.php');
-?>
-
-<?php
+	require './includes/header.php';
+	require_once '../../mysqli_connect.php'; //$dbc is the connection string set upon successful connection
+	$missing = array();	
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $name = $_REQUEST['fname'] . ' ' . $_REQUEST['lname'];
-        echo "<div class=\"alert alert-success\" role=\"alert\">
-		<p>Thanks for registering <strong>$name</strong></p>
-		</div>";
-		// Skip the form but add the footer
-    	include('includes/footer.php');
-		exit;
+		if (!empty($_POST['fname']))
+				$first = trim($_POST['fname']);
+			else
+				$missing[]= "first";
+		
+			if (!empty($_POST['lname']))
+				$last = $_POST['lname'];
+			else
+				$missing['lname'] = "Last name is missing.";
+			
+			if (!empty($_POST['email']))
+				$email = $_POST['email'];
+			else
+				$missing[] = "Email is missing.";
+			// We could process city
+			if (!empty($_POST['city']))
+				$pwd = $_POST['city'];
+			else
+				$missing[] = "City is missing.";	
+			// We could process state
+			if (!empty($_POST['state']))
+				$pwd = $_POST['state'];
+			else
+				$missing[] = "State is missing.";	
+			// Phone
+			if (!empty($_POST['phone']))
+				$phone = $_POST['phone'];
+			else
+				$missing[] = "Phone is missing.";	
+			// Check for password confirmation matches
+			if (!empty($_POST['pwd']))
+				$pwd = $_POST['pwd'];
+			else
+				$missing[] = "Password is missing.";
+			if (!empty($_POST['conf']))
+				$conf = $_POST['conf'];
+			else
+				$missing[] = "Password confirmation is missing";	
+			if ($pwd != $conf) {
+				$missing[] = "The passwords do not match";
+			}
+			// This is where we will check to see if the email is already in use. If not, insert new user in the database.
+			// Need to also add a default avatar image to images and then insert that path for every user
+			if (empty($missing)){
+			// 	require_once '../../mysqli_connect.php';  //$dbc is the connection string set upon successful connection
+			// 	echo "<main>";
+				
+			// 	$q1 = "SELECT emailAddr FROM JJ_reg_users WHERE emailAddr = '$email'";
+			// 	$r1 = mysqli_query($dbc, $q1);
+			// 	if ($r1){
+			// 		echo "This email is already in use!<br>";
+			// 		echo "</main>";
+			// 		include 'includes/footer.php';
+			// 		exit;
+			// 	}
+			// 	else{
+			// 		$query = "INSERT into JJ_reg_users(firstName, lastName, emailAddr, pw) VALUES ('$first', '$last', '$email','$pwd')";
+			// 		$result = mysqli_query($dbc, $query);
+			// 		if($result) { //It worked
+			// 			echo "Thanks for registering $first $last<br>";
+			// 			echo "We will send a confirmation email to $email <br>";
+			// 		}
+			// 		else echo "We're sorry, we were not able to add you at this time.<br>";
+			// 		echo "</main>";
+			// 		include 'includes/footer.php';
+			// 		exit;
+			// }
+			$name = $_REQUEST['fname'] . ' ' . $_REQUEST['lname'];
+			echo "<div class=\"alert alert-success\" role=\"alert\">
+			<p>Thanks for registering <strong>$name</strong></p>
+			</div>";
+			exit;
+		}
     }    
 ?>
 
-<form method="POST" action="registration.php">
+<form method="POST" action="registration.php" class="justify-content-center">
 	<fieldset>
-		<legend>
-			<h2>Thanks for joining!</h2>
-		</legend>
-		<label>
-			<h4>Basics</h4>
-		</label>
-		<div class="form-group">
-			<br>
+		<?php if ($missing)
+				echo "<div class=\"alert alert-danger\" role=\"alert\">
+				<p>Please check the following issues <strong><br>";
+				foreach($missing as $missed){
+					echo '-'.$missed."<br>";
+				}
+				echo "</strong></p></div>";
+			?>
+		<div class="form-group w3-margin-bottom cntr-form">
+			<legend>
+				<h2>Thanks for joining!</h2>
+			</legend>
+		</div>
+		
+		<div class="form-group w3-margin-bottom cntr-form">
+			<label>
+				<h4>Basics</h4>
+			</label>
 			<p>
 				<label for="fname">First name</label>
 				<span style="color:red">*</span>
-				<input type="text" id="fname" name="fname" placeholder="First name" class="form-control" required>
+				<input type="text" id="fname" name="fname" <?php if(isset($first)) echo " value=\"$first\""; else echo "placeholder=\"First name\""?> class="form-control" required>
 			</p>
 			<p>
 				<label for="lname">Last name</label>
 				<span style="color:red">*</span>
-				<input type="text" id="lname" name="lname" placeholder="Last name" class="form-control" required>
+				<input type="text" id="lname" name="lname" placeholder="Last name" <?php if(isset($last)) echo " value=\"$last\"";?> class="form-control" required>
 			</p>
 			<p>
 				<label for="email">Email</label>
 				<span style="color:red">*</span>
-				<input id="email" style="width:250px" type="text" name="email" placeholder="Email address" class="form-control"
-				 required>
+				<input id="email" style="width:250px" type="text" name="email" placeholder="Email address" <?php if(isset($email)) echo " value=\"$email\"";?> class="form-control"
+				required>
 			</p>
 			<p>
 				<label for="password">Password</label>
 				<span style="color:red">*</span>
-				<input type="password" id="password" style="width:250px" name="password" placeholder="New password" class="form-control"
+				<input type="password" id="password" style="width:250px" name="pwd" placeholder="New password" class="form-control"
 				 required>
 			</p>
 			<p>
-				<label for="confirm-password">Re-enter password</label>
+				<label for="conf">Re-enter password</label>
 				<span style="color:red">*</span>
-				<input type="password" id="confirm-password" style="width:250px" name="confirm-password" placeholder="Confirm password"
-				 class="form-control" required>
+				<input type="password" id="confirm-password" style="width:250px" name="conf" placeholder="Confirm password" class="form-control"
+				 required>
 			</p>
 		</div>
-		<br>
-		<label>
-			<h4>Address</h4>
-		</label>
-		<div class="form-group">
-			<br>
-			<p>
+		<div class="form-group w3-margin-bottom cntr-form">
+			<label>
+				<h4>Address</h4>
+			</label>
+			<!-- <p>
 				<label for="street">Street</label>
 				<span style="color:red">*</span>
 				<input type="text" id="street" name="street" placeholder="Street" class="form-control" required>
-			</p>
+			</p> -->
 			<p>
 				<label for="city">City</label>
 				<span style="color:red">*</span>
-				<input type="text" id="city" name="city" placeholder="City" class="form-control" required>
+				<input type="text" id="city" name="city" placeholder="City" class="form-control" max-length="50" required>
 			</p>
 			<p>
 
 				<label for="state">State</label>
 				<span style="color:red">*</span>
-				<input type="text" id="state" name="state" placeholder="State" class="form-control" required>
+				<input type="text" id="state" name="state" placeholder="State" class="form-control" max-length="2" required>
 			</p>
-			<p>
+			<!-- <p>
 				<label for="zip">Zip code</label>
 				<span style="color:red">*</span>
 				<input type="text" id="zip" name="zip" placeholder="Zip" class="form-control" required>
-			</p>
+			</p> -->
 		</div>
-		<div class="form-group">
-			<br>
+		<div class="form-group w3-margin-bottom cntr-form">
 			<p>
 				<label for="phone">
 					<h4>Phone number</h4>
@@ -96,7 +168,7 @@
 				</select>
 			</p>
 		</div>
-		<div class="form-group">
+		<!-- <div class="form-group">
 			<br>
 			<label>
 				<h4>Preferred method of contact</h4>
@@ -114,18 +186,18 @@
 					<input type="radio" name="contact" value="postal" id="postalr"> Postal
 				</label>
 			</p>
+		</div> -->
+		<div class="form-group w3-margin-bottom cntr-form">
+			<label for="terms">
+				<h5 style="color:red">Agree to terms</h5>
+			</label>
+			<input type="checkbox" id="terms" name="terms" required>
+			<p>
+				<input type="submit" name="submit" value="Register" class="btn btn-primary">
+			</p>
 		</div>
-		<label for="terms">
-			<h5 style="color:red">Agree to terms</h5>
-		</label>
-		<input type="checkbox" id="terms" name="terms" required>
-
-		<p>
-			<input type="submit" name="submit" value="Register" class="btn btn-primary">
-		</p>
 	</fieldset>
 </form>
-</div>
 <?php
     include('includes/footer.php');
 ?>
