@@ -1,5 +1,6 @@
 <?php
 	$page_title = 'Register!';
+	require "../beans/user.php";
 	require './includes/header.php';
 	require_once '../../mysqli_connect.php'; //$dbc is the connection string set upon successful connection
 	$missing = array();	
@@ -59,6 +60,7 @@
 				require_once '../../mysqli_connect.php';  //$dbc is the connection string set upon successful connection
 				$q1 = "SELECT EMAIL FROM USERS WHERE EMAIL = '$email'";
 				$r1 = mysqli_query($dbc, $q1);
+				// This is where we need to create a new User obejct with the user.php bean
 				if ($r1===TRUE){
 					echo "$email is already in use!<br>";
 					echo "</main>";
@@ -66,6 +68,7 @@
 					exit;
 				}
 				else{
+					// need to replace these values with the user object attributes
 					$query = "INSERT INTO USERS(FIRST_NAME, LAST_NAME, AVATAR, EMAIL, PASS, PHONE, CITY, STATE) VALUES ('$first','$last','PATH','$email','$pwd','$phone','$city','$state')";
 					$result = mysqli_query($dbc, $query);
 					if($result) { //It worked
