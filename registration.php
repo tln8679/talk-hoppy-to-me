@@ -10,72 +10,76 @@
 				$missing[]= "first";
 		
 			if (!empty($_POST['lname']))
-				$last = $_POST['lname'];
+				$last = trim($_POST['lname']);
 			else
 				$missing['lname'] = "Last name is missing.";
 			
 			if (!empty($_POST['email']))
-				$email = $_POST['email'];
+				$email = trim($_POST['email']);
 			else
 				$missing[] = "Email is missing.";
 			// We could process city
 			if (!empty($_POST['city']))
-				$pwd = $_POST['city'];
+				$pwd = trim($_POST['city']);
 			else
 				$missing[] = "City is missing.";	
 			// We could process state
 			if (!empty($_POST['state']))
-				$pwd = $_POST['state'];
+				$pwd = trim($_POST['state']);
 			else
 				$missing[] = "State is missing.";	
 			// Phone
 			if (!empty($_POST['phone']))
-				$phone = $_POST['phone'];
+				$phone = trim($_POST['phone']);
 			else
 				$missing[] = "Phone is missing.";	
 			// Check for password confirmation matches
 			if (!empty($_POST['pwd']))
-				$pwd = $_POST['pwd'];
+				$pwd = trim($_POST['pwd']);
 			else
 				$missing[] = "Password is missing.";
 			if (!empty($_POST['conf']))
-				$conf = $_POST['conf'];
+				$conf = trim($_POST['conf']);
 			else
 				$missing[] = "Password confirmation is missing";	
 			if ($pwd != $conf) {
 				$missing[] = "The passwords do not match";
 			}
+			if (!empty($_POST['city']))
+				$city = trim($_POST['city']);
+			else
+				$city = NULL;	
+			if (!empty($_POST['state']))
+				$state = trim($_POST['state']);
+			else
+				$state = NULL;
 			// This is where we will check to see if the email is already in use. If not, insert new user in the database.
 			// Need to also add a default avatar image to images and then insert that path for every user
 			if (empty($missing)){
-			// 	require_once '../../mysqli_connect.php';  //$dbc is the connection string set upon successful connection
-			// 	echo "<main>";
-				
-			// 	$q1 = "SELECT emailAddr FROM JJ_reg_users WHERE emailAddr = '$email'";
-			// 	$r1 = mysqli_query($dbc, $q1);
-			// 	if ($r1){
-			// 		echo "This email is already in use!<br>";
-			// 		echo "</main>";
-			// 		include 'includes/footer.php';
-			// 		exit;
-			// 	}
-			// 	else{
-			// 		$query = "INSERT into JJ_reg_users(firstName, lastName, emailAddr, pw) VALUES ('$first', '$last', '$email','$pwd')";
-			// 		$result = mysqli_query($dbc, $query);
-			// 		if($result) { //It worked
-			// 			echo "Thanks for registering $first $last<br>";
-			// 			echo "We will send a confirmation email to $email <br>";
-			// 		}
-			// 		else echo "We're sorry, we were not able to add you at this time.<br>";
-			// 		echo "</main>";
-			// 		include 'includes/footer.php';
-			// 		exit;
-			// }
-			$name = $_REQUEST['fname'] . ' ' . $_REQUEST['lname'];
-			echo "<div class=\"alert alert-success\" role=\"alert\">
-			<p>Thanks for registering <strong>$name</strong></p>
-			</div>";
-			exit;
+				require_once '../../mysqli_connect.php';  //$dbc is the connection string set upon successful connection
+				$q1 = "SELECT EMAIL FROM USERS WHERE EMAIL = '$email'";
+				$r1 = mysqli_query($dbc, $q1);
+				if ($r1===TRUE){
+					echo "$email is already in use!<br>";
+					echo "</main>";
+					include 'includes/footer.php';
+					exit;
+				}
+				else{
+					$query = "INSERT INTO USERS(FIRST_NAME, LAST_NAME, AVATAR, EMAIL, PASS, PHONE, CITY, STATE) VALUES ('$first','$last','PATH','$email','$pwd','$phone','$city','$state')";
+					$result = mysqli_query($dbc, $query);
+					if($result) { //It worked
+						$name = $first . ' ' . $last;
+						echo "<div class=\"alert alert-success\" role=\"alert\">
+						<p>Thanks for registering <strong>$name</strong></p>
+						<p>We will not send you an email</p>
+						</div>";
+					}
+					else echo "We're sorry, we were not able to add you at this time.<br>";
+					echo "</main>";
+					include 'includes/footer.php';
+					exit;
+			}
 		}
     }    
 ?>
@@ -86,7 +90,7 @@
 				echo "<div class=\"alert alert-danger\" role=\"alert\">
 				<p>Please check the following issues <strong><br>";
 				foreach($missing as $missed){
-					echo '-'.$missed."<br>";
+					echo '+ '.$missed."<br>";
 				}
 				echo "</strong></p></div>";
 			?>
@@ -141,13 +145,13 @@
 			<p>
 				<label for="city">City</label>
 				<span style="color:red">*</span>
-				<input type="text" id="city" name="city" placeholder="City" class="form-control" max-length="50" required>
+				<input type="text" id="city" name="city" placeholder="City" class="form-control" <?php if(isset($city)) echo " value=\"$city\"";?> max-length="50" required>
 			</p>
 			<p>
 
 				<label for="state">State</label>
 				<span style="color:red">*</span>
-				<input type="text" id="state" name="state" placeholder="State" class="form-control" max-length="2" required>
+				<input type="text" id="state" name="state" placeholder="State" class="form-control" <?php if(isset($state)) echo " value=\"$state\"";?> max-length="2" required>
 			</p>
 			<!-- <p>
 				<label for="zip">Zip code</label>
@@ -160,7 +164,7 @@
 				<label for="phone">
 					<h4>Phone number</h4>
 				</label>
-				<input type="text" class="form-control" name="phone" placeholder="910-999-9999" maxlength="12" />
+				<input type="text" class="form-control" name="phone" placeholder="9109999999" <?php if(isset($phone)) echo " value=\"$phone\"";?> maxlength="12" />
 				<select id="phonetype" name="phonetype">
 					<option value="mobile" class="form-control">Mobile</option>
 					<option value="home" class="form-control">Home</option>
