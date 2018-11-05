@@ -1,6 +1,5 @@
 <?php
 	$page_title = 'Register!';
-	require "../beans/user.php";
 	require './includes/header.php';
 	require_once '../../mysqli_connect.php'; //$dbc is the connection string set upon successful connection
 	$missing = array();	
@@ -58,18 +57,18 @@
 			// Need to also add a default avatar image to images and then insert that path for every user
 			if (empty($missing)){
 				require_once '../../mysqli_connect.php';  //$dbc is the connection string set upon successful connection
-				$q1 = "SELECT EMAIL FROM USERS WHERE EMAIL = '$email'";
+				$q1 = "SELECT * FROM `USERS` WHERE `EMAIL` = \"$email\"";
 				$r1 = mysqli_query($dbc, $q1);
-				// This is where we need to create a new User obejct with the user.php bean
 				if ($r1===TRUE){
-					echo "$email is already in use!<br>";
-					echo "</main>";
+					echo "<div class=\"alert alert-info\" role=\"alert\">
+						<p><strong>$email</strong> is already in use!</p>
+						<p>We will not send you an email</p>
+						</div>";
 					include 'includes/footer.php';
 					exit;
 				}
 				else{
-					// need to replace these values with the user object attributes
-					$query = "INSERT INTO USERS(FIRST_NAME, LAST_NAME, AVATAR, EMAIL, PASS, PHONE, CITY, STATE) VALUES ('$first','$last','PATH','$email','$pwd','$phone','$city','$state')";
+					$query = "INSERT INTO USERS(FIRST_NAME, LAST_NAME, AVATAR, EMAIL, PASS, PHONE, CITY, STATE) VALUES ('$first','$last','PATH','$email',SHA2('$pwd',256),'$phone','$city','$state')";
 					$result = mysqli_query($dbc, $query);
 					if($result) { //It worked
 						$name = $first . ' ' . $last;
@@ -78,8 +77,10 @@
 						<p>We will not send you an email</p>
 						</div>";
 					}
-					else echo "We're sorry, we were not able to add you at this time.<br>";
-					echo "</main>";
+					else 
+					echo "<div class=\"alert alert-info\" role=\"alert\">
+						<p>We're sorry, we were not able to add you at this time.</p>
+						</div>";
 					include 'includes/footer.php';
 					exit;
 			}
