@@ -1,8 +1,11 @@
 <?php
 	$page_title = 'Register!';
+	include("beans/user.php");
+	require './models/user_dao.php';
 	require './includes/header.php';
 	require_once '../../mysqli_connect.php'; //$dbc is the connection string set upon successful connection
 	$missing = array();	
+	echo $user_test;
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		if (!empty($_POST['fname']))
 				$first = trim($_POST['fname']);
@@ -57,6 +60,8 @@
 			// Need to also add a default avatar image to images and then insert that path for every user
 			if (empty($missing)){
 				require_once '../../mysqli_connect.php';  //$dbc is the connection string set upon successful connection
+				
+				$u = new User($first,$last,"/path/to/file",$email,$pwd,$phone,$city,$state); 
 				$q1 = "SELECT * FROM USERS WHERE EMAIL = \"$email\"";
 				$r1 = mysqli_query($dbc, $q1);
 				$count = $r1->num_rows; 

@@ -1,51 +1,51 @@
 <?php
     class User {
-      private $user_id;
+      // User id is auto incremented so we will not put it here
       private $firstName;
       private $lastName;
       private $avatar;
       private $email;
       private $password;
       private $phoneNumber;
-      private $is_admin;
       private $city;
       private $state;
 
-    public function __construct($user_id,$firstName,$lastName,$avatar,$email,$password,$phoneNumber,$is_admin,$city,$state){
-      $this->$user_id = $user_id;
-      $this->$firstName=$firstName;
-      $this->$lastName=$firstName;
-      $this->$avatar=$avatar;
-      $this->$email=$email;
-      $this->$password=$password;
-      $this->$phoneNumber=$phoneNumber;
-      $this->$is_admin=$is_admin;
-      $this->$city=$city;
+    public function __construct($firstName,$lastName,$avatar,$email,$password,$phoneNumber,$city,$state){
+      $this->firstName=$firstName;
+      $this->lastName=$firstName;
+      $this->avatar=$avatar;
+      $this->email=$email;
+      $this->password=$password;
+      $this->phoneNumber=$phoneNumber;
+      $this->city=$city;
       $this->state=$state;
     }
-    public function get_user_id(){
-      return $this->user_id;
-    }
+    
     public function getFirstName(){
-      return $this->$firstName;
+      return $this->firstName;
     }
     public function getLastName(){
         return $this->lastName;
     }
-
     public function getEmail(){
-        return $this->user_id;
+        return $this->$email;
     }
     public function getPassword(){
-      return $this->$firstName;
+      return $this->password;
     }
     public function getPhoneNumber(){
-      return $this->lastName;
+      return $this->phoneNumber;
     }
 
-    public function get_is_admin(){
-        return $this->lastName;
+    public function getAvatar(){
+        return $this->avatar;
     }
+    public function getCity(){
+      return $this->city;
+    }
+    public function getState(){
+      return $this->state;
+}
 
 }
     
