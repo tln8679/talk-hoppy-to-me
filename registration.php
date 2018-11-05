@@ -57,9 +57,10 @@
 			// Need to also add a default avatar image to images and then insert that path for every user
 			if (empty($missing)){
 				require_once '../../mysqli_connect.php';  //$dbc is the connection string set upon successful connection
-				$q1 = "SELECT * FROM `USERS` WHERE `EMAIL` = \"$email\"";
+				$q1 = "SELECT * FROM USERS WHERE EMAIL = \"$email\"";
 				$r1 = mysqli_query($dbc, $q1);
-				if ($r1===TRUE){
+				$count = $r1->num_rows; 
+				if ($count>0){
 					echo "<div class=\"alert alert-info\" role=\"alert\">
 						<p><strong>$email</strong> is already in use!</p>
 						<p>We will not send you an email</p>
