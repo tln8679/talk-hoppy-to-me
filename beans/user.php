@@ -25,10 +25,10 @@
       return $this->firstName;
     }
     public function getLastName(){
-        return $this->lastName;
+      return $this->lastName;
     }
     public function getEmail(){
-        return $this->$email;
+      return $this->email;
     }
     public function getPassword(){
       return $this->password;
@@ -36,7 +36,6 @@
     public function getPhoneNumber(){
       return $this->phoneNumber;
     }
-
     public function getAvatar(){
         return $this->avatar;
     }
@@ -45,7 +44,7 @@
     }
     public function getState(){
       return $this->state;
-}
+    }
 
 }
     
