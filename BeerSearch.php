@@ -11,7 +11,9 @@
     // You need this because the include in beer_data is now processed from this dir
     include("beans/beer.php");
     // getting the Array for populating the cards
-    include("models/beer_data.php");
+    // include("models/beer_data.php");
+    require_once '../../mysqli_connect.php';
+   
 
     // This form displays if the user has selected a beer to add to a list and then exits
     if ($_SERVER['REQUEST_METHOD']=='POST') {
@@ -55,8 +57,9 @@
         include("includes/footer.php");
         exit;
     }
-    // End form start html
+    // End form 
 ?>
+
 
 <!-- Search form -->
 <div class="col-md-4 col-md-offset-4 w3-margin-bottom text-center">
@@ -90,16 +93,44 @@
     </form> 
 </div>
 
-
+<div class="container">
     <?php
-    // Instantiating an array that we will use to populate the cards
-    $BEERS = array("Miller Light", "\"18\" Imperial IPA", "\"The Great BOO\" Pumpkin Ale", "Wintah Ale", "Sierra Nevade, Pale Ale","Milwaukees Best",
-            "Orange krush kolsch", "Vienna Lager", "Bud Light");
-    // Need to start a new row after the four columns have been filled
+    // Number of records to show per page:
+    $display = 16;
+    // Determine how many pages there are...
+    if (isset($_GET['p']) && is_numeric($_GET['p'])) { // Already been determined.
+        $pages = $_GET['p'];
+    } else { // Need to determine.
+        // Count the number of records:
+        $sql = "SELECT COUNT(`BEER_ID`) FROM `BEER`";
+        $r = mysqli_query($dbc, $sql);
+        $row = mysqli_fetch_array($r, MYSQLI_NUM);
+        $records = $row[0];
+        // Calculate the number of pages...
+        if ($records > $display) { // More than 1 page.
+            $pages = ceil ($records/$display);
+        } else {
+            $pages = 1;
+        }
+    } // End of p IF.
+
+    // Determine where in the database to start returning results...
+    if (isset($_GET['s']) && is_numeric($_GET['s'])) {
+        $start = $_GET['s'];
+    } else {
+        $start = 0;
+    }
+
+    // Query for the beers
+    $sql = "SELECT `BEER_NAME`,BREWER.BREWER_NAME,`BEER_STYLE` ,`BEER_ABV`,`BEER_IBU`,`BEER_DESCRIPTION`\n"
+    . "FROM `BEER`\n"
+    . "INNER JOIN BREWER on BEER.BREWER_ID=BREWER.BREWER_ID\n"
+    . "ORDER by BEER_NAME\n"
+    . "ASC LIMIT $start,$display";
+    $r = mysqli_query($dbc, $sql);
     $counter = 0;
-    // var_dump(count($beers_arr)); // Returns length of list
-    foreach($beers_arr as $beer){
-        // Get variables from the object
+    while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
+        $beer = new Beer ($row['BEER_NAME'],$row['BREWER_NAME'],$row['BEER_DESCRIPTION'],$row['BREWER_STATE'],"5",$row['BEER_ABV'],$row['BEER_IBU'],$row['BEER_DESCRIPTION']);
         $name = $beer->get_beer_name();
         $maker = $beer->get_beer_maker();
         $description = $beer->get_description();
@@ -244,11 +275,39 @@
         }
         if (($counter+1)%4===0){
             // Last card on the row, so close the row tag
-            echo "</div>";
+            echo "</div></br>";
         }
         $counter++;
     }
-?>
+    ?>
+    </div>
+    <div class="container alert alert-info w3-margin-top" role="alert">
+        <?php
+        // Make the links to other pages, if necessary.
+        if ($pages > 1) {
+            echo '<p>';
+            // Determine what page the script is on:
+            $current_page = ($start/$display) + 1;
+            // If it's not the first page, make a Previous link:
+            if ($current_page != 1) {
+                echo '<a href="BeerSearch.php?s=' . ($start - $display) . '&p=' . $pages . '">Previous</a> ';
+            }
+            // Make all the numbered pages:
+            for ($i = 1; $i <= $pages; $i++) {
+                if ($i != $current_page) {
+                    echo '<a href="BeerSearch.php?s=' . (($display * ($i - 1))) . '&p=' . $pages . '">' . $i . '</a> ';
+                } else {
+                    echo $i . ' ';
+                }
+            } // End of FOR loop.
+            // If it's not the last page, make a Next button:
+            if ($current_page != $pages) {
+                echo '<a href="BeerSearch.php?s=' . ($start + $display) . '&p=' . $pages . '">Next</a>';
+            }
+            echo '</p>'; // Close the paragraph.
+        }
+        ?>
+    </div>
 
         <script>
     function showMore(show_description) {
