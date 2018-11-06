@@ -67,7 +67,7 @@
 				mysqli_stmt_execute($stmt);
 				$stmt->store_result();
 				$count = $stmt->num_rows;
-				echo count;
+	
 				if ($count>0){
 					echo "<div class=\"alert alert-info\" role=\"alert\">
 						<p><strong>$email</strong> is already in use!</p>
