@@ -7,7 +7,13 @@
 <?php
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo '<div class="alert alert-warning" role="alert"><p> Sorry!</p>
-		<p class="text-danger">No database created, yet.</p></div>';
+        <p class="text-danger">No database created, yet.</p></div>';
+        
+        // Fetch hash+salt from database, place in $hashAndSalt variable
+        // and then to verify $password:
+        // if (password_verify($password, $hashAndSalt)) {
+        // Verified
+        //  }
     }    
 ?>
 

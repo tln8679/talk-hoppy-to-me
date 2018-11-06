@@ -1,11 +1,10 @@
 <?php
+	ini_set('error_reporting', 1);
 	$page_title = 'Register!';
 	include("beans/user.php");
-	require './models/user_dao.php';
 	require './includes/header.php';
 	require_once '../../mysqli_connect.php'; //$dbc is the connection string set upon successful connection
 	$missing = array();	
-	echo $user_test;
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		if (!empty($_POST['fname']))
 				$first = trim($_POST['fname']);
@@ -60,11 +59,15 @@
 			// Need to also add a default avatar image to images and then insert that path for every user
 			if (empty($missing)){
 				require_once '../../mysqli_connect.php';  //$dbc is the connection string set upon successful connection
-				
-				$u = new User($first,$last,"/path/to/file",$email,$pwd,$phone,$city,$state); 
-				$q1 = "SELECT * FROM USERS WHERE EMAIL = \"$email\"";
-				$r1 = mysqli_query($dbc, $q1);
-				$count = $r1->num_rows; 
+				$newUser = new User($first,$last,"/path/to/file",$email,$pwd,$phone,$city,$state); 
+				$q = "SELECT * FROM USERS WHERE EMAIL = ?";
+				$stmt = mysqli_prepare($dbc,$q);
+				mysqli_stmt_bind_param($stmt,'s',$email);
+				$email = $newUser->getEmail();
+				mysqli_stmt_execute($stmt);
+				$stmt->store_result();
+				$count = $stmt->num_rows;
+				echo count;
 				if ($count>0){
 					echo "<div class=\"alert alert-info\" role=\"alert\">
 						<p><strong>$email</strong> is already in use!</p>
@@ -74,9 +77,22 @@
 					exit;
 				}
 				else{
-					$query = "INSERT INTO USERS(FIRST_NAME, LAST_NAME, AVATAR, EMAIL, PASS, PHONE, CITY, STATE) VALUES ('$first','$last','PATH','$email',SHA2('$pwd',256),'$phone','$city','$state')";
-					$result = mysqli_query($dbc, $query);
-					if($result) { //It worked
+					// Prepare and bind
+					$q = "INSERT INTO USERS(FIRST_NAME, LAST_NAME, AVATAR, EMAIL, PASS, PHONE, CITY, STATE) VALUES (?,?,?,?,?,?,?,?)";
+					$stmt = mysqli_prepare($dbc,$q);
+					$hash_for_user = password_hash($pwd,PASSWORD_BCRYPT);
+					mysqli_stmt_bind_param($stmt,'ssssssss',$fname, $lname, $avatar, $email,$pwd,$phone, $city, $state);
+					//  Set parameters and execute
+					$fname = $newUser->getFirstName();
+					$lname = $newUser->getLastName();
+					$avatar = $newUser->getAvatar();
+					$email = $newUser->getEmail();
+					$pwd = $hash_for_user;
+					$phone = $newUser->getPhoneNumber();
+					$city = $newUser->getCity();
+					$state = $newUser->getState();
+					mysqli_stmt_execute($stmt);
+					if(mysqli_stmt_affected_rows($stmt)) { //It worked
 						$name = $first . ' ' . $last;
 						echo "<div class=\"alert alert-success\" role=\"alert\">
 						<p>Thanks for registering <strong>$name</strong></p>

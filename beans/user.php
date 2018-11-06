@@ -12,7 +12,7 @@
 
     public function __construct($firstName,$lastName,$avatar,$email,$password,$phoneNumber,$city,$state){
       $this->firstName=$firstName;
-      $this->lastName=$firstName;
+      $this->lastName=$lastName;
       $this->avatar=$avatar;
       $this->email=$email;
       $this->password=$password;
