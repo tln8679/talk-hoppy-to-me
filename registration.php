@@ -4,48 +4,54 @@
 	include("beans/user.php");
 	require './includes/header.php';
 	require_once '../../mysqli_connect.php'; //$dbc is the connection string set upon successful connection
-	$missing = array();	
+	$error_message = array();	
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		if (!empty($_POST['fname']))
 				$first = trim($_POST['fname']);
 			else
-				$missing[]= "first";
+				$error_message[]= "first";
 		
 			if (!empty($_POST['lname']))
 				$last = trim($_POST['lname']);
 			else
-				$missing['lname'] = "Last name is missing.";
+				$error_message['lname'] = "Last name is missing.";
 			
 			if (!empty($_POST['email']))
 				$email = trim($_POST['email']);
 			else
-				$missing[] = "Email is missing.";
+				$error_message[] = "Email is missing.";
 			// We could process city
 			if (!empty($_POST['city']))
 				$pwd = trim($_POST['city']);
 			else
-				$missing[] = "City is missing.";	
+				$error_message[] = "City is missing.";	
 			// We could process state
 			if (!empty($_POST['state']))
 				$pwd = trim($_POST['state']);
 			else
-				$missing[] = "State is missing.";	
+				$error_message[] = "State is missing.";	
 			// Phone
-			if (!empty($_POST['phone']))
-				$phone = trim($_POST['phone']);
+			if (!empty($_POST['phone'])){
+				// Remove any non-digits
+				$phone = preg_replace('/[^0-9]/', '', $_POST['phone']);
+				//  Validate we have area code (3) + 7 numbers
+				if(strlen($phone) !== 10) {
+					$error_message[] = "Your phone number should be 10 characters";
+				}
+			}
 			else
-				$missing[] = "Phone is missing.";	
+				$error_message[] = "Phone is missing.";	
 			// Check for password confirmation matches
 			if (!empty($_POST['pwd']))
 				$pwd = trim($_POST['pwd']);
 			else
-				$missing[] = "Password is missing.";
+				$error_message[] = "Password is missing.";
 			if (!empty($_POST['conf']))
 				$conf = trim($_POST['conf']);
 			else
-				$missing[] = "Password confirmation is missing";	
+				$error_message[] = "Password confirmation is missing";	
 			if ($pwd != $conf) {
-				$missing[] = "The passwords do not match";
+				$error_message[] = "The passwords do not match";
 			}
 			if (!empty($_POST['city']))
 				$city = trim($_POST['city']);
@@ -57,7 +63,7 @@
 				$state = NULL;
 			// This is where we will check to see if the email is already in use. If not, insert new user in the database.
 			// Need to also add a default avatar image to images and then insert that path for every user
-			if (empty($missing)){
+			if (empty($error_message)){
 				require_once '../../mysqli_connect.php';  //$dbc is the connection string set upon successful connection
 				$newUser = new User($first,$last,"/path/to/file",$email,$pwd,$phone,$city,$state); 
 				$q = "SELECT * FROM USERS WHERE EMAIL = ?";
@@ -112,10 +118,10 @@
 
 <form method="POST" action="registration.php" class="justify-content-center">
 	<fieldset>
-		<?php if ($missing)
+		<?php if ($error_message)
 				echo "<div class=\"alert alert-danger\" role=\"alert\">
 				<p>Please check the following issues <strong><br>";
-				foreach($missing as $missed){
+				foreach($error_message as $missed){
 					echo '+ '.$missed."<br>";
 				}
 				echo "</strong></p></div>";

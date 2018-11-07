@@ -6,12 +6,8 @@
     */
 
     $page_title = 'Beers, yum!';
-	// Include header html here
     include('includes/header.php');
-    // You need this because the include in beer_data is now processed from this dir
     include("beans/beer.php");
-    // getting the Array for populating the cards
-    // include("models/beer_data.php");
     require_once '../../mysqli_connect.php';
    
 
@@ -28,18 +24,26 @@
                             <h2>Log your brews!</h2>
                         </legend>
                         <div class=\"input-group w3-margin-bottom cntr-form\">
-                            <p>
+                        <div class=\"form-group\">
                                 <label>Action</label>
                                 <input name=\"log-type\" type=\"text\" value=\"$log\" class=\"form-control\" readonly>
-                            </p>
-                            <p>
+                            </div>
+                            <div class=\"form-group\">
                                 <label>Beer</label>
                                 <input name=\"beer-name\" type=\"text\" value=\"$beer_name\" class=\"form-control\" readonly>
-                            </p>
-                            <p>
+                            </div>
+                            <div class=\"form-group\">
                                 <label>Brewed by</label>
                                 <input name=\"beer_maker\" type=\"text\" value=\"$beer_maker\" class=\"form-control\" readonly>
-                            </p>
+                            </div>
+                            <div class=\"form-group\">
+                                <label>Rating</label><br>
+                                <label class=\"radio-inline\"><input type=\"radio\" name=\"rating\" checked>1</label>
+                                <label class=\"radio-inline\"><input type=\"radio\" name=\"rating\">2</label>
+                                <label class=\"radio-inline\"><input type=\"radio\" name=\"rating\">3</label>
+                                <label class=\"radio-inline\"><input type=\"radio\" name=\"rating\">4</label>
+                                <label class=\"radio-inline\"><input type=\"radio\" name=\"rating\">5</label>
+                            </div>
                             <div class=\"form-group\">
                                 <label for=\"comment\">Comment:</label>
                                 <textarea name=\"comment\" class=\"form-control\" rows=\"5\" id=\"comment\"></textarea>
