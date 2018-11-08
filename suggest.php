@@ -27,6 +27,9 @@
 			}
 		}
 		else{
+      // This is where we will insert the suggestion into the database
+      // Admins will then be able to view the Suggestion
+
 			//Form was filled out completely and submitted. Print the submitted information:
 			echo "<p>Thank you, for the following comments:<br>";
 			echo "<pre>\"$suggestion\"</pre>"; //HTML pre is preformatted text. We are assuming the comment is non-malicious
