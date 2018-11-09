@@ -126,7 +126,7 @@
     }
 
     // Query for the beers
-    $sql = "SELECT `BEER_NAME`,BREWER.BREWER_NAME,`BEER_STYLE` ,`BEER_ABV`,`BEER_IBU`,`BEER_DESCRIPTION`\n"
+    $sql = "SELECT `BEER_NAME`,BREWER.BREWER_NAME,`BEER_DESCRIPTION`,CONCAT(BREWER.BREWER_CITY,', ' ,BREWER.BREWER_STATE) AS Location,`BEER_ABV`,`BEER_IBU`,`BEER_STYLE` \n"
     . "FROM `BEER`\n"
     . "INNER JOIN BREWER on BEER.BREWER_ID=BREWER.BREWER_ID\n"
     . "ORDER by BEER_NAME\n"
@@ -134,13 +134,16 @@
     $r = mysqli_query($dbc, $sql);
     $counter = 0;
     while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
-        $beer = new Beer ($row['BEER_NAME'],$row['BREWER_NAME'],$row['BEER_DESCRIPTION'],$row['BREWER_STATE'],"5",$row['BEER_ABV'],$row['BEER_IBU'],$row['BEER_DESCRIPTION']);
+        $beer = new Beer ($row['BEER_NAME'],$row['BREWER_NAME'],$row['BEER_DESCRIPTION'],$row['Location'],"Not enough data",$row['BEER_ABV'],$row['BEER_IBU'],$row['BEER_STYLE']);
         $name = $beer->get_beer_name();
         $maker = $beer->get_beer_maker();
         $description = $beer->get_description();
         $location = $beer->get_location();
         $rating = $beer->get_rating();
+        // convert abv to percentage string
         $abv = $beer->get_abv();
+        $abv = (float)$abv * 100;
+        $abv = strval($abv)."%";
         $ibu = $beer->get_ibu();
         $style = $beer->get_style();
         if ($counter % 4 === 0 || counter === 0){
