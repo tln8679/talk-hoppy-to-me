@@ -7,27 +7,27 @@
 	$error_message = array();	
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		if (!empty($_POST['fname']))
-				$first = trim($_POST['fname']);
+				$first = filter_var(trim($_POST['fname']), FILTER_SANITIZE_STRING);
 			else
 				$error_message[]= "first";
 		
 			if (!empty($_POST['lname']))
-				$last = trim($_POST['lname']);
+				$last = filter_var(trim($_POST['lname']), FILTER_SANITIZE_STRING);
 			else
 				$error_message['lname'] = "Last name is missing.";
 			
-			if (!empty($_POST['email']))
-				$email = trim($_POST['email']);
-			else
-				$error_message[] = "Email is missing.";
+			$email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
+			if (!filter_var(trim($_POST['email']), FILTER_VALIDATE_EMAIL)) { //Either empty or invalid email will be considered missing
+				$missing[] = 'email';
+			}
 			// We could process city
 			if (!empty($_POST['city']))
-				$pwd = trim($_POST['city']);
+				$city = filter_var(trim($_POST['city']), FILTER_SANITIZE_STRING);
 			else
 				$error_message[] = "City is missing.";	
 			// We could process state
 			if (!empty($_POST['state']))
-				$pwd = trim($_POST['state']);
+				$state = filter_var(trim($_POST['state']), FILTER_SANITIZE_STRING);
 			else
 				$error_message[] = "State is missing.";	
 			// Phone
@@ -43,24 +43,17 @@
 				$error_message[] = "Phone is missing.";	
 			// Check for password confirmation matches
 			if (!empty($_POST['pwd']))
-				$pwd = trim($_POST['pwd']);
+				$pwd = filter_var(trim($_POST['pwd']), FILTER_SANITIZE_STRING);
 			else
 				$error_message[] = "Password is missing.";
 			if (!empty($_POST['conf']))
-				$conf = trim($_POST['conf']);
+				$conf = filter_var(trim($_POST['conf']), FILTER_SANITIZE_STRING);
 			else
 				$error_message[] = "Password confirmation is missing";	
 			if ($pwd != $conf) {
 				$error_message[] = "The passwords do not match";
 			}
-			if (!empty($_POST['city']))
-				$city = trim($_POST['city']);
-			else
-				$city = NULL;	
-			if (!empty($_POST['state']))
-				$state = trim($_POST['state']);
-			else
-				$state = NULL;
+
 			// This is where we will check to see if the email is already in use. If not, insert new user in the database.
 			// Need to also add a default avatar image to images and then insert that path for every user
 			if (empty($error_message)){

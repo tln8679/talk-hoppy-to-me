@@ -5,12 +5,12 @@
       private $lastName;
       private $avatar;
       private $email;
-      private $password;
       private $phoneNumber;
       private $city;
       private $state;
+      private $isAdmin;
 
-    public function __construct($firstName,$lastName,$avatar,$email,$password,$phoneNumber,$city,$state){
+    public function __construct($firstName,$lastName,$avatar,$email,$phoneNumber,$city,$state,$isAdmin){
       $this->firstName=$firstName;
       $this->lastName=$lastName;
       $this->avatar=$avatar;
@@ -19,6 +19,7 @@
       $this->phoneNumber=$phoneNumber;
       $this->city=$city;
       $this->state=$state;
+      $this->isAdmin=$isAdmin;
     }
     
     public function getFirstName(){
@@ -29,9 +30,6 @@
     }
     public function getEmail(){
       return $this->email;
-    }
-    public function getPassword(){
-      return $this->password;
     }
     public function getPhoneNumber(){
       return $this->phoneNumber;
@@ -44,6 +42,9 @@
     }
     public function getState(){
       return $this->state;
+    }
+    public function getIsAdmin(){
+      return $this->isAdmin;
     }
 
 }

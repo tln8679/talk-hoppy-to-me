@@ -3,18 +3,19 @@
 	// Include header html here
     include('includes/header.php');
     require_once '../../mysqli_connect.php';
+    require_once './beans/user.php'
 ?>
 
 <?php
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // echo '<div class="alert alert-warning" role="alert"><p> Sorry!</p>
         // <p class="text-danger">No database created, yet.</p></div>';
-        if (!empty($_POST['email']))
-				$mail = trim($_POST['email']);
-		else
-			$missing[] = "Email is missing.";
+        $mail = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
+	    if (!filter_var(trim($_POST['email']), FILTER_VALIDATE_EMAIL)) { //Either empty or invalid email will be considered missing
+            $missing[] = 'email';
+        }
         if (!empty($_POST['password']))
-			$password = trim($_POST['password']);
+			$password = filter_var(trim($_POST['password']), FILTER_SANITIZE_STRING);
 		else
             $missing[] = "Password is missing.";
         
@@ -28,7 +29,7 @@
         }
         else {
             // Prepare statement
-            $q = "SELECT PASS FROM USERS WHERE EMAIL = ?";
+            $q = "SELECT * FROM USERS WHERE EMAIL = ?";
             $stmt = mysqli_prepare($dbc,$q);
             // Bind and execute
 			mysqli_stmt_bind_param($stmt,'s',$email);
@@ -40,20 +41,47 @@
             if ($stmt_result->num_rows==1){
                 while($row = $stmt_result->fetch_assoc()) {
                     $hashAndSalt = $row['PASS'];
+                    // Fetch hash+salt from database, place in $hashAndSalt variable
+                    // and then to verify $password:
+                    if (password_verify($password, $hashAndSalt)) {     
+                        session_start();
+                        $_SESSION['usersID'] = $row['USERS_ID'];
+                        $_SESSION['firsttName'] = $row['LAST_NAME'];
+                        $_SESSION['lastName'] = $row['LAST_NAME'];
+                        $_SESSION['avatar'] = $row['AVATAR'];
+                        $_SESSION['email'] = $row['EMAIL'];
+                        $_SESSION['phone'] = $row['PHONE'];
+                        $_SESSION['city'] = $row['CITY'];
+                        $_SESSION['state'] =  $row['STATE'];
+                        $_SESSION['admin '] = $row['IS_ADMIN'];
+                        $url = 'http://'. $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
+                        $url = rtrim($url, '/\\');
+                        $page = 'profile.php';
+                        $url .= '/' . $page;
+                        header("Location: $url");
+                        exit();
+                    }
+                    else {
+                        echo "<div class=\"alert alert-danger\" role=\"alert\">
+                        <p>Password or email is incorrect <strong><br></p></div>";
+                    }
                 }
-            }
-            // Fetch hash+salt from database, place in $hashAndSalt variable
-            // and then to verify $password:
-            if (password_verify($password, $hashAndSalt)) {     
-                echo "<div class=\"alert alert-success\" role=\"alert\">
-				<p>Success! You are now logged in! <strong><br></p></div>";
             }
             else {
                 echo "<div class=\"alert alert-danger\" role=\"alert\">
-				<p>Password or email is incorrect <strong><br></p></div>";
+				<p>Can't connect right now <strong><br></p></div>";
             }
         }
-    }    
+    } 
+    if (isset($_SESSION['email'])) {
+        $firstname = $_SESSION['firstName'];
+        $message = "You have reached this page in error.";
+        $message2 = "Hit log out on the menu, if you want to log out";
+        echo "<div class=\"alert alert-success\" role=\"alert\">
+            <p><h2>$message</h2><br></p>
+            <p><h3>$message2</h3><br></p>
+            </div>";
+    } 
 ?>
 
 <div class="form-group w3-margin-bottom text-center\"">
