@@ -3,7 +3,7 @@
 	// Include header html here
     include('includes/header.php');
     require_once '../../mysqli_connect.php';
-    require_once './beans/user.php'
+    require_once './beans/user.php';
 ?>
 
 <?php
@@ -46,14 +46,14 @@
                     if (password_verify($password, $hashAndSalt)) {     
                         session_start();
                         $_SESSION['usersID'] = $row['USERS_ID'];
-                        $_SESSION['firsttName'] = $row['LAST_NAME'];
+                        $_SESSION['firstName'] = $row['FIRST_NAME'];
                         $_SESSION['lastName'] = $row['LAST_NAME'];
                         $_SESSION['avatar'] = $row['AVATAR'];
                         $_SESSION['email'] = $row['EMAIL'];
                         $_SESSION['phone'] = $row['PHONE'];
                         $_SESSION['city'] = $row['CITY'];
                         $_SESSION['state'] =  $row['STATE'];
-                        $_SESSION['admin '] = $row['IS_ADMIN'];
+                        $_SESSION['admin'] = $row['IS_ADMIN'];
                         $url = 'http://'. $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
                         $url = rtrim($url, '/\\');
                         $page = 'profile.php';

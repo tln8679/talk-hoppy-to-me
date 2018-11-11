@@ -2,6 +2,10 @@
     $page_title = 'You, yum!';
 	// Include header html here
     include('includes/header.php');
+    require_once './beans/user.php';
+    if (isset($_SESSION['email'])){
+      $current_user = new User ($_SESSION['firstName'],$_SESSION['lastName'],$_SESSION['avatar'],$_SESSION['email'],$_SESSION['phone'],$_SESSION['city'],$_SESSION['state'],$_SESSION['admin']);
+    }
 ?>
 <!-- Page Container -->
 <div class="w3-content w3-margin-top" style="max-width:1400px;">
@@ -14,16 +18,17 @@
 
       <div class="w3-white w3-text-grey w3-card-4 w3-margin-bottom">
         <div class="w3-display-container">
-          <img src="imgs/jane.jpeg" style="width:100%" alt="Avatar">
+          <?php $avatar_path = $current_user->getAvatar();?>
+          <img src="<?php echo dirname($_SERVER['PHP_SELF'])."/".$avatar_path ?>" style="width:100%" alt="Avatar">
           <div class="w3-display-bottomleft w3-container w3-text-black">
           </div>
         </div>
         <div class="w3-container">
-          <h2>Taylor Noble</h2>
+          <h2><?php echo $current_user->getFirstName()." ".$current_user->getLastName();?></h2>
           <p><i class="fa fa-briefcase fa-fw  w3-large w3-text-indigo"></i>Day drinker</p>
-          <p><i class="fa fa-home fa-fw  w3-large w3-text-indigo"></i>Wilmington, NC</p>
-          <p><i class="fa fa-envelope fa-fw  w3-large w3-text-indigo"></i>tln8679@uncw.edu</p>
-          <p><i class="fa fa-phone fa-fw  w3-large w3-text-indigo"></i>1910435534</p>
+          <p><i class="fa fa-home fa-fw  w3-large w3-text-indigo"></i><?php echo $current_user->getCity().", ".$current_user->getState();?></p>
+          <p><i class="fa fa-envelope fa-fw  w3-large w3-text-indigo"></i><?php echo $current_user->getEmail();?></p>
+          <p><i class="fa fa-phone fa-fw  w3-large w3-text-indigo"></i><?php echo $current_user->getPhoneNumber();?></p>
           <hr>
 
           <p class="w3-large"><b><i class="fa fa-asterisk fa-fw  w3-text-indigo"></i>Favorite Styles</b></p>
