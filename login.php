@@ -63,13 +63,13 @@
                     }
                     else {
                         echo "<div class=\"alert alert-danger\" role=\"alert\">
-                        <p>Password or email is incorrect <strong><br></p></div>";
+                        <p>Password or email is incorrect<br></p></div>";
                     }
                 }
             }
             else {
                 echo "<div class=\"alert alert-danger\" role=\"alert\">
-				<p>Can't connect right now <strong><br></p></div>";
+				<p>Can't connect right now<br></p></div>";
             }
         }
     } 
