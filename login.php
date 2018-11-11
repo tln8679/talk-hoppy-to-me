@@ -75,7 +75,7 @@
     } 
 ?>
 
-<div class="form-group w3-margin-bottom text-center\"">
+<div class="form-group w3-margin-bottom col-md-4 col-md-offset-4">
     <form method="POST" action="login.php" class="justify-content-center">
 
         <fieldset>
@@ -100,6 +100,7 @@
         </fieldset>
     </form>
 </div>
+
 <?php
     include('includes/footer.php');
 ?>

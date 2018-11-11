@@ -28,6 +28,15 @@
     else if (isset($_SESSION['email'])){
       $current_user = new User ($_SESSION['firstName'],$_SESSION['lastName'],$_SESSION['avatar'],$_SESSION['email'],$_SESSION['phone'],$_SESSION['city'],$_SESSION['state'],$_SESSION['admin']);
     }
+    // User hasn't logged in and clicked "My profile", so send him to log in page
+    else {
+      $url = 'http://'. $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
+      $url = rtrim($url, '/\\');
+      $page = 'login.php';
+      $url .= '/' . $page;
+      header("Location: $url");
+      exit();
+    }
 ?>
 <!-- Page Container -->
 <div class="w3-content w3-margin-top" style="max-width:1400px;">
