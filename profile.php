@@ -10,23 +10,21 @@
     if (isset($_GET['id']) && is_numeric($_GET['id'])) { // Already been determined.
       $sql = "SELECT `FIRST_NAME`,`LAST_NAME`,`AVATAR`,`EMAIL`,`PHONE`,`CITY`,`STATE` FROM `USERS` WHERE `USERS_ID` =". $_GET['id'];
       $result = mysqli_query($dbc, $sql);
-      if(mysqli_num_rows($result)==1){ //email found
+      if(mysqli_num_rows($result)==1){ // user found
         $row = 	mysqli_fetch_array($result, MYSQLI_ASSOC);
-        if ($password == password_verify($password, $row['pw'])) { // User exists
-          $firstName = $row['FIRST_NAME'];
-          $lastName = $row['LAST_NAME'];
-          $avatar = $row['AVATAR'];
-          $email = $row['EMAIL'];
-          $phone = $row['PHONE'];
-          $city = $row['CITY'];
-          $state = $row['STATE'];
-          $current_user = new User ($firstName,$lastName,$avatar,$email,$phone,$city,$state,0);
-        }
-        else { // user doesn't exist
-          echo '<div class="alert alert-warning" role="alert"><p> Sorry!</p>
-          // <p class="text-danger">Oops! This user does not exist.</p></div>';}
+        $firstName = $row['FIRST_NAME'];
+        $lastName = $row['LAST_NAME'];
+        $avatar = $row['AVATAR'];
+        $email = $row['EMAIL'];
+        $phone = $row['PHONE'];
+        $city = $row['CITY'];
+        $state = $row['STATE'];
+        $current_user = new User ($firstName,$lastName,$avatar,$email,$phone,$city,$state,0);
       }
-    }
+      else { // user doesn't exist
+        echo '<div class="alert alert-warning" role="alert"><p> Sorry!</p>
+             <p class="text-danger">Oops! This user does not exist.</p></div>';}
+      }
     else if (isset($_SESSION['email'])){
       $current_user = new User ($_SESSION['firstName'],$_SESSION['lastName'],$_SESSION['avatar'],$_SESSION['email'],$_SESSION['phone'],$_SESSION['city'],$_SESSION['state'],$_SESSION['admin']);
     }
