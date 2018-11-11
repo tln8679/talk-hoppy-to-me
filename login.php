@@ -73,15 +73,6 @@
             }
         }
     } 
-    if (isset($_SESSION['email'])) {
-        $firstname = $_SESSION['firstName'];
-        $message = "You have reached this page in error.";
-        $message2 = "Hit log out on the menu, if you want to log out";
-        echo "<div class=\"alert alert-success\" role=\"alert\">
-            <p><h2>$message</h2><br></p>
-            <p><h3>$message2</h3><br></p>
-            </div>";
-    } 
 ?>
 
 <div class="form-group w3-margin-bottom text-center\"">
