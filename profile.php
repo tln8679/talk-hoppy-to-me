@@ -12,7 +12,7 @@
       $result = mysqli_query($dbc, $sql);
       if(mysqli_num_rows($result)==1){ //email found
         $row = 	mysqli_fetch_array($result, MYSQLI_ASSOC);
-        if ($password == password_verify($password, $row['pw'])) { //passwords match
+        if ($password == password_verify($password, $row['pw'])) { // User exists
           $firstName = $row['FIRST_NAME'];
           $lastName = $row['LAST_NAME'];
           $avatar = $row['AVATAR'];
@@ -22,6 +22,9 @@
           $state = $row['STATE'];
           $current_user = new User ($firstName,$lastName,$avatar,$email,$phone,$city,$state,0);
         }
+        else { // user doesn't exist
+          echo '<div class="alert alert-warning" role="alert"><p> Sorry!</p>
+          // <p class="text-danger">Oops! This user does not exist.</p></div>';}
       }
     }
     else if (isset($_SESSION['email'])){
