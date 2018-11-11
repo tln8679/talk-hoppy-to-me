@@ -58,7 +58,7 @@
 			// Need to also add a default avatar image to images and then insert that path for every user
 			if (empty($error_message)){
 				require_once '../../mysqli_connect.php';  //$dbc is the connection string set upon successful connection
-				$newUser = new User($first,$last,"/path/to/file",$email,$pwd,$phone,$city,$state); 
+				$newUser = new User($first,$last,"/imgs/user.png",$email,$phone,$city,$state); 
 				$q = "SELECT * FROM USERS WHERE EMAIL = ?";
 				$stmt = mysqli_prepare($dbc,$q);
 				mysqli_stmt_bind_param($stmt,'s',$email);
@@ -80,6 +80,7 @@
 					$q = "INSERT INTO USERS(FIRST_NAME, LAST_NAME, AVATAR, EMAIL, PASS, PHONE, CITY, STATE) VALUES (?,?,?,?,?,?,?,?)";
 					$stmt = mysqli_prepare($dbc,$q);
 					$hash_for_user = password_hash($pwd,PASSWORD_BCRYPT);
+					// 'ssssssss' declares the types that we are inserting
 					mysqli_stmt_bind_param($stmt,'ssssssss',$fname, $lname, $avatar, $email,$pwd,$phone, $city, $state);
 					//  Set parameters and execute
 					$fname = $newUser->getFirstName();
