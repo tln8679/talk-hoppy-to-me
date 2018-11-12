@@ -13,7 +13,7 @@
         $beer_name = $_POST['beer-name'];
         $beer_maker = $_POST['beer-maker'];
         $log = $_POST['log-type'];
-        $comment = $_POST['comment'];
+        $comment = filter_var($_POST['comment'], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
         echo "
         <div class=\"alert alert-success\" role=\"alert\">
             <p>

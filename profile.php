@@ -2,6 +2,43 @@
     $page_title = 'You, yum!';
 	// Include header html here
     include('includes/header.php');
+    require_once '../../mysqli_connect.php';
+    require_once './beans/user.php';
+    
+    //If we are viewing someone elses page 
+    // We will link all friends an href like http://satoshi.cis.uncw.edu/~tln8679/talkhoppytome/profile.php?id=40 to view their profile
+    if (isset($_GET['id']) && is_numeric($_GET['id'])) { // Already been determined.
+      $current_id = $_GET['id'];
+      $sql = "SELECT `FIRST_NAME`,`LAST_NAME`,`AVATAR`,`EMAIL`,`PHONE`,`CITY`,`STATE` FROM `USERS` WHERE `USERS_ID` =". $current_id;
+      $result = mysqli_query($dbc, $sql);
+      if(mysqli_num_rows($result)==1){ // user found
+        $row = 	mysqli_fetch_array($result, MYSQLI_ASSOC);
+        $firstName = $row['FIRST_NAME'];
+        $lastName = $row['LAST_NAME'];
+        $avatar = $row['AVATAR'];
+        $email = $row['EMAIL'];
+        $phone = $row['PHONE'];
+        $city = $row['CITY'];
+        $state = $row['STATE'];
+        $current_user = new User ($firstName,$lastName,$avatar,$email,$phone,$city,$state,0);
+      }
+      else { // user doesn't exist
+        echo '<div class="alert alert-warning" role="alert"><p> Sorry!</p>
+             <p class="text-danger">Oops! This user does not exist.</p></div>';}
+      }
+    else if (isset($_SESSION['email'])){
+      $current_id = $_SESSION['usersID'];
+      $current_user = new User ($_SESSION['firstName'],$_SESSION['lastName'],$_SESSION['avatar'],$_SESSION['email'],$_SESSION['phone'],$_SESSION['city'],$_SESSION['state'],$_SESSION['admin']);
+    }
+    // User hasn't logged in and clicked "My profile", so send him to log in page
+    else {
+      $url = 'http://'. $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
+      $url = rtrim($url, '/\\');
+      $page = 'login.php';
+      $url .= '/' . $page;
+      header("Location: $url");
+      exit();
+    }
 ?>
 <!-- Page Container -->
 <div class="w3-content w3-margin-top" style="max-width:1400px;">
@@ -14,16 +51,17 @@
 
       <div class="w3-white w3-text-grey w3-card-4 w3-margin-bottom">
         <div class="w3-display-container">
-          <img src="imgs/jane.jpeg" style="width:100%" alt="Avatar">
+          <?php $avatar_path = $current_user->getAvatar();?>
+          <img src="<?php echo dirname($_SERVER['PHP_SELF'])."/".$avatar_path ?>" style="width:100%" alt="Avatar">
           <div class="w3-display-bottomleft w3-container w3-text-black">
           </div>
         </div>
         <div class="w3-container">
-          <h2>Taylor Noble</h2>
+          <h2><?php echo $current_user->getFirstName()." ".$current_user->getLastName();?></h2>
           <p><i class="fa fa-briefcase fa-fw  w3-large w3-text-indigo"></i>Day drinker</p>
-          <p><i class="fa fa-home fa-fw  w3-large w3-text-indigo"></i>Wilmington, NC</p>
-          <p><i class="fa fa-envelope fa-fw  w3-large w3-text-indigo"></i>tln8679@uncw.edu</p>
-          <p><i class="fa fa-phone fa-fw  w3-large w3-text-indigo"></i>1910435534</p>
+          <p><i class="fa fa-home fa-fw  w3-large w3-text-indigo"></i><?php echo $current_user->getCity().", ".$current_user->getState();?></p>
+          <p><i class="fa fa-envelope fa-fw  w3-large w3-text-indigo"></i><?php echo $current_user->getEmail();?></p>
+          <p><i class="fa fa-phone fa-fw  w3-large w3-text-indigo"></i><?php echo $current_user->getPhoneNumber();?></p>
           <hr>
 
           <p class="w3-large"><b><i class="fa fa-asterisk fa-fw  w3-text-indigo"></i>Favorite Styles</b></p>
@@ -48,10 +86,35 @@
 
           <hr>
 
-          <p class="w3-large"><b><i class="fa fa-asterisk fa-fw  w3-text-indigo"></i>Friends</b></p>
-          <p><i class="fa fa-briefcase fa-fw  w3-large w3-text-indigo"></i>Top 3 with most beers logged</p>
-          <p><i class="fa fa-home fa-fw  w3-large w3-text-indigo"></i>Link to all friends</p>
-          <p><i class="fa fa-envelope fa-fw  w3-large w3-text-indigo"></i>Add friends</p>
+          <p class="w3-large"><b>Following</b></p>
+          <?php
+            $sql = "SELECT USER_FRIENDS.USERS_ID, FRIEND_ID, CONCAT(USERS.FIRST_NAME,' ' ,USERS.LAST_NAME) AS FriendName \n"
+            . "FROM `USER_FRIENDS`\n"
+            . "JOIN USERS on USER_FRIENDS.FRIEND_ID = USERS.USERS_ID\n"
+            . "WHERE USER_FRIENDS.USERS_ID = $current_id \n"
+            . "ORDER BY USERS.FIRST_NAME\n"
+            . "ASC LIMIT 3";
+            $r = mysqli_query($dbc, $sql);
+            if(mysqli_num_rows($r)>0){ // user found
+              while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
+                $id = $row['FRIEND_ID'];
+                $friendName = $row['FriendName'];
+                echo '<p><a href="profile.php?id=' . $id . '">View ' . $friendName . '\'s Profile</a></p> ';
+              }
+            }
+            else { // user isnt following anyone
+              echo '<div class="alert alert-warning" role="alert"><p> Sorry!</p>
+                   <p class="text-danger">This user is not following anyone.</p></div>';
+            }
+          ?>
+          <h4>
+            <a href="following.php?id=<?php echo $current_id?>">View all follwing</a>
+            <span style="color:goldenrod;" class="glyphicon glyphicon-eye-open"></span>
+          </h4>
+          <h4>
+            <a href="#">Search all users</a>
+            <span style="color:goldenrod;" class="glyphicon glyphicon-plus"></span>
+          </h4>
         </div>
       </div>
 

@@ -6,12 +6,10 @@
     */
 
     $page_title = 'Beers, yum!';
-	// Include header html here
     include('includes/header.php');
-    // You need this because the include in beer_data is now processed from this dir
     include("beans/beer.php");
-    // getting the Array for populating the cards
-    include("models/beer_data.php");
+    require_once '../../mysqli_connect.php';
+   
 
     // This form displays if the user has selected a beer to add to a list and then exits
     if ($_SERVER['REQUEST_METHOD']=='POST') {
@@ -26,19 +24,29 @@
                             <h2>Log your brews!</h2>
                         </legend>
                         <div class=\"input-group w3-margin-bottom cntr-form\">
-                            <p>
+                        <div class=\"form-group\">
                                 <label>Action</label>
                                 <input name=\"log-type\" type=\"text\" value=\"$log\" class=\"form-control\" readonly>
-                            </p>
-                            <p>
+                            </div>
+                            <div class=\"form-group\">
                                 <label>Beer</label>
                                 <input name=\"beer-name\" type=\"text\" value=\"$beer_name\" class=\"form-control\" readonly>
-                            </p>
-                            <p>
+                            </div>
+                            <div class=\"form-group\">
                                 <label>Brewed by</label>
                                 <input name=\"beer_maker\" type=\"text\" value=\"$beer_maker\" class=\"form-control\" readonly>
-                            </p>
-                            <div class=\"form-group\">
+                            </div>";
+                            if ($log =="log"){
+                                echo "<div class=\"form-group\">
+                                    <label>Rating</label><br>
+                                    <label class=\"radio-inline\"><input type=\"radio\" name=\"rating\" checked>1</label>
+                                    <label class=\"radio-inline\"><input type=\"radio\" name=\"rating\">2</label>
+                                    <label class=\"radio-inline\"><input type=\"radio\" name=\"rating\">3</label>
+                                    <label class=\"radio-inline\"><input type=\"radio\" name=\"rating\">4</label>
+                                    <label class=\"radio-inline\"><input type=\"radio\" name=\"rating\">5</label>
+                                </div>";
+                            }
+                            echo "<div class=\"form-group\">
                                 <label for=\"comment\">Comment:</label>
                                 <textarea name=\"comment\" class=\"form-control\" rows=\"5\" id=\"comment\"></textarea>
                             </div>
@@ -55,8 +63,9 @@
         include("includes/footer.php");
         exit;
     }
-    // End form start html
+    // End form 
 ?>
+
 
 <!-- Search form -->
 <div class="col-md-4 col-md-offset-4 w3-margin-bottom text-center">
@@ -90,22 +99,53 @@
     </form> 
 </div>
 
-
+<div class="container">
     <?php
-    // Instantiating an array that we will use to populate the cards
-    $BEERS = array("Miller Light", "\"18\" Imperial IPA", "\"The Great BOO\" Pumpkin Ale", "Wintah Ale", "Sierra Nevade, Pale Ale","Milwaukees Best",
-            "Orange krush kolsch", "Vienna Lager", "Bud Light");
-    // Need to start a new row after the four columns have been filled
+    // Number of records to show per page:
+    $display = 16;
+    // Determine how many pages there are...
+    if (isset($_GET['p']) && is_numeric($_GET['p'])) { // Already been determined.
+        $pages = $_GET['p'];
+    } else { // Need to determine.
+        // Count the number of records:
+        $sql = "SELECT COUNT(`BEER_ID`) FROM `BEER`";
+        $r = mysqli_query($dbc, $sql);
+        $row = mysqli_fetch_array($r, MYSQLI_NUM);
+        $records = $row[0];
+        // Calculate the number of pages...
+        if ($records > $display) { // More than 1 page.
+            $pages = ceil ($records/$display);
+        } else {
+            $pages = 1;
+        }
+    } // End of p IF.
+
+    // Determine where in the database to start returning results...
+    if (isset($_GET['s']) && is_numeric($_GET['s'])) {
+        $start = $_GET['s'];
+    } else {
+        $start = 0;
+    }
+
+    // Query for the beers
+    $sql = "SELECT `BEER_NAME`,BREWER.BREWER_NAME,`BEER_DESCRIPTION`,CONCAT(BREWER.BREWER_CITY,', ' ,BREWER.BREWER_STATE) AS Location,`BEER_ABV`,`BEER_IBU`,`BEER_STYLE` \n"
+    . "FROM `BEER`\n"
+    . "INNER JOIN BREWER on BEER.BREWER_ID=BREWER.BREWER_ID\n"
+    . "ORDER by BEER_NAME\n"
+    . "ASC LIMIT $start,$display";
+    $r = mysqli_query($dbc, $sql);
     $counter = 0;
-    // var_dump(count($beers_arr)); // Returns length of list
-    foreach($beers_arr as $beer){
-        // Get variables from the object
+    while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
+        $beer = new Beer ($row['BEER_NAME'],$row['BREWER_NAME'],$row['BEER_DESCRIPTION'],$row['Location'],"Not enough data",$row['BEER_ABV'],$row['BEER_IBU'],$row['BEER_STYLE']);
         $name = $beer->get_beer_name();
         $maker = $beer->get_beer_maker();
         $description = $beer->get_description();
         $location = $beer->get_location();
         $rating = $beer->get_rating();
+        // convert abv to percentage string
         $abv = $beer->get_abv();
+        $abv = (float)$abv * 100;
+        $abv = strval($abv)."%";
         $ibu = $beer->get_ibu();
         $style = $beer->get_style();
         if ($counter % 4 === 0 || counter === 0){
@@ -244,11 +284,39 @@
         }
         if (($counter+1)%4===0){
             // Last card on the row, so close the row tag
-            echo "</div>";
+            echo "</div></br>";
         }
         $counter++;
     }
-?>
+    ?>
+    </div>
+    <div class="container alert alert-info w3-margin-top" role="alert">
+        <?php
+        // Make the links to other pages, if necessary.
+        if ($pages > 1) {
+            echo '<p>';
+            // Determine what page the script is on:
+            $current_page = ($start/$display) + 1;
+            // If it's not the first page, make a Previous link:
+            if ($current_page != 1) {
+                echo '<a href="BeerSearch.php?s=' . ($start - $display) . '&p=' . $pages . '">Previous</a> ';
+            }
+            // Make all the numbered pages:
+            for ($i = 1; $i <= $pages; $i++) {
+                if ($i != $current_page) {
+                    echo '<a href="BeerSearch.php?s=' . (($display * ($i - 1))) . '&p=' . $pages . '">' . $i . '</a> ';
+                } else {
+                    echo $i . ' ';
+                }
+            } // End of FOR loop.
+            // If it's not the last page, make a Next button:
+            if ($current_page != $pages) {
+                echo '<a href="BeerSearch.php?s=' . ($start + $display) . '&p=' . $pages . '">Next</a>';
+            }
+            echo '</p>'; // Close the paragraph.
+        }
+        ?>
+    </div>
 
         <script>
     function showMore(show_description) {

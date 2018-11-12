@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,11 +40,20 @@
                         <li><a href="profile.php">My Profile</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="registration.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                        <li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                        <?php if (isset($_SESSION['email'])) { ?>
+                            <li><a href="logout.php"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>   
+                        <?php }  
+                            else {
+                        ?>
+                            <li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>  
+                            <li><a href="registration.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                        <?php } ?> 
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
     <div class="container">
+    <!-- <?php
+        echo "<h1>".$_SESSION['email']."</h1>";
+    ?> -->

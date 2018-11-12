@@ -1,4 +1,5 @@
 <?php class Beer {
+    // id is auto incremented so im not adding it because we cant have the id until we insert it into the DB
     private $beer_name;
     private $beer_maker;
     private $description;
