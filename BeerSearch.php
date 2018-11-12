@@ -35,16 +35,18 @@
                             <div class=\"form-group\">
                                 <label>Brewed by</label>
                                 <input name=\"beer_maker\" type=\"text\" value=\"$beer_maker\" class=\"form-control\" readonly>
-                            </div>
-                            <div class=\"form-group\">
-                                <label>Rating</label><br>
-                                <label class=\"radio-inline\"><input type=\"radio\" name=\"rating\" checked>1</label>
-                                <label class=\"radio-inline\"><input type=\"radio\" name=\"rating\">2</label>
-                                <label class=\"radio-inline\"><input type=\"radio\" name=\"rating\">3</label>
-                                <label class=\"radio-inline\"><input type=\"radio\" name=\"rating\">4</label>
-                                <label class=\"radio-inline\"><input type=\"radio\" name=\"rating\">5</label>
-                            </div>
-                            <div class=\"form-group\">
+                            </div>";
+                            if ($log =="log"){
+                                echo "<div class=\"form-group\">
+                                    <label>Rating</label><br>
+                                    <label class=\"radio-inline\"><input type=\"radio\" name=\"rating\" checked>1</label>
+                                    <label class=\"radio-inline\"><input type=\"radio\" name=\"rating\">2</label>
+                                    <label class=\"radio-inline\"><input type=\"radio\" name=\"rating\">3</label>
+                                    <label class=\"radio-inline\"><input type=\"radio\" name=\"rating\">4</label>
+                                    <label class=\"radio-inline\"><input type=\"radio\" name=\"rating\">5</label>
+                                </div>";
+                            }
+                            echo "<div class=\"form-group\">
                                 <label for=\"comment\">Comment:</label>
                                 <textarea name=\"comment\" class=\"form-control\" rows=\"5\" id=\"comment\"></textarea>
                             </div>
