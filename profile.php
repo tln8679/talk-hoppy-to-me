@@ -8,7 +8,8 @@
     //If we are viewing someone elses page 
     // We will link all friends an href like http://satoshi.cis.uncw.edu/~tln8679/talkhoppytome/profile.php?id=40 to view their profile
     if (isset($_GET['id']) && is_numeric($_GET['id'])) { // Already been determined.
-      $sql = "SELECT `FIRST_NAME`,`LAST_NAME`,`AVATAR`,`EMAIL`,`PHONE`,`CITY`,`STATE` FROM `USERS` WHERE `USERS_ID` =". $_GET['id'];
+      $current_id = $_GET['id'];
+      $sql = "SELECT `FIRST_NAME`,`LAST_NAME`,`AVATAR`,`EMAIL`,`PHONE`,`CITY`,`STATE` FROM `USERS` WHERE `USERS_ID` =". $current_id;
       $result = mysqli_query($dbc, $sql);
       if(mysqli_num_rows($result)==1){ // user found
         $row = 	mysqli_fetch_array($result, MYSQLI_ASSOC);
@@ -26,6 +27,7 @@
              <p class="text-danger">Oops! This user does not exist.</p></div>';}
       }
     else if (isset($_SESSION['email'])){
+      $current_id = $_SESSION['usersID'];
       $current_user = new User ($_SESSION['firstName'],$_SESSION['lastName'],$_SESSION['avatar'],$_SESSION['email'],$_SESSION['phone'],$_SESSION['city'],$_SESSION['state'],$_SESSION['admin']);
     }
     // User hasn't logged in and clicked "My profile", so send him to log in page
@@ -84,10 +86,35 @@
 
           <hr>
 
-          <p class="w3-large"><b><i class="fa fa-asterisk fa-fw  w3-text-indigo"></i>Friends</b></p>
-          <p><i class="fa fa-briefcase fa-fw  w3-large w3-text-indigo"></i>Top 3 with most beers logged</p>
-          <p><i class="fa fa-home fa-fw  w3-large w3-text-indigo"></i>Link to all friends</p>
-          <p><i class="fa fa-envelope fa-fw  w3-large w3-text-indigo"></i>Add friends</p>
+          <p class="w3-large"><b>Following</b></p>
+          <?php
+            $sql = "SELECT USER_FRIENDS.USERS_ID, FRIEND_ID, CONCAT(USERS.FIRST_NAME,' ' ,USERS.LAST_NAME) AS FriendName \n"
+            . "FROM `USER_FRIENDS`\n"
+            . "JOIN USERS on USER_FRIENDS.FRIEND_ID = USERS.USERS_ID\n"
+            . "WHERE USER_FRIENDS.USERS_ID = $current_id \n"
+            . "ORDER BY USERS.FIRST_NAME\n"
+            . "ASC LIMIT 3";
+            $r = mysqli_query($dbc, $sql);
+            if(mysqli_num_rows($r)>0){ // user found
+              while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
+                $id = $row['FRIEND_ID'];
+                $friendName = $row['FriendName'];
+                echo '<p><a href="profile.php?id=' . $id . '">View ' . $friendName . '\'s Profile</a></p> ';
+              }
+            }
+            else { // user isnt following anyone
+              echo '<div class="alert alert-warning" role="alert"><p> Sorry!</p>
+                   <p class="text-danger">This user is not following anyone.</p></div>';
+            }
+          ?>
+          <h4>
+            <a href="following.php?id=<?php echo $current_id?>">View all follwing</a>
+            <span style="color:goldenrod;" class="glyphicon glyphicon-eye-open"></span>
+          </h4>
+          <h4>
+            <a href="#">Search all users</a>
+            <span style="color:goldenrod;" class="glyphicon glyphicon-plus"></span>
+          </h4>
         </div>
       </div>
 
