@@ -4,18 +4,18 @@
 	include("beans/user.php");
 	require './includes/header.php';
 	require_once '../../mysqli_connect.php'; //$dbc is the connection string set upon successful connection
-	$error_message = array();	
+	$error_message = array();
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		if (!empty($_POST['fname']))
 				$first = filter_var(trim($_POST['fname']), FILTER_SANITIZE_STRING);
 			else
 				$error_message[]= "first";
-		
+
 			if (!empty($_POST['lname']))
 				$last = filter_var(trim($_POST['lname']), FILTER_SANITIZE_STRING);
 			else
-				$error_message['lname'] = "Last name is missing.";
-			
+				$error_message[] = "Last name is missing.";
+
 			$email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
 			if (!filter_var(trim($_POST['email']), FILTER_VALIDATE_EMAIL)) { //Either empty or invalid email will be considered missing
 				$missing[] = 'email';
@@ -24,12 +24,12 @@
 			if (!empty($_POST['city']))
 				$city = filter_var(trim($_POST['city']), FILTER_SANITIZE_STRING);
 			else
-				$error_message[] = "City is missing.";	
+				$error_message[] = "City is missing.";
 			// We could process state
 			if (!empty($_POST['state']))
 				$state = filter_var(trim($_POST['state']), FILTER_SANITIZE_STRING);
 			else
-				$error_message[] = "State is missing.";	
+				$error_message[] = "State is missing.";
 			// Phone
 			if (!empty($_POST['phone'])){
 				// Remove any non-digits
@@ -40,7 +40,7 @@
 				}
 			}
 			else
-				$error_message[] = "Phone is missing.";	
+				$error_message[] = "Phone is missing.";
 			// Check for password confirmation matches
 			if (!empty($_POST['pwd']))
 				$pwd = filter_var(trim($_POST['pwd']), FILTER_SANITIZE_STRING);
@@ -49,7 +49,7 @@
 			if (!empty($_POST['conf']))
 				$conf = filter_var(trim($_POST['conf']), FILTER_SANITIZE_STRING);
 			else
-				$error_message[] = "Password confirmation is missing";	
+				$error_message[] = "Password confirmation is missing";
 			if ($pwd != $conf) {
 				$error_message[] = "The passwords do not match";
 			}
@@ -58,15 +58,13 @@
 			// Need to also add a default avatar image to images and then insert that path for every user
 			if (empty($error_message)){
 				require_once '../../mysqli_connect.php';  //$dbc is the connection string set upon successful connection
-				$newUser = new User($first,$last,"/imgs/user.png",$email,$phone,$city,$state); 
 				$q = "SELECT * FROM USERS WHERE EMAIL = ?";
 				$stmt = mysqli_prepare($dbc,$q);
 				mysqli_stmt_bind_param($stmt,'s',$email);
-				$email = $newUser->getEmail();
 				mysqli_stmt_execute($stmt);
 				$stmt->store_result();
 				$count = $stmt->num_rows;
-	
+
 				if ($count>0){
 					echo "<div class=\"alert alert-info\" role=\"alert\">
 						<p><strong>$email</strong> is already in use!</p>
@@ -99,7 +97,7 @@
 						<p>We will not send you an email</p>
 						</div>";
 					}
-					else 
+					else
 					echo "<div class=\"alert alert-info\" role=\"alert\">
 						<p>We're sorry, we were not able to add you at this time.</p>
 						</div>";
@@ -107,7 +105,7 @@
 					exit;
 			}
 		}
-    }    
+    }
 ?>
 
 <form method="POST" action="registration.php" class="justify-content-center">
@@ -125,7 +123,7 @@
 				<h2>Thanks for joining!</h2>
 			</legend>
 		</div>
-		
+
 		<div class="form-group w3-margin-bottom cntr-form">
 			<label>
 				<h4>Basics</h4>
