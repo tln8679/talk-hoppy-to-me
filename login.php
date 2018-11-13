@@ -69,7 +69,7 @@
             }
             else {
                 echo "<div class=\"alert alert-danger\" role=\"alert\">
-				<p>Can't connect right now<br></p></div>";
+				<p>Can't connect right now. Ensure your email is correct.<br></p></div>";
             }
         }
     } 
