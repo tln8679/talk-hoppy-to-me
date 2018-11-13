@@ -49,3 +49,12 @@ body {
 h1 {
   font-family: sans-serif;
 }
+.cntr-form{
+  width: 80%;
+  margin: 0 auto;
+  float: none;
+}
+
+textarea {
+  resize: none;
+}

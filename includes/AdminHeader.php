@@ -1,6 +1,3 @@
-<?php
-    session_start();
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,8 +8,8 @@
     <title>
         <?php echo $page_title; ?>
     </title>
-    <link href="css/w3.css" rel="stylesheet">
-    <link href="css/main.css" rel="stylesheet">
+    <link href="../css/w3.css" rel="stylesheet">
+    <link href="../css/main.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
         crossorigin="anonymous">
     <!-- This JavaScript is needed to expand the collapsable menu -->
@@ -34,26 +31,16 @@
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
-                        <li><a href="index.php">Home</a></li>
-                        <li><a href="BeerSearch.php">Find Beers</a></li>
-                        <li><a href="feed.php">My Feed</a></li>
-                        <li><a href="profile.php">My Profile</a></li>
+                        <li><a href="AddBeer.php">Add Beers</a></li>
+                        <li><a href="AddBrewer.php">Add Brewer</a></li>
+                        <li><a href="ViewSuggestions.php">View suggestions</a></li>
+                        <li><a href="ViewUsers.php">View users</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <?php if (isset($_SESSION['email'])) { ?>
-                            <li><a href="logout.php"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>   
-                        <?php }  
-                            else {
-                        ?>
-                            <li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>  
-                            <li><a href="registration.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                        <?php } ?> 
+                        <li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
     <div class="container">
-    <!-- <?php
-        echo "<h1>".$_SESSION['email']."</h1>";
-    ?> -->
