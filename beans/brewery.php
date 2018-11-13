@@ -1,4 +1,4 @@
-<?php 
+<?php
     class Brewer {
         // Added the brew id because i don't plan on adding breweries from the admin site. But we may have to.
         private $brewerID;
@@ -9,9 +9,10 @@
     public function __construct($brewerID,$name,$city,$state){
         $this->brewerID=$brewerID;
         $this->name=$name;
-        $this->avatar=$nature;
+        $this->city=$city;
+        $this->state=$state;
       }
-      
+
       public function getBrewerID(){
         return $this->brewerID;
       }
@@ -24,6 +25,6 @@
       public function getState(){
         return $this->state;
       }
-  
+
     }
 ?>

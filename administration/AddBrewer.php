@@ -1,20 +1,68 @@
 <?php
     // page for admin to add brewer
     include('../includes/AdminHeader.php');
-    require('../beans/beer.php');
-    require('../beans/brewery.php');
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-      if (!empty($_POST['Brewer']))
-  				$first = filter_var(trim($_POST['Brewer']), FILTER_SANITIZE_STRING);
-  			else
-  				$error_message[]= "You forgot the brewer name";
 
-  			if (!empty($_POST['City']))
-  				$last = filter_var(trim($_POST['City']), FILTER_SANITIZE_STRING);
-  			else
-  				$error_message[] = "Last name is missing.";
-}
+    require('../beans/brewery.php');
+    require_once '../../../mysqli_connect.php'; //$dbc is the connection string set upon successful connection
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      if (!empty($_POST['brewer']))
+  				$name = filter_var(trim($_POST['brewer']), FILTER_SANITIZE_STRING);
+  		else
+  			$error_message[]= "You forgot the brewer name";
+
+  		if (!empty($_POST['city']))
+  			$city = filter_var(trim($_POST['city']), FILTER_SANITIZE_STRING);
+			else{
+        $error_message[] = "You forgot the city name.";}
+
+      $state=($_POST['state']);
+      // echo "$name, $city, $state";
+
+    if (empty($error_message)){
+      $newBrewer = new Brewer(0, $name,$city,$state);
+      $q = "SELECT * FROM BREWER WHERE BREWER_NAME = ?";
+      $stmt = mysqli_prepare($dbc,$q);
+      mysqli_stmt_bind_param($stmt,'s',$name);
+      mysqli_stmt_execute($stmt);
+      $stmt->store_result();
+      $count = $stmt->num_rows;
+
+      if ($count>0){
+        echo "<div class=\"alert alert-info\" role=\"alert\">
+          <p><strong>$name</strong>This brewery is already created!</p>
+
+          </div>";
+        include 'includes/footer.php';
+        exit;
+      }
+      else{
+        // Prepare and bind
+        $q = "INSERT INTO BREWER(BREWER_NAME, BREWER_CITY, BREWER_STATE) VALUES (?,?,?)";
+        $stmt = mysqli_prepare($dbc,$q);
+        // 'sss' declares the types that we are inserting
+        mysqli_stmt_bind_param($stmt,'sss',$name, $city, $state);
+        //  Set parameters and execute
+        $name= $newBrewer-> getName();
+        $city = $newBrewer->getCity();
+        $state = $newBrewer->getState();
+        mysqli_stmt_execute($stmt);
+        if(mysqli_stmt_affected_rows($stmt)) { //It worked
+
+          echo "<div class=\"alert alert-success\" role=\"alert\">
+          <p>Thanks for adding <strong>$name</strong></p>
+          </div>";
+        }
+        else
+        echo "<div class=\"alert alert-info\" role=\"alert\">
+          <p>We're sorry, we were not able to add the brewer at this time.</p>
+          </div>";
+        include 'includes/footer.php';
+        exit;
+    }
+   }
+ }
 ?>
+
 
     <div class="col-md-4 col-md-offset-4 w3-margin-bottom text-center">
         <form class="justify-content-center" method="POST" action="AddBrewer.php">
@@ -25,11 +73,11 @@
                 <div class="input-group w3-margin-bottom cntr-form">
                 <div class="form-group">
                         <label>Brewer Name</label>
-                        <input name="Brewer" type="text" class="form-control">
+                        <input name="brewer" type="text" class="form-control">
                     </div>
                     <div class="form-group">
                         <label>City</label>
-                        <input name="beer-name" type="text" class="form-control" >
+                        <input name="city" type="text" class="form-control" >
                     </div>
 
                     <div class="form-group">
