@@ -112,7 +112,7 @@
             <span style="color:goldenrod;" class="glyphicon glyphicon-eye-open"></span>
           </h4>
           <h4>
-            <a href="#">Search all users</a>
+            <a href="UserSearch.php">Search all users</a>
             <span style="color:goldenrod;" class="glyphicon glyphicon-plus"></span>
           </h4>
         </div>
