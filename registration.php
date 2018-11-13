@@ -187,7 +187,7 @@
 		</div>
 		<div class="form-group w3-margin-bottom cntr-form">
 			<p>
-				<label for="phone">
+				<label for="phonetype">
 					<h4>Phone number</h4>
 				</label>
 				<input type="text" class="form-control" name="phone" placeholder="9109999999" <?php if(isset($phone)) echo " value=\"$phone\"";?> maxlength="12" />
