@@ -163,11 +163,7 @@
 			<label>
 				<h4>Address</h4>
 			</label>
-			<!-- <p>
-				<label for="street">Street</label>
-				<span style="color:red">*</span>
-				<input type="text" id="street" name="street" placeholder="Street" class="form-control" required>
-			</p> -->
+			
 			<p>
 				<label for="city">City</label>
 				<span style="color:red">*</span>
@@ -179,11 +175,7 @@
 				<span style="color:red">*</span>
 				<input type="text" id="state" name="state" placeholder="State" class="form-control" <?php if(isset($state)) echo " value=\"$state\"";?> max-length="2" required>
 			</p>
-			<!-- <p>
-				<label for="zip">Zip code</label>
-				<span style="color:red">*</span>
-				<input type="text" id="zip" name="zip" placeholder="Zip" class="form-control" required>
-			</p> -->
+			
 		</div>
 		<div class="form-group w3-margin-bottom cntr-form">
 			<p>
@@ -198,25 +190,7 @@
 				</select>
 			</p>
 		</div>
-		<!-- <div class="form-group">
-			<br>
-			<label>
-				<h4>Preferred method of contact</h4>
-			</label><br>
-			<p>
-				<label for="contact">
-					<input type="radio" name="contact" value="text" id="contact"> Text
-				</label>
-				<br>
-				<label for="emailr">
-					<input type="radio" name="contact" value="email" id="emailr"> Email
-				</label>
-				<br>
-				<label for="postalr">
-					<input type="radio" name="contact" value="postal" id="postalr"> Postal
-				</label>
-			</p>
-		</div> -->
+		
 		<div class="form-group w3-margin-bottom cntr-form">
 			<label for="terms">
 				<h5 style="color:red">Agree to terms</h5>

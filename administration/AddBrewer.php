@@ -1,9 +1,10 @@
 <?php
     // page for admin to add brewer
+    // Adds brewer if it does not exist already
     include('../includes/AdminHeader.php');
-
     require('../beans/brewery.php');
     require_once '../../../mysqli_connect.php'; //$dbc is the connection string set upon successful connection
+
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       if (!empty($_POST['brewer']))
   				$name = filter_var(trim($_POST['brewer']), FILTER_SANITIZE_STRING);
@@ -14,9 +15,8 @@
   			$city = filter_var(trim($_POST['city']), FILTER_SANITIZE_STRING);
 			else{
         $error_message[] = "You forgot the city name.";}
-
-      $state=($_POST['state']);
-      // echo "$name, $city, $state";
+    //   Select always set
+      $state=$_POST['state'];
 
     if (empty($error_message)){
       $newBrewer = new Brewer(0, $name,$city,$state);
@@ -73,13 +73,13 @@
                 <div class="input-group w3-margin-bottom cntr-form">
                 <div class="form-group">
                         <label>Brewer Name</label>
-                        <input name="brewer" type="text" class="form-control">
+                        <input name="brewer" type="text" <?php if(isset($name)) echo " value=\"$name\"";?> class="form-control">
                     </div>
                     <div class="form-group">
                         <label>City</label>
-                        <input name="city" type="text" class="form-control" >
+                        <input name="city" type="text" <?php if(isset($city)) echo " value=\"$city\"";?> class="form-control" >
                     </div>
-
+                    <!-- Not going to make the select sticky. Would need to make the states into a php array and use a foreach loop -->
                     <div class="form-group">
                         <label>State</label>
                         <br>
