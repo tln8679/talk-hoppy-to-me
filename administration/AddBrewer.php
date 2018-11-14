@@ -7,14 +7,16 @@
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       if (!empty($_POST['brewer']))
-  				$name = filter_var(trim($_POST['brewer']), FILTER_SANITIZE_STRING);
+  			$name = filter_var(trim($_POST['brewer']), FILTER_SANITIZE_STRING);
   		else
   			$error_message[]= "You forgot the brewer name";
 
-  		if (!empty($_POST['city']))
-  			$city = filter_var(trim($_POST['city']), FILTER_SANITIZE_STRING);
-			else{
-        $error_message[] = "You forgot the city name.";}
+  		if (!empty($_POST['city'])){
+              $city = filter_var(trim($_POST['city']), FILTER_SANITIZE_STRING);
+          }
+		else{
+            $error_message[] = "You forgot the city name.";
+        }
     //   Select always set
       $state=$_POST['state'];
 
@@ -59,6 +61,14 @@
         include 'includes/footer.php';
         exit;
     }
+   }
+   else {
+        echo "<div class=\"alert alert-danger\" role=\"alert\">
+        <p>Please check the following issues <strong><br>";
+        foreach($error_message as $missed){
+            echo '+ '.$missed."<br>";
+        }
+        echo "</strong></p></div>";
    }
  }
 ?>

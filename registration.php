@@ -18,7 +18,7 @@
 
 			$email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
 			if (!filter_var(trim($_POST['email']), FILTER_VALIDATE_EMAIL)) { //Either empty or invalid email will be considered missing
-				$missing[] = 'email';
+				$error_message[] = 'email';
 			}
 			// We could process city
 			if (!empty($_POST['city']))
