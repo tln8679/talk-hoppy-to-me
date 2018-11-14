@@ -54,6 +54,3 @@
         </nav>
     </header>
     <div class="container">
-    <!-- <?php
-        echo "<h1>".$_SESSION['email']."</h1>";
-    ?> -->
