@@ -136,7 +136,19 @@
     $r = mysqli_query($dbc, $sql);
     $counter = 0;
     while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
-        $beer = new Beer ($row['BEER_NAME'],$row['BREWER_NAME'],$row['BEER_DESCRIPTION'],$row['Location'],"Not enough data",$row['BEER_ABV'],$row['BEER_IBU'],$row['BEER_STYLE']);
+        $beer_name = $row['BEER_NAME'];
+
+        // Get the beer rating from derivation
+        $sql = "SELECT BEER_NAME AS beer, AVG(USER_POST.RATING) AS Rating\n"
+        . " FROM `BEER` JOIN USER_POST USING (BEER_ID)\n"
+        . " WHERE BEER.BEER_NAME = \"$beer_name \"";
+        $stmt = mysqli_query($dbc, $sql);
+        while ($record = mysqli_fetch_array($stmt, MYSQLI_ASSOC)) {
+            $rating = $record['Rating'];
+        }
+        if (empty($rating)) $rating = "0 (No reviews yet)";
+        else $rating.="/5";
+        $beer = new Beer ($row['BEER_NAME'],$row['BREWER_NAME'],$row['BEER_DESCRIPTION'],$row['Location'],$rating,$row['BEER_ABV'],$row['BEER_IBU'],$row['BEER_STYLE']);
         $name = $beer->get_beer_name();
         $maker = $beer->get_beer_maker();
         $description = $beer->get_description();
