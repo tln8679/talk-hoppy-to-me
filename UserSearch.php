@@ -7,9 +7,24 @@
     include('includes/header.php');
     include("beans/beer.php");
     require_once '../../mysqli_connect.php';
+    ini_set('display_errors', 'On'); 
+    error_reporting(E_ALL); 
+    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+    
+    // If the user is following the inputted friend id then return true
+    // mysqli requires you pass the connection in as a parameter
+    function isFollowing ($user_id,$friend_id,$dbc){
+        $sql = "SELECT * \n"
+        . "FROM `USER_FRIENDS` \n"
+        . "WHERE `USERS_ID`=$user_id and `FRIEND_ID`=$friend_id";
+        $r = mysqli_query($dbc, $sql);
+        $row_cnt = $r->num_rows;
+        if(mysqli_num_rows($r)>0){
+            return TRUE;
+        }
+        else return FALSE;
+    }
 ?>
-
-
 <!-- Search form -->
 <div class="col-md-4 col-md-offset-4 w3-margin-bottom text-center">
     <form method="GET" action="UserSearch.php" class="justify-content-center">
@@ -65,14 +80,18 @@
         // $sql = ;
     }
     else {
-        $sql = "SELECT CONCAT(USERS.FIRST_NAME,' ' ,USERS.LAST_NAME) AS FriendName, USERS.PHONE,USERS.EMAIL,CONCAT(USERS.CITY,', ' ,USERS.STATE) AS Location\n"
+        $sql = "SELECT USERS.USERS_ID, CONCAT(USERS.FIRST_NAME,' ' ,USERS.LAST_NAME) AS FriendName, USERS.PHONE,USERS.EMAIL,CONCAT(USERS.CITY,', ' ,USERS.STATE) AS Location\n"
             . "FROM `USERS`\n"
             . "ORDER BY USERS.FIRST_NAME";
     }
     $r = mysqli_query($dbc, $sql);
     if(mysqli_num_rows($r)>0){ // user found
       while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
-        $id = $row['FRIEND_ID'];
+        $id = $row['USERS_ID'];
+        if (isFollowing($_SESSION['usersID'],$id,$dbc)){
+           $following = TRUE;
+        }
+        else $following = FALSE;
         $friendName = $row['FriendName'];
         $location = $row['Location'];
         $email = $row['EMAIL'];
@@ -81,18 +100,34 @@
             echo "<div class=\"w3-row-padding\">
                 <div class=\"w3-container w3-card w3-white w3-margin-bottom\">
                         <h2 class=\"w3-text-grey w3-padding-16\"><i class=\"fa fa-suitcase fa-fw w3-xxlarge w3-text-indigo\">$friendName</i></h2>
-                        <div class=\"w3-container\">
-                            <h4 class=\"w3-text-indigo\"><i class=\"fa fa-calendar fa-fw \">
+                        <div class=\"w3-container\">";
+                        // If following echo following, else echo hidden form to follow
+                        if(!$following){
+                            echo
+                            "<h4> 
+                                <div class=\"w3-text-indigo\">
                                 <form method=\"POST\" action=\"#INSERTfollower\">
                                     <input type=\"hidden\" name=\"userID\" value=\"$id\">
                                     <input type=\"hidden\" name=\"friendName\" value=\"$friendName\">
-                                    <label for=\"$friendName\">Follow</label>
+                                    <label for=\"$friendName\">Click To Follow</label>
                                     <button id=\"$friendName\" type=\"submit\" class=\"btn btn-link btn-lg\">
                                         <span style=\"color:goldenrod;\" class=\"glyphicon glyphicon-plus\"></span>
                                     </button>
                                 </form>
+                                </div>
+                            </h4>";
+                        }
+                        else{
+                            echo
+                            "
+                            <h4 class=\"w3-text-indigo\">
+                                Following
+                                <span style=\"color:goldenrod;\" class=\"glyphicon glyphicon-ok\"></span>
                             </h4>
-                            <h5><b><span class=\"w3-opacity\">Location: </span><span class=\"w3-text-amber\">$location</span></b></h5>
+                            ";
+                        }
+
+                        echo "<h5><b><span class=\"w3-opacity\">Location: </span><span class=\"w3-text-amber\">$location</span></b></h5>
                             <h5><b><span class=\"w3-opacity\">Phone: </span><span class=\"w3-text-amber\">$phone</span></b></h5>
                             <h5><b><span class=\"w3-opacity\">Email: </span><span class=\"w3-text-amber\">$email</span></b></h5>
                             <h4 class=\"w3-text-blue\"><i class=\"fa fa-calendar fa-fw \">"
