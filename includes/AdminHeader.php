@@ -1,3 +1,6 @@
+<?php
+    session_start();   
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,11 +39,28 @@
                         <li><a href="ViewSuggestions.php">View suggestions</a></li>
                         <li><a href="ViewUsers.php">View users</a></li>
                     </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                    </ul>
                 </div>
             </div>
         </nav>
     </header>
     <div class="container">
+<?php
+    // User is not an admin
+    if (isset($_SESSION['admin']) && $_SESSION['admin']==0){
+      $url = 'http://'. $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
+      $url = rtrim($url, '/\\');
+      $page = '../denied.php';
+      $url .= '/' . $page;
+      header("Location: $url");
+      exit();
+    }
+    // User hasn't logged in
+    else if (!isset($_SESSION['admin'])) {
+      $url = 'http://'. $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
+      $url = rtrim($url, '/\\');
+      $page = '../login.php';
+      $url .= '/' . $page;
+      header("Location: $url");
+      exit();
+    }
+?>
