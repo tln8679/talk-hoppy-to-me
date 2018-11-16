@@ -55,7 +55,7 @@
                     <option value="add">Add a beer</option>
                     <option value="add">Edit a beer</option>
                     <option value="add">Report a user</option>
-                    <option value="add">other</option>
+                    <option value="add">Other</option>
 					</select>
 		    </label></p>
         </div>
