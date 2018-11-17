@@ -66,7 +66,7 @@
             class="form-control"
             rows="5"
             id="comment"
-          ></textarea>
+          ><?php if(isset($description)) echo " value=\"$suggestion\"";?></textarea>
         </div>
       </div>
       <p>
