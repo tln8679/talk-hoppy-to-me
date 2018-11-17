@@ -3,6 +3,9 @@
     // Adds brewer if it does not exist already
     include('../includes/AdminHeader.php');
     require_once '../../../mysqli_connect.php'; //$dbc is the connection string set upon successful connection
+    ini_set('display_errors', 'On'); 
+    error_reporting(E_ALL); 
+    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       if (!empty($_POST['beer']))
@@ -35,9 +38,10 @@
                     $error_message[] = "You forgot the ABV.";
                 }
     //   Select always set
+    $brewer_id = $_POST['brewers'];
+
 
     if (empty($error_message)){
-      // $newBrewer = new Brewer(0, $name,$city,$state);
       $q = "SELECT * FROM BEER WHERE BEER_NAME = ?";
       $stmt = mysqli_prepare($dbc,$q);
       mysqli_stmt_bind_param($stmt,'s',$name);
@@ -55,25 +59,26 @@
       }
       else{
         // Prepare and bind
-        // $q = "INSERT INTO BREWER(BREWER_NAME, BREWER_CITY, BREWER_STATE) VALUES (?,?,?)";
-        $q = "INSERT INTO BEER(BEER_ID, BEER_NAME, BEER_DESCRIPTION, BEER_STYLE, BEER_IBU, BEER_ABV, BREWER_ID) VALUES (?,?,?,?,?,?,?)";
+        $q = "INSERT INTO BEER(BEER_NAME, BEER_DESCRIPTION, BEER_STYLE, BEER_IBU, BEER_ABV, BREWER_ID) VALUES (?,?,?,?,?,?)";
         $stmt = mysqli_prepare($dbc,$q);
         // 'sss' declares the types that we are inserting
-        mysqli_stmt_bind_param($stmt,'sssssss',$name, $name, $description, $style, $ibu, $abv);
+        mysqli_stmt_bind_param($stmt,'ssssss',$name, $description, $style, $ibu, $abv,$brewer_id);
         //  Set parameters and execute
         mysqli_stmt_execute($stmt);
         if(mysqli_stmt_affected_rows($stmt)) { //It worked
-
           echo "<div class=\"alert alert-success\" role=\"alert\">
           <p>Thanks for adding <strong>$name</strong></p>
           </div>";
+          include 'includes/footer.php';
+          exit;
         }
-        else
-        echo "<div class=\"alert alert-info\" role=\"alert\">
-          <p>We're sorry, we were not able to add the BEER_DESCRIPTION at this time.</p>
-          </div>";
-        include 'includes/footer.php';
-        exit;
+        else{
+            echo "<div class=\"alert alert-info\" role=\"alert\">
+            <p>We're sorry, we were not able to add {Name: $name, Description: $description, Style: $style, IBU: $ibu, ABV: $abv, BREWID: $brewer_id at this time.</p>
+            </div>";
+            include 'includes/footer.php';
+            exit;
+        }
     }
    }
    else {
@@ -89,80 +94,61 @@
 
 
     <div class="col-md-4 col-md-offset-4 w3-margin-bottom text-center">
-        <form class="justify-content-center" method="POST" action="AddBrewer.php">
+        <form class="justify-content-center" method="POST" action="AddBeer.php">
             <fieldset>
                 <legend>
                     <h2>Add A Beer</h2>
                 </legend>
                 <div class="input-group w3-margin-bottom cntr-form">
-                <div class="form-group">
+                    <div class="form-group w3-margin-bottom"> 
                         <label>Beer Name</label>
-                        <input name="beer" type="text" <?php if(isset($name)) echo " value=\"$name\"";?> class="form-control">
+                        <input name="beer" type="text" <?php if(isset($name)) echo " value=\"$name\"";?> class="form-control" maxlength="55">
                     </div>
 
-                    <div class="form-group">
-                        <label>Description</label>
-                        <input name="description" type="text" <?php if(isset($description)) echo " value=\"$description\"";?> class="form-control" >
-                    </div>
-
-                    <div class="form-group">
+                    <div class="form-group w3-margin-bottom"> 
                         <label>Beer Style</label>
-                        <input name="style" type="text" <?php if(isset($style)) echo " value=\"$style\"";?> class="form-control" >
+                        <input name="style" type="text" <?php if(isset($style)) echo " value=\"$style\"";?> class="form-control" maxlength="50">
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group w3-margin-bottom"> 
                         <label>IBU</label>
-                        <input name="ibu" type="text" <?php if(isset($ibu)) echo " value=\"$ibu\"";?> class="form-control" >
+                        <input name="ibu" type="text" <?php if(isset($ibu)) echo " value=\"$ibu\"";?> class="form-control" maxlength="22">
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group w3-margin-bottom"> 
                         <label>ABV</label>
-                        <input name="abv" type="text" <?php if(isset($abv)) echo " value=\"$abv\"";?> class="form-control" >
+                        <input name="abv" type="text" <?php if(isset($abv)) echo " value=\"$abv\"";?> class="form-control" maxlength="22">
                     </div>
-                    <!-- there is currently a bug where things are getting clipped off the screen
-                    once they go below ABV (this is non-specfic to ABV, they just clip at a certain point) -->
-
-                    <!-- currently there are two ways of doing the dropdown and i'm deciding on which one to use.
-                    Neither work right now. -->
-                    <!-- <div class="form-group">
-                      <label>Brewer</label>
-                      <select name="brewers">
-                      <?php
-                      $brewer_sql=mysql_query("SELECT BREWER_ID, BREWER_NAME FROM BREWER");
-                      if(mysql_num_rows($brewer_sql)){
-                      $select= '<select name="select">';
-                      while($rs=mysql_fetch_array($brewer_sql)){
-                          $select.='<option value="'.$rs['BREWER_ID'].'">'.$rs['BREWER_NAME'].'</option>';                        }
-                      }
-                      $select.='</select>';
-                      echo $select;
+                    <div class="form-group w3-margin-bottom"> 
+                        <label>Description</label>
+                        <textarea rows="5" name="description" class="form-control" maxlength="10000" ><?php if(isset($description)) echo $description;?></textarea>
+                    </div>
+                    
+                    <div class="form-group w3-margin-bottom">
+                        <label>Brewer</label>
+                        <select name="brewers">
+                        <?php
+                    //   Query all the breweries and make a drop down menu with Brewer_id as the value.
+                        $sql="SELECT BREWER_ID, BREWER_NAME FROM BREWER ORDER BY BREWER_NAME";
+                        $r = mysqli_query($dbc, $sql);
+                        if(mysqli_num_rows($r)>0){ // Beers found.
+                            while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
+                                echo "<option value='".$row['BREWER_ID']."'>".$row['BREWER_NAME']."</option>";
+                            }
+                        }
                       ?>
-                    </div> -->
-
-                    <!-- <div class="form-group">
-                      <label>Brewer</label>
-                      <select name="brewers">
-                      <?php
-                      $brewer_query="SELECT BREWER_ID, BREWER_NAME FROM BREWER";
-                      $brewer_result=mysql_query($query);
-                      ?>
-                      <?php
-                      while ($row=mysql_fetch_array($brewer_result)){
-                        echo "<option value='".$row['BREWER_ID']."'>'".$row['BREWER_NAME']."'</option>";
-                      }
-                      ?>
-                      </select>
-
-                    </div> -->
-
-        <p>
-            <span class="input-group-btn">
-                <input type="submit" name="submit" value="Add Beer" class="btn btn-primary">
-            </span>
-        </p>
-</fieldset>
-</form>
-</div>
+                        </select>  
+                    </div>
+                    <div class="form-group w3-margin-bottom">           
+                        <p>
+                            <span class="input-group-btn">
+                                <input type="submit" name="submit" value="Add Beer" class="btn btn-primary">
+                            </span>
+                        </p>
+                    </div>
+            </fieldset>
+        </form>
+    </div>
 <?php
     include('../includes/footer.php');
 ?>
