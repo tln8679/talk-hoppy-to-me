@@ -78,7 +78,7 @@
 <div class="w3-row-padding">
     <div class="w3-container w3-card w3-white w3-margin-bottom">
         <legend>
-            <h2 class="w3-text-grey w3-padding-16" style="text-align: center;"><i class="fa fa-suitcase fa-fw w3-xxlarge w3-text-indigo">Add a beer</i></h2>
+            <h2 class="w3-text-grey w3-padding-16" style="text-align: center;"><i class="fa fa-suitcase fa-fw w3-xxlarge w3-text-indigo">Log in</i></h2>
         </legend>
             <div class="w3-container">
                 <h4> 

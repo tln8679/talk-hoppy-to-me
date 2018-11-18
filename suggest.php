@@ -47,7 +47,7 @@
             <div class="w3-container">
                 <h4> 
                     <form method="POST" action="login.php">
-                    <div class="form-group w3-margin-bottom" style="width:350px; margin: auto;text-align: center;"> 
+                    <div class="form-group w3-margin-bottom" style="width:250px; margin: auto;"text-align: center;"> 
                       <label>Nature of your suggestion:</label><br>
                               <select name="nature">
                         <?php
@@ -63,7 +63,7 @@
                       </label>
                     </div>
 
-                    <div class="form-group w3-margin-bottom" style="width:350px; margin: auto;text-align: center;"> 
+                    <div class="form-group w3-margin-bottom" style="width:250px; margin: auto;"text-align: center;"> 
                     <label for="suggestion">Suggestion:</label>
                       <textarea
                         name="suggestion"

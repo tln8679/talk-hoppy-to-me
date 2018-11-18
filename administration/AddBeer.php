@@ -104,25 +104,25 @@
                     <form method="POST" action="AddBeer.php">
                     <div class="form-group w3-margin-bottom" style="text-align: center;"> 
                         <label>Beer Name</label>
-                        <input name="beer" type="text" style="width:350px; margin: auto;" <?php if(isset($name)) echo " value=\"$name\"";?> class="form-control" maxlength="55">
+                        <input name="beer" type="text" style="width:250px; margin: auto;" <?php if(isset($name)) echo " value=\"$name\"";?> class="form-control" maxlength="55">
                     </div>
                     <div class="form-group w3-margin-bottom" style="text-align: center;"> 
                         <label>Beer Style</label>
-                        <input name="style" type="text" style="width:350px; margin: auto;" <?php if(isset($style)) echo " value=\"$style\"";?> class="form-control" maxlength="50">
+                        <input name="style" type="text" style="width:250px; margin: auto;" <?php if(isset($style)) echo " value=\"$style\"";?> class="form-control" maxlength="50">
                     </div>
 
                     <div class="form-group w3-margin-bottom" style="text-align: center;"> 
                         <label>IBU</label>
-                        <input name="ibu" type="text" style="width:350px; margin: auto;" <?php if(isset($ibu)) echo " value=\"$ibu\"";?> class="form-control" maxlength="22">
+                        <input name="ibu" type="text" style="width:250px; margin: auto;" <?php if(isset($ibu)) echo " value=\"$ibu\"";?> class="form-control" maxlength="22">
                     </div>
 
                     <div class="form-group w3-margin-bottom" style="text-align: center;"> 
                         <label>ABV</label>
-                        <input name="abv" type="text" style="width:350px; margin: auto;" <?php if(isset($abv)) echo " value=\"$abv\"";?> class="form-control" maxlength="22">
+                        <input name="abv" type="text" style="width:250px; margin: auto;" <?php if(isset($abv)) echo " value=\"$abv\"";?> class="form-control" maxlength="22">
                     </div>
                     <div class="form-group w3-margin-bottom" style="text-align: center;"> 
                         <label>Description</label>
-                        <textarea rows="5" name="description" style="width:350px; margin: auto;" class="form-control" maxlength="10000" ><?php if(isset($description)) echo $description;?></textarea>
+                        <textarea rows="5" name="description" style="width:250px; margin: auto;" class="form-control" maxlength="10000" ><?php if(isset($description)) echo $description;?></textarea>
                     </div>
                     <div class="form-group w3-margin-bottom" style="text-align: center;">
                         <label>Brewer</label><br>

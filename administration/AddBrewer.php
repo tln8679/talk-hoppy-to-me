@@ -82,11 +82,11 @@
                     <form method="POST" action="AddBeer.php">
                     <div class="form-group w3-margin-bottom" style="text-align: center;"> 
                         <label>Brewer Name</label>
-                        <input name="brewer" type="text" style="width:350px; margin: auto;" <?php if(isset($name)) echo " value=\"$name\"";?> class="form-control">
+                        <input name="brewer" type="text" style="width:250px; margin: auto;" <?php if(isset($name)) echo " value=\"$name\"";?> class="form-control">
                     </div>
                     <div class="form-group w3-margin-bottom" style="text-align: center;"> 
                         <label>City</label>
-                        <input name="city" type="text" style="width:350px; margin: auto;" <?php if(isset($city)) echo " value=\"$city\"";?> class="form-control" >
+                        <input name="city" type="text" style="width:250px; margin: auto;" <?php if(isset($city)) echo " value=\"$city\"";?> class="form-control" >
                     </div>
 
                     <div class="form-group w3-margin-bottom" style="text-align: center;"> 
