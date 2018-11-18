@@ -96,7 +96,7 @@
 						$name = $first . ' ' . $last;
 						echo "<div class=\"alert alert-success\" role=\"alert\">
 						<p>Thanks for registering <strong>$name</strong></p>
-						<p>We will not send you an email</p>
+						<p>Please <a href=\"login.php\">login!</a></p>
 						</div>";
 					}
 					else

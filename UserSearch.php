@@ -48,7 +48,7 @@
 <div class="container">
     <?php
     // Number of records to show per page:
-    $display = 16;
+    $display = 10;
     // Determine how many pages there are...
     if (isset($_GET['p']) && is_numeric($_GET['p'])) { // Already been determined.
         $pages = $_GET['p'];
@@ -82,7 +82,7 @@
     else {
         $sql = "SELECT USERS.USERS_ID, CONCAT(USERS.FIRST_NAME,' ' ,USERS.LAST_NAME) AS FriendName, USERS.PHONE,USERS.EMAIL,CONCAT(USERS.CITY,', ' ,USERS.STATE) AS Location\n"
             . "FROM `USERS`\n"
-            . "ORDER BY USERS.FIRST_NAME";
+            . "ORDER BY USERS.FIRST_NAME ASC LIMIT $start,$display";
     }
     $r = mysqli_query($dbc, $sql);
     if(mysqli_num_rows($r)>0){ // user found
