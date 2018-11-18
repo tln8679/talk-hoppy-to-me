@@ -54,7 +54,7 @@
             <div class=\"alert alert-info\" role=\"alert\">
                 <p><strong>$name</strong>This brewery is already created!</p>
             </div>";
-        include 'includes/footer.php';
+        include '../includes/footer.php';
         exit;
       }
       else{
@@ -70,7 +70,7 @@
             <div class=\"alert alert-success\" role=\"alert\">
                 <p>Thanks for adding <strong>$name</strong></p>
             </div>";
-          include 'includes/footer.php';
+          include '../includes/footer.php';
           exit;
         }
         else{
@@ -78,13 +78,14 @@
                 "<div class=\"alert alert-info\" role=\"alert\">
                     <p>We're sorry, we were not able to add {Name: $name, Description: $description, Style: $style, IBU: $ibu, ABV: $abv, BREWID: $brewer_id at this time.</p>
                 </div>";
-            include 'includes/footer.php';
+            include '../includes/footer.php';
             exit;
         }
     }
    }
    else {
-        echo "<div class=\"alert alert-danger\" role=\"alert\">
+        echo 
+            "<div class=\"alert alert-danger\" role=\"alert\">
             <p>Please check the following issues <strong><br>";
         foreach($error_message as $missed){
             echo '+ '.$missed."<br>";
@@ -93,40 +94,38 @@
    }
  }
 ?>
-
-    <div class="col-md-4 col-md-offset-4 w3-margin-bottom text-center">
-        <form class="justify-content-center" method="POST" action="AddBeer.php">
-            <fieldset>
-                <legend>
-                    <h2>Add A Beer</h2>
-                </legend>
-                <div class="input-group w3-margin-bottom cntr-form">
-                    <div class="form-group w3-margin-bottom"> 
+<div class="w3-row-padding">
+    <div class="w3-container w3-card w3-white w3-margin-bottom">
+            <legend>
+                <h2 class="w3-text-grey w3-padding-16" style="text-align: center;"><i class="fa fa-suitcase fa-fw w3-xxlarge w3-text-indigo">Add a beer</i></h2>
+            </legend>    
+            <div class="w3-container">
+                <h4> 
+                    <form method="POST" action="AddBeer.php">
+                    <div class="form-group w3-margin-bottom" style="text-align: center;"> 
                         <label>Beer Name</label>
-                        <input name="beer" type="text" <?php if(isset($name)) echo " value=\"$name\"";?> class="form-control" maxlength="55">
+                        <input name="beer" type="text" style="width:350px; margin: auto;" <?php if(isset($name)) echo " value=\"$name\"";?> class="form-control" maxlength="55">
                     </div>
-
-                    <div class="form-group w3-margin-bottom"> 
+                    <div class="form-group w3-margin-bottom" style="text-align: center;"> 
                         <label>Beer Style</label>
-                        <input name="style" type="text" <?php if(isset($style)) echo " value=\"$style\"";?> class="form-control" maxlength="50">
+                        <input name="style" type="text" style="width:350px; margin: auto;" <?php if(isset($style)) echo " value=\"$style\"";?> class="form-control" maxlength="50">
                     </div>
 
-                    <div class="form-group w3-margin-bottom"> 
+                    <div class="form-group w3-margin-bottom" style="text-align: center;"> 
                         <label>IBU</label>
-                        <input name="ibu" type="text" <?php if(isset($ibu)) echo " value=\"$ibu\"";?> class="form-control" maxlength="22">
+                        <input name="ibu" type="text" style="width:350px; margin: auto;" <?php if(isset($ibu)) echo " value=\"$ibu\"";?> class="form-control" maxlength="22">
                     </div>
 
-                    <div class="form-group w3-margin-bottom"> 
+                    <div class="form-group w3-margin-bottom" style="text-align: center;"> 
                         <label>ABV</label>
-                        <input name="abv" type="text" <?php if(isset($abv)) echo " value=\"$abv\"";?> class="form-control" maxlength="22">
+                        <input name="abv" type="text" style="width:350px; margin: auto;" <?php if(isset($abv)) echo " value=\"$abv\"";?> class="form-control" maxlength="22">
                     </div>
-                    <div class="form-group w3-margin-bottom"> 
+                    <div class="form-group w3-margin-bottom" style="text-align: center;"> 
                         <label>Description</label>
-                        <textarea rows="5" name="description" class="form-control" maxlength="10000" ><?php if(isset($description)) echo $description;?></textarea>
+                        <textarea rows="5" name="description" style="width:350px; margin: auto;" class="form-control" maxlength="10000" ><?php if(isset($description)) echo $description;?></textarea>
                     </div>
-                    
-                    <div class="form-group w3-margin-bottom">
-                        <label>Brewer</label>
+                    <div class="form-group w3-margin-bottom" style="text-align: center;">
+                        <label>Brewer</label><br>
                         <select name="brewers">
                         <?php
                     //   Query all the breweries and make a drop down menu with Brewer_id as the value.
@@ -137,20 +136,17 @@
                                 echo "<option value='".$row['BREWER_ID']."'>".$row['BREWER_NAME']."</option>";
                             }
                         }
-                        ?>
+                      ?>
                         </select>  
                     </div>
-                    <div class="form-group w3-margin-bottom">           
-                        <p>
-                            <span class="input-group-btn">
-                                <input type="submit" name="submit" value="Add Beer" class="btn btn-primary">
-                            </span>
-                        </p>
+                    <div class="form-group w3-margin-bottom" style="text-align: center;">           
+                        <input type="submit" name="submit" value="Add" class="btn btn-primary">
                     </div>
-                </div>
-            </fieldset>
-        </form>
+                    </form>
+                </h4>
+            </div>
     </div>
+</div>
 <?php
     include('../includes/footer.php');
 ?>

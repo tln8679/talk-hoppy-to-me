@@ -1,5 +1,23 @@
 <?php
-    session_start();   
+    session_start();
+    // User is not an admin
+    if (isset($_SESSION['admin']) && $_SESSION['admin']==0){
+        $url = 'http://'. $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
+        $url = rtrim($url, '/\\');
+        $page = '../denied.php';
+        $url .= '/' . $page;
+        header("Location: $url");
+        exit();
+      }
+      // User hasn't logged in
+      else if (!isset($_SESSION['admin'])) {
+        $url = 'http://'. $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
+        $url = rtrim($url, '/\\');
+        $page = '../login.php';
+        $url .= '/' . $page;
+        header("Location: $url");
+        exit();
+      }   
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,23 +62,3 @@
         </nav>
     </header>
     <div class="container">
-<?php
-    // User is not an admin
-    if (isset($_SESSION['admin']) && $_SESSION['admin']==0){
-      $url = 'http://'. $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
-      $url = rtrim($url, '/\\');
-      $page = '../denied.php';
-      $url .= '/' . $page;
-      header("Location: $url");
-      exit();
-    }
-    // User hasn't logged in
-    else if (!isset($_SESSION['admin'])) {
-      $url = 'http://'. $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
-      $url = rtrim($url, '/\\');
-      $page = '../login.php';
-      $url .= '/' . $page;
-      header("Location: $url");
-      exit();
-    }
-?>

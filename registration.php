@@ -107,103 +107,89 @@
 					exit;
 			}
 		}
-    }
-?>
-
-<form method="POST" action="registration.php" class="justify-content-center">
-	<fieldset>
-		<?php 
-			if ($error_message){
+		else if ($error_message){
 				echo "<div class=\"alert alert-danger\" role=\"alert\">
 				<p>Please check the following issues <strong><br>";
 				foreach($error_message as $missed){
 					echo '+ '.$missed."<br>";
 				}
 				echo "</strong></p></div>";
-			}
-		?>
-		<div class="form-group w3-margin-bottom cntr-form">
-			<legend>
-				<h2>Thanks for joining!</h2>
-			</legend>
-		</div>
+		}
+    }
+?>
 
-		<div class="form-group w3-margin-bottom cntr-form">
-			<label>
-				<h4>Basics</h4>
-			</label>
-			<p>
-				<label for="fname">First name</label>
-				<span style="color:red">*</span>
-				<input type="text" id="fname" name="fname" <?php if(isset($first)) echo " value=\"$first\""; else echo "placeholder=\"First name\""?> class="form-control" required>
-			</p>
-			<p>
-				<label for="lname">Last name</label>
-				<span style="color:red">*</span>
-				<input type="text" id="lname" name="lname" placeholder="Last name" <?php if(isset($last)) echo " value=\"$last\"";?> class="form-control" required>
-			</p>
-			<p>
-				<label for="email">Email</label>
-				<span style="color:red">*</span>
-				<input id="email" style="width:250px" type="text" name="email" placeholder="Email address" <?php if(isset($email)) echo " value=\"$email\"";?> class="form-control"
-				required>
-			</p>
-			<p>
-				<label for="password">Password</label>
-				<span style="color:red">*</span>
-				<input type="password" id="password" style="width:250px" name="pwd" placeholder="New password" class="form-control"
-				 required>
-			</p>
-			<p>
-				<label for="conf">Re-enter password</label>
-				<span style="color:red">*</span>
-				<input type="password" id="confirm-password" style="width:250px" name="conf" placeholder="Confirm password" class="form-control"
-				 required>
-			</p>
-		</div>
-		<div class="form-group w3-margin-bottom cntr-form">
-			<label>
-				<h4>Address</h4>
-			</label>
-			
-			<p>
-				<label for="city">City</label>
-				<span style="color:red">*</span>
-				<input type="text" id="city" name="city" placeholder="City" class="form-control" <?php if(isset($city)) echo " value=\"$city\"";?> max-length="50" required>
-			</p>
-			<p>
+<div class="w3-row-padding">
+    <div class="w3-container w3-card w3-white w3-margin-bottom">
+            <legend>
+                <h2 class="w3-text-grey w3-padding-16" style="text-align: center;"><i class="fa fa-suitcase fa-fw w3-xxlarge w3-text-indigo">Thanks for joining!</i></h2>
+            </legend>    
+            <div class="w3-container">
+                <h4> 
+                    <form method="POST" action="registration.php">
+                    <div class="form-group w3-margin-bottom" style="text-align: center;"> 
+						<p>
+							<label for="fname">First name</label>
+							<span style="color:red">*</span>
+							<input type="text" id="fname" style="width:350px; margin: auto;" name="fname" <?php if(isset($first)) echo " value=\"$first\""; else echo "placeholder=\"First name\""?> class="form-control" required>
+						</p>
+						<p>
+							<label for="lname">Last name</label>
+							<span style="color:red">*</span>
+							<input type="text" id="lname" style="width:350px; margin: auto;" name="lname" placeholder="Last name" <?php if(isset($last)) echo " value=\"$last\"";?> class="form-control" required>
+						</p>
+						<p>
+							<label for="email">Email</label>
+							<span style="color:red">*</span>
+							<input id="email" style="width:350px; margin: auto;" type="text" name="email" placeholder="Email address" <?php if(isset($email)) echo " value=\"$email\"";?> class="form-control"
+							required>
+						</p>
+						<p>
+							<label for="password">Password</label>
+							<span style="color:red">*</span>
+							<input type="password" id="password" style="width:350px; margin: auto;" name="pwd" placeholder="New password" class="form-control"
+							required>
+						</p>
+						<p>
+							<label for="conf">Re-enter password</label>
+							<span style="color:red">*</span>
+							<input type="password" id="confirm-password" style="width:350px; margin: auto;" name="conf" placeholder="Confirm password" class="form-control"
+							required>
+						</p>
+                    </div>
+                    <div class="form-group w3-margin-bottom" style="text-align: center;"> 
+						<p>
+							<label for="city">City</label>
+							<span style="color:red">*</span>
+							<input type="text" id="city" name="city" style="width:350px; margin: auto;" placeholder="City" class="form-control" <?php if(isset($city)) echo " value=\"$city\"";?> max-length="50" required>
+						</p>
+						<p>
 
-				<label for="state">State</label>
-				<span style="color:red">*</span>
-				<input type="text" id="state" name="state" placeholder="State" class="form-control" <?php if(isset($state)) echo " value=\"$state\"";?> max-length="2" required>
-			</p>
-			
-		</div>
-		<div class="form-group w3-margin-bottom cntr-form">
-			<p>
-				<label for="phonetype">
-					<h4>Phone number</h4>
-				</label>
-				<input type="text" class="form-control" name="phone" placeholder="9109999999" <?php if(isset($phone)) echo " value=\"$phone\"";?> maxlength="12" />
-				<select id="phonetype" name="phonetype">
-					<option value="mobile" class="form-control">Mobile</option>
-					<option value="home" class="form-control">Home</option>
-					<option value="office" class="form-control">Office</option>
-				</select>
-			</p>
-		</div>
-		
-		<div class="form-group w3-margin-bottom cntr-form">
-			<label for="terms">
-				<h5 style="color:red">Agree to terms</h5>
-			</label>
-			<input type="checkbox" id="terms" name="terms" required>
-			<p>
-				<input type="submit" name="submit" value="Register" class="btn btn-primary">
-			</p>
-		</div>
-	</fieldset>
-</form>
+							<label for="state">State</label>
+							<span style="color:red">*</span>
+							<input type="text" id="state" name="state" style="width:350px; margin: auto;" placeholder="State" class="form-control" <?php if(isset($state)) echo " value=\"$state\"";?> max-length="2" required>
+						</p>
+					</div>
+                    <div class="form-group w3-margin-bottom" style="text-align: center;"> 
+						<p>
+							<label for="phonetype">
+								<h4>Phone number</h4>
+							</label>
+							<input type="text" class="form-control" style="width:350px; margin: auto;" name="phone" placeholder="9109999999" <?php if(isset($phone)) echo " value=\"$phone\"";?> maxlength="12" />
+							<select id="phonetype" name="phonetype">
+								<option value="mobile" class="form-control">Mobile</option>
+								<option value="home" class="form-control">Home</option>
+								<option value="office" class="form-control">Office</option>
+							</select>
+						</p>
+					</div>
+                    <div class="form-group w3-margin-bottom" style="text-align: center;">           
+                        <input type="submit" name="submit" value="Add" class="btn btn-primary">
+                    </div>
+                    </form>
+                </h4>
+            </div>
+    </div>
+</div>
 <?php
     include('includes/footer.php');
 ?>

@@ -72,26 +72,25 @@
    }
  }
 ?>
-
-
-    <div class="col-md-4 col-md-offset-4 w3-margin-bottom text-center">
-        <form class="justify-content-center" method="POST" action="AddBrewer.php">
-            <fieldset>
-                <legend>
-                    <h2>Add A Brewery</h2>
-                </legend>
-                <div class="input-group w3-margin-bottom cntr-form">
-                <div class="form-group">
+<div class="w3-row-padding">
+    <div class="w3-container w3-card w3-white w3-margin-bottom">
+            <legend>
+                <h2 class="w3-text-grey w3-padding-16" style="text-align: center;"><i class="fa fa-suitcase fa-fw w3-xxlarge w3-text-indigo">Add a brewer</i></h2>
+            </legend>    
+            <div class="w3-container">
+                <h4> 
+                    <form method="POST" action="AddBeer.php">
+                    <div class="form-group w3-margin-bottom" style="text-align: center;"> 
                         <label>Brewer Name</label>
-                        <input name="brewer" type="text" <?php if(isset($name)) echo " value=\"$name\"";?> class="form-control">
+                        <input name="brewer" type="text" style="width:350px; margin: auto;" <?php if(isset($name)) echo " value=\"$name\"";?> class="form-control">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group w3-margin-bottom" style="text-align: center;"> 
                         <label>City</label>
-                        <input name="city" type="text" <?php if(isset($city)) echo " value=\"$city\"";?> class="form-control" >
+                        <input name="city" type="text" style="width:350px; margin: auto;" <?php if(isset($city)) echo " value=\"$city\"";?> class="form-control" >
                     </div>
-                    <!-- Not going to make the select sticky. Would need to make the states into a php array and use a foreach loop -->
-                    <div class="form-group">
-                        <label>State</label>
+
+                    <div class="form-group w3-margin-bottom" style="text-align: center;"> 
+                    <label>State</label>
                         <br>
                         <select id="state" name="state">
                             <option value="AL">AL</option>
@@ -148,14 +147,13 @@
                             <option value="Imported">Imported</option>
                         </select>
                     </div>
-
-        <p>
-            <span class="input-group-btn">
-                <input type="submit" name="submit" value="Add Brewery" class="btn btn-primary">
-            </span>
-        </p>
-</fieldset>
-</form>
+                    <div class="form-group w3-margin-bottom" style="text-align: center;">           
+                        <input type="submit" name="submit" value="Add" class="btn btn-primary">
+                    </div>
+                    </form>
+                </h4>
+            </div>
+    </div>
 </div>
 <?php
     include('../includes/footer.php');
