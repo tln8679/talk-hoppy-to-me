@@ -29,7 +29,7 @@
 					// Close if statement
 					}
 					// User is on admin pages so show switch back to regular pages
-					if (isset($_SESSION['admin']) && $_SESSION['admin']==1 && strpos($dir, 'administration')){
+					else if (isset($_SESSION['admin']) && $_SESSION['admin']==1 && strpos($dir, 'administration')){
 				?>
 					<a href="../contact.php">
 						<span class="glyphicon glyphicon-envelope"></span>
