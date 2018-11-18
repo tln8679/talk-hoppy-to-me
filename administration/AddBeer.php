@@ -92,7 +92,7 @@
  }
 ?>
 
-
+<div class="container">
     <div class="col-md-4 col-md-offset-4 w3-margin-bottom text-center">
         <form class="justify-content-center" method="POST" action="AddBeer.php">
             <fieldset>
@@ -146,9 +146,11 @@
                             </span>
                         </p>
                     </div>
+                </div>
             </fieldset>
         </form>
     </div>
+</div>
 <?php
     include('../includes/footer.php');
 ?>
