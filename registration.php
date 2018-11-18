@@ -112,14 +112,16 @@
 
 <form method="POST" action="registration.php" class="justify-content-center">
 	<fieldset>
-		<?php if ($error_message)
+		<?php 
+			if ($error_message){
 				echo "<div class=\"alert alert-danger\" role=\"alert\">
 				<p>Please check the following issues <strong><br>";
 				foreach($error_message as $missed){
 					echo '+ '.$missed."<br>";
 				}
 				echo "</strong></p></div>";
-			?>
+			}
+		?>
 		<div class="form-group w3-margin-bottom cntr-form">
 			<legend>
 				<h2>Thanks for joining!</h2>

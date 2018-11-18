@@ -50,10 +50,10 @@
       $count = $stmt->num_rows;
 
       if ($count>0){
-        echo "<div class=\"alert alert-info\" role=\"alert\">
-          <p><strong>$name</strong>This brewery is already created!</p>
-
-          </div>";
+        echo "
+            <div class=\"alert alert-info\" role=\"alert\">
+                <p><strong>$name</strong>This brewery is already created!</p>
+            </div>";
         include 'includes/footer.php';
         exit;
       }
@@ -66,16 +66,18 @@
         //  Set parameters and execute
         mysqli_stmt_execute($stmt);
         if(mysqli_stmt_affected_rows($stmt)) { //It worked
-          echo "<div class=\"alert alert-success\" role=\"alert\">
-          <p>Thanks for adding <strong>$name</strong></p>
-          </div>";
+          echo "
+            <div class=\"alert alert-success\" role=\"alert\">
+                <p>Thanks for adding <strong>$name</strong></p>
+            </div>";
           include 'includes/footer.php';
           exit;
         }
         else{
-            echo "<div class=\"alert alert-info\" role=\"alert\">
-            <p>We're sorry, we were not able to add {Name: $name, Description: $description, Style: $style, IBU: $ibu, ABV: $abv, BREWID: $brewer_id at this time.</p>
-            </div>";
+            echo 
+                "<div class=\"alert alert-info\" role=\"alert\">
+                    <p>We're sorry, we were not able to add {Name: $name, Description: $description, Style: $style, IBU: $ibu, ABV: $abv, BREWID: $brewer_id at this time.</p>
+                </div>";
             include 'includes/footer.php';
             exit;
         }
@@ -83,7 +85,7 @@
    }
    else {
         echo "<div class=\"alert alert-danger\" role=\"alert\">
-        <p>Please check the following issues <strong><br>";
+            <p>Please check the following issues <strong><br>";
         foreach($error_message as $missed){
             echo '+ '.$missed."<br>";
         }
@@ -92,7 +94,6 @@
  }
 ?>
 
-<div class="container">
     <div class="col-md-4 col-md-offset-4 w3-margin-bottom text-center">
         <form class="justify-content-center" method="POST" action="AddBeer.php">
             <fieldset>
@@ -136,7 +137,7 @@
                                 echo "<option value='".$row['BREWER_ID']."'>".$row['BREWER_NAME']."</option>";
                             }
                         }
-                      ?>
+                        ?>
                         </select>  
                     </div>
                     <div class="form-group w3-margin-bottom">           
@@ -150,7 +151,6 @@
             </fieldset>
         </form>
     </div>
-</div>
 <?php
     include('../includes/footer.php');
 ?>
