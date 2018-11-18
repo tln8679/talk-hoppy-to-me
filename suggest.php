@@ -39,48 +39,45 @@
 	}
 ?>
 
-<div class="col-md-4 col-md-offset-4 w3-margin-bottom text-center">
-  <form class="justify-content-center" method="POST" action="suggest.php">
-    <fieldset>
-      <legend><h2>Make a suggestion!</h2></legend>
-      <div class="input-group w3-margin-bottom cntr-form">
-        <div class="form-group">
-            <label>Nature of your suggestion:</label>
-                <select name="nature">
-					<?php
-						if (isset($_POST['submit'])) {
-							echo "<option selected value=\"$nature\">$nature</option>\n";
-						}
-                    ?>
-                    <option value="add">Add a beer</option>
-                    <option value="add">Edit a beer</option>
-                    <option value="add">Report a user</option>
-                    <option value="add">Other</option>
-					</select>
-		    </label></p>
+<div class="w3-row-padding">
+    <div class="w3-container w3-card w3-white w3-margin-bottom">
+        <legend>
+            <h2 class="w3-text-grey w3-padding-16" style="text-align: center;"><i class="fa fa-suitcase fa-fw w3-xxlarge w3-text-indigo">Make a suggestion!</i></h2>
+        </legend>
+            <div class="w3-container">
+                <h4> 
+                    <form method="POST" action="login.php">
+                    <div class="form-group w3-margin-bottom" style="width:250px; margin: auto;text-align: center;"> 
+                      <label>Nature of your suggestion:</label><br>
+                              <select name="nature">
+                        <?php
+                          if (isset($_POST['submit'])) {
+                            echo "<option selected value=\"$nature\">$nature</option>\n";
+                          }
+                        ?>
+                                  <option value="add">Add a beer</option>
+                                  <option value="add">Edit a beer</option>
+                                  <option value="add">Report a user</option>
+                                  <option value="add">Other</option>
+                        </select>
+                      </label>
+                    </div>
+
+                    <div class="form-group w3-margin-bottom" style="width:250px; margin: auto;text-align: center;"> 
+                    <label for="suggestion">Suggestion:</label>
+                      <textarea
+                        name="suggestion"
+                        class="form-control"
+                        rows="5"
+                        id="comment">
+                        <?php if(isset($description)) echo $suggestion;?>
+                      </textarea>
+                    </div>
+                    <div class="form-group w3-margin-bottom" style="text-align: center;">           
+                        <input type="submit" name="submit" value="Submit" class="btn btn-primary">
+                    </div>
         </div>
-        <div class="form-group">
-          <label for="suggestion">Suggestion:</label>
-          <textarea
-            name="suggestion"
-            class="form-control"
-            rows="5"
-            id="comment"
-          ><?php if(isset($description)) echo " value=\"$suggestion\"";?></textarea>
-        </div>
-      </div>
-      <p>
-        <span class="input-group-btn">
-          <input
-            type="submit"
-            name="submit"
-            value="Submit"
-            class="btn btn-primary"
-          />
-        </span>
-      </p>
-    </fieldset>
-  </form>
+    </div>
 </div>
 <?php
     include('includes/footer.php');
