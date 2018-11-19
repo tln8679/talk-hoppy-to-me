@@ -8,8 +8,6 @@
 
 <?php
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        // echo '<div class="alert alert-warning" role="alert"><p> Sorry!</p>
-        // <p class="text-danger">No database created, yet.</p></div>';
         $mail = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
 	    if (!filter_var(trim($_POST['email']), FILTER_VALIDATE_EMAIL)) { //Either empty or invalid email will be considered missing
             $missing[] = 'email';
@@ -77,27 +75,29 @@
 
 <div class="w3-row-padding">
     <div class="w3-container w3-card w3-white w3-margin-bottom">
-        <legend>
-            <h2 class="w3-text-grey w3-padding-16" style="text-align: center;"><i class="fa fa-suitcase fa-fw w3-xxlarge w3-text-indigo">Log in</i></h2>
-        </legend>
-            <div class="w3-container">
-                <h4> 
-                    <form method="POST" action="login.php">
-                    <div class="form-group w3-margin-bottom" style="text-align: center;"> 
-                        <label for="email">Email</label>
-                        <span style="color:red">*</span>
-                        <input id="email" style="width:250px; margin: auto;" type="text" name="email" placeholder="Enter email" <?php if(isset($email)) echo " value=\"$email\"";?> class="form-control"
-                            required>
-                    </div>
-                    <div class="form-group w3-margin-bottom" style="text-align: center;"> 
-                        <label for="password">Password</label>
-                        <span style="color:red">*</span>
-                        <input type="password" id="password" style="width:250px; margin: auto;" name="password"  placeholder="Enter password"
+        <div class="w3-container">
+                <form method="POST" action="login.php">
+                    <fieldset>
+                        <legend class="w3-text-grey w3-padding-16" style="text-align: center;">
+                            <i class="fa fa-suitcase fa-fw w3-xxlarge w3-text-indigo">Log in</i>
+                        </legend>
+                        <div class="form-group w3-margin-bottom" style="text-align: center;"> 
+                            <label for="email">Email</label>
+                            <span style="color:red">*</span>
+                            <input id="email" style="width:250px; margin: auto;" type="text" name="email" placeholder="Enter email" <?php if(isset($email)) echo " value=\"$email\"";?> class="form-control"
+                                    required>
+                        </div>
+                        <div class="form-group w3-margin-bottom" style="text-align: center;"> 
+                            <label for="password">Password</label>
+                            <span style="color:red">*</span>
+                            <input type="password" id="password" style="width:250px; margin: auto;" name="password"  placeholder="Enter password"
                             class="form-control" required>
-                    </div>
-                    <div class="form-group w3-margin-bottom" style="text-align: center;">           
-                        <input type="submit" name="submit" value="Add" class="btn btn-primary">
-                    </div>
+                        </div>
+                        <div class="form-group w3-margin-bottom" style="text-align: center;">           
+                            <input type="submit" name="submit" value="Add" class="btn btn-primary">
+                        </div>
+                </fieldset>
+                </form>
         </div>
     </div>
 </div>
