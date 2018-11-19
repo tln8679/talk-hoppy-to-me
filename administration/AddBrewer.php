@@ -1,6 +1,7 @@
 <?php
     // page for admin to add brewer
     // Adds brewer if it does not exist already
+    $page_title = 'Add brewer!';
     include('../includes/AdminHeader.php');
     require('../beans/brewery.php');
     require_once '../../../mysqli_connect.php'; //$dbc is the connection string set upon successful connection
@@ -74,12 +75,12 @@
 ?>
 <div class="w3-row-padding">
     <div class="w3-container w3-card w3-white w3-margin-bottom">
-            <legend>
-                <h2 class="w3-text-grey w3-padding-16" style="text-align: center;"><i class="fa fa-suitcase fa-fw w3-xxlarge w3-text-indigo">Add a brewer</i></h2>
-            </legend>    
-            <div class="w3-container">
-                <h4> 
-                    <form method="POST" action="AddBeer.php">
+        <div class="w3-container"> 
+            <form method="POST" action="AddBeer.php">
+                <fieldset>
+                    <legend class="w3-text-grey w3-padding-16" style="text-align: center;">
+                        <i class="fa fa-suitcase fa-fw w3-xxlarge w3-text-indigo">Add a brewer</i>
+                    </legend>   
                     <div class="form-group w3-margin-bottom" style="text-align: center;"> 
                         <label>Brewer Name</label>
                         <input name="brewer" type="text" style="width:250px; margin: auto;" <?php if(isset($name)) echo " value=\"$name\"";?> class="form-control">
@@ -150,9 +151,9 @@
                     <div class="form-group w3-margin-bottom" style="text-align: center;">           
                         <input type="submit" name="submit" value="Add" class="btn btn-primary">
                     </div>
-                    </form>
-                </h4>
-            </div>
+                </fieldset>
+            </form>
+        </div>
     </div>
 </div>
 <?php

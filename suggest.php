@@ -41,13 +41,13 @@
 
 <div class="w3-row-padding">
     <div class="w3-container w3-card w3-white w3-margin-bottom">
-        <legend>
-            <h2 class="w3-text-grey w3-padding-16" style="text-align: center;"><i class="fa fa-suitcase fa-fw w3-xxlarge w3-text-indigo">Make a suggestion!</i></h2>
-        </legend>
-            <div class="w3-container">
-                <h4> 
-                    <form method="POST" action="login.php">
-                    <div class="form-group w3-margin-bottom" style="width:250px; margin: auto;"text-align: center;"> 
+        <div class="w3-container">            
+            <form method="POST" action="login.php">
+                <fieldset>
+                    <legend class="w3-text-grey w3-padding-16" style="text-align: center;">
+                        <i class="fa fa-suitcase fa-fw w3-xxlarge w3-text-indigo">Make a suggestion!</i>
+                    </legend>
+                    <div class="form-group w3-margin-bottom" style="text-align: center;"> 
                       <label>Nature of your suggestion:</label><br>
                               <select name="nature">
                         <?php
@@ -55,27 +55,29 @@
                             echo "<option selected value=\"$nature\">$nature</option>\n";
                           }
                         ?>
-                                  <option value="add">Add a beer</option>
-                                  <option value="add">Edit a beer</option>
-                                  <option value="add">Report a user</option>
-                                  <option value="add">Other</option>
+                            <option value="add">Add a beer</option>
+                            <option value="add">Edit a beer</option>
+                            <option value="add">Report a user</option>
+                            <option value="add">Other</option>
                         </select>
-                      </label>
                     </div>
 
-                    <div class="form-group w3-margin-bottom" style="width:250px; margin: auto;"text-align: center;"> 
-                    <label for="suggestion">Suggestion:</label>
+                    <div class="form-group w3-margin-bottom" style="text-align: center;"> 
+                    <label>Suggestion:</label>
                       <textarea
                         name="suggestion"
                         class="form-control"
                         rows="5"
-                        id="comment">
+                        id="comment"
+                        style="width:250px; margin: auto;">
                         <?php if(isset($description)) echo $suggestion;?>
                       </textarea>
                     </div>
                     <div class="form-group w3-margin-bottom" style="text-align: center;">           
                         <input type="submit" name="submit" value="Submit" class="btn btn-primary">
                     </div>
+                </fieldset>
+            </form>
         </div>
     </div>
 </div>
