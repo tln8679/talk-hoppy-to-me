@@ -21,7 +21,7 @@
                 <form class=\"justify-content-center\" method=\"POST\" action=\"$log.php\">
                     <fieldset>
                         <legend>
-                            <h2>Log your brews!</h2>
+                            Log your brews!
                         </legend>
                         <div class=\"input-group w3-margin-bottom cntr-form\">
                         <div class=\"form-group\">
@@ -72,18 +72,18 @@
     <form method="GET" action="BeerSearch.php" class="justify-content-center">
         <fieldset>
             <legend>
-                <h2>Filter by</h2>
+                Filter by
             </legend>
             <div class="form-group">
                 <div class="input-group w3-margin-bottom cntr-form">
                     <div class="btn-group btn-group-toggle" data-toggle="buttons">
                         <label class="btn btn-primary active bg-primary">
-                            <input type="radio" name="options" id="option1" value="beer_name" autocomplete="off" checked> Name
+                            <input type="radio" name="options" id="option1" value="beer_name" checked> Name
                         </label>
                         <label class="btn btn-primary bg-primary">
-                            <input type="radio" name="options" id="option2" value="beer_maker" autocomplete="off"> Brewer                            </label>
+                            <input type="radio" name="options" id="option2" value="beer_maker"> Brewer                            </label>
                         <label class="btn btn-primary bg-primary">
-                            <input type="radio" name="options" id="option3" value="beer_style" autocomplete="off"> Style
+                            <input type="radio" name="options" id="option3" value="beer_style"> Style
                         </label>
                     </div>
                 </div>
@@ -264,7 +264,7 @@
                                             <input type=\"hidden\" name=\"beer-name\" value=\"$name\">
                                             <input type=\"hidden\" name=\"beer-maker\" value=\"$maker\">
                                             <input type=\"hidden\" name=\"log-type\" value=\"log\">
-                                            <button id=\"log\" type=\"submit\" title=\"log\" class=\"btn btn-link btn-lg\">
+                                            <button type=\"submit\" title=\"log\" class=\"btn btn-link btn-lg\">
                                                 <span style=\"color:goldenrod;\" class=\"glyphicon glyphicon-th-list\"></span>
                                             </button>
                                         </form>
@@ -274,7 +274,7 @@
                                             <input type=\"hidden\" name=\"beer-name\" value=\"$name\">
                                             <input type=\"hidden\" name=\"beer-maker\" value=\"$maker\">
                                             <input type=\"hidden\" name=\"log-type\" value=\"love\">
-                                            <button id=\"love\" type=\"submit\" title=\"love\" class=\"btn btn-link btn-lg\">
+                                            <button type=\"submit\" title=\"love\" class=\"btn btn-link btn-lg\">
                                                 <span style=\"color:goldenrod;\" class=\"glyphicon glyphicon-heart\"></span>
                                             </button>
                                         </form>
@@ -284,7 +284,7 @@
                                             <input type=\"hidden\" name=\"beer-name\" value=\"$name\">
                                             <input type=\"hidden\" name=\"beer-maker\" value=\"$maker\">
                                             <input type=\"hidden\" name=\"log-type\" value=\"later\">
-                                            <button id=\"later\" type=\"submit\" title=\"later\" class=\"btn btn-link btn-lg\">
+                                            <button type=\"submit\" title=\"later\" class=\"btn btn-link btn-lg\">
                                                 <span style=\"color:goldenrod;\" class=\"glyphicon glyphicon-star\"></span>
                                             </button>
                                         </form>
@@ -296,7 +296,7 @@
         }
         if (($counter+1)%4===0){
             // Last card on the row, so close the row tag
-            echo "</div></br>";
+            echo "</div>";
         }
         $counter++;
     }
