@@ -9,7 +9,7 @@
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       if (!empty($_POST['beer']))
-  			$name = filter_var(trim($_POST['beer']), FILTER_SANITIZE_STRING);
+  			$name = trim($_POST['beer']);
   		else
   			$error_message[]= "You forgot the beer name";
 
