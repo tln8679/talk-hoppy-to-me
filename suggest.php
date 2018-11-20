@@ -63,15 +63,8 @@
                     </div>
 
                     <div class="form-group w3-margin-bottom" style="text-align: center;"> 
-                    <label>Suggestion:</label>
-                      <textarea
-                        name="suggestion"
-                        class="form-control"
-                        rows="5"
-                        id="comment"
-                        style="width:250px; margin: auto;">
-                        <?php if(isset($description)) echo $suggestion;?>
-                      </textarea>
+                        <label>Suggestion:</label>
+                        <textarea rows="5" name="suggestion" style="width:250px; margin: auto;" class="form-control" maxlength="10000" ><?php if(isset($suggestion)) echo $suggestion;?></textarea>
                     </div>
                     <div class="form-group w3-margin-bottom" style="text-align: center;">           
                         <input type="submit" name="submit" value="Submit" class="btn btn-primary">

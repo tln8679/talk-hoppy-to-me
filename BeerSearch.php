@@ -9,61 +9,174 @@
     include('includes/header.php');
     include("beans/beer.php");
     require_once '../../mysqli_connect.php';
+    ini_set('display_errors', 'On'); 
+    error_reporting(E_ALL); 
+    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
    
-
     // This form displays if the user has selected a beer to add to a list and then exits
-    if ($_SERVER['REQUEST_METHOD']=='POST') {
+    if ($_SERVER['REQUEST_METHOD']=='POST' && empty($_POST['log_it'])) {
         $beer_name = $_POST['beer-name'];
+        $beer_id = $_POST['beer-id'];
         $beer_maker = $_POST['beer-maker'];
         $log = $_POST['log-type'];
-        echo "
-            <div class=\"col-md-4 col-md-offset-4 w3-margin-bottom text-center\">
-                <form class=\"justify-content-center\" method=\"POST\" action=\"$log.php\">
-                    <fieldset>
-                        <legend>
-                            Log your brews!
-                        </legend>
-                        <div class=\"input-group w3-margin-bottom cntr-form\">
-                        <div class=\"form-group\">
-                                <label>Action</label>
-                                <input name=\"log-type\" type=\"text\" value=\"$log\" class=\"form-control\" readonly>
-                            </div>
-                            <div class=\"form-group\">
-                                <label>Beer</label>
-                                <input name=\"beer-name\" type=\"text\" value=\"$beer_name\" class=\"form-control\" readonly>
-                            </div>
-                            <div class=\"form-group\">
-                                <label>Brewed by</label>
-                                <input name=\"beer_maker\" type=\"text\" value=\"$beer_maker\" class=\"form-control\" readonly>
+        // display the html
+?>
+<div class="w3-row-padding">
+    <div class="w3-container w3-card w3-white w3-margin-bottom">
+        <div class="w3-container">            
+            <form method="POST" action="BeerSearch.php">
+                <fieldset>
+                    <legend class="w3-text-grey w3-padding-16" style="text-align: center;">
+                        <i class="fa fa-suitcase fa-fw w3-xxlarge w3-text-indigo">Log your brew!</i>
+                    </legend>
+                    <div class="form-group w3-margin-bottom" style="text-align: center;"> 
+                        <label>Action</label>
+                        <input name="log-type" style="width:250px; margin: auto;" type="text" value="<?php echo $log; ?>" class="form-control" readonly>
+                    </div>
+
+                    <div class="form-group w3-margin-bottom" style="text-align: center;"> 
+                        <label>Beer</label>
+                        <input name="beer-name" style="width:250px; margin: auto;" type="text" value="<?php echo $beer_name; ?>" class="form-control" readonly>            
+                    </div>
+                    <div class="form-group w3-margin-bottom" style="text-align: center;"> 
+                        <label>Beer ID</label>
+                        <input name="beer-id" style="width:250px; margin: auto;" type="text" value="<?php echo $beer_id; ?>" class="form-control" readonly>            
+                    </div>
+                    <div class="form-group w3-margin-bottom" style="text-align: center;"> 
+                        <label>Brewed by</label>
+                        <input name="beer-maker" style="width:250px; margin: auto;" type="text" value="<?php echo $beer_maker; ?>" class="form-control" readonly>          
+                    </div>
+                    <?php
+                        // Only show rating scale for rating
+                        if ($log =="log"){
+                            echo "<div class=\"form-group\" style=\"text-align: center;\">
+                                <label>Rating</label><br>
+                                <label class=\"radio-inline\"><input type=\"radio\" name=\"rating\" value=\"1\" checked>1</label>
+                                <label class=\"radio-inline\"><input type=\"radio\" name=\"rating\" value=\"2\">2</label>
+                                <label class=\"radio-inline\"><input type=\"radio\" name=\"rating\" value=\"3\">3</label>
+                                <label class=\"radio-inline\"><input type=\"radio\" name=\"rating\" value=\"4\">4</label>
+                                <label class=\"radio-inline\"><input type=\"radio\" name=\"rating\" value=\"5\">5</label>
                             </div>";
-                            if ($log =="log"){
-                                echo "<div class=\"form-group\">
-                                    <label>Rating</label><br>
-                                    <label class=\"radio-inline\"><input type=\"radio\" name=\"rating\" checked>1</label>
-                                    <label class=\"radio-inline\"><input type=\"radio\" name=\"rating\">2</label>
-                                    <label class=\"radio-inline\"><input type=\"radio\" name=\"rating\">3</label>
-                                    <label class=\"radio-inline\"><input type=\"radio\" name=\"rating\">4</label>
-                                    <label class=\"radio-inline\"><input type=\"radio\" name=\"rating\">5</label>
-                                </div>";
-                            }
-                            echo "<div class=\"form-group\">
-                                <label for=\"comment\">Comment:</label>
-                                <textarea name=\"comment\" class=\"form-control\" rows=\"5\" id=\"comment\"></textarea>
-                            </div>
-                        </div> 
-                            <p>
-                                <span class=\"input-group-btn\">
-                                    <input type=\"submit\" name=\"submit\" value=\"$log\" class=\"btn btn-primary\">
-                                </span>
-                            </p>
-                    </fieldset>
-                </form>
-            </div>
-        ";
+                        // We only want comments for log as well
+                    ?>
+                    <div class="form-group w3-margin-bottom" style="text-align: center;"> 
+                        <label>Comment:</label>
+                        <textarea rows="5" name="comment" style="width:250px; margin: auto;" class="form-control" maxlength="10000" ><?php if(isset($comment)) echo $comment;?></textarea>
+                    </div>
+                    <?php } ?>
+                    <div class="form-group w3-margin-bottom" style="text-align: center;">           
+                        <input type="submit" name="log_it" value="Submit" class="btn btn-primary">
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+<?php
         include("includes/footer.php");
         exit;
     }
     // End form 
+
+    // SQL for adding a beer to logged/love/later
+    if (isset($_POST['log_it'])){
+        $action = $_POST['log-type'];
+        $beer_id = $_POST['beer-id'];
+        $user_id = $_SESSION['usersID'];
+        $beer_name = $_POST['beer-name'];
+        
+        switch ($action) {
+            case "log":
+                // always set for log (default)
+                $rating = $_POST['rating'];
+                if (!empty($_POST['comment'])){
+                    // Not going to sanitize because prepared statement is enough
+                    $comment = $_POST['comment'];
+                }
+                // Insert to log
+                // Ignore if record with this Primary already exists (ie jump to error message)
+                $sql = "INSERT IGNORE INTO `USER_LOG`(`BEER_ID`, `USERS_ID`) VALUES (?,?)";
+                $stmt = mysqli_prepare($dbc,$sql);
+                // 'ss' declares the types that we are inserting
+                mysqli_stmt_bind_param($stmt,'ss',$beer_id, $user_id);
+                mysqli_stmt_execute($stmt);
+                if(mysqli_stmt_affected_rows($stmt)) { //It worked
+                    echo "<div class=\"alert alert-success\" role=\"alert\">
+                    <p>You have logged <strong>$beer_name</strong></p>
+                    <p><a href=\"BeerSearch.php\">Click to return to beers</a></p>
+                    </div>";
+                }
+                else{
+                    echo "<div class=\"alert alert-danger\" role=\"alert\">
+                        <p>We're sorry, there was an error trying to log $beer_name. Ensure that you haven't already added this beer.</p>
+                        <p><a href=\"BeerSearch.php\">Click to return to beers</a></p>
+                        </div>";
+                    break;
+                }
+                unset($sql);
+                unset($stmt);
+                //  insert as a post to be displayed on the feed
+                $sql = "INSERT IGNORE INTO `USER_POST`(`RATING`, `COMMENT`, `USER_ID`, `BEER_ID`) VALUES (?,?,?,?)";
+                $stmt = mysqli_prepare($dbc,$sql);
+                mysqli_stmt_bind_param($stmt,'ssss',$rating,$comment,$user_id,$beer_id);
+                mysqli_stmt_execute($stmt);
+                if(mysqli_stmt_affected_rows($stmt)) { //It worked
+                    echo "<div class=\"alert alert-success\" role=\"alert\">
+                    <p>You have posted <strong>$beer_name</strong> to the feed!</p>
+                    </div>";
+                }
+                else{
+                    echo "<div class=\"alert alert-danger\" role=\"alert\">
+                        <p>We're sorry, there was an error posting: $rating, $comment, $user_id, $beer_id</p>
+                        <p><a href=\"BeerSearch.php\">Click to return to beers</a></p>
+                        </div>";
+                }
+                break;
+            case "love":
+                $sql = "INSERT IGNORE INTO `USER_LOVE`(`BEER_ID`, `USERS_ID`) VALUES (?,?)";
+                $stmt = mysqli_prepare($dbc,$sql);
+                // 'ss' declares the types that we are inserting
+                mysqli_stmt_bind_param($stmt,'ss',$beer_id, $user_id);
+                mysqli_stmt_execute($stmt);
+                if(mysqli_stmt_affected_rows($stmt)) { //It worked
+                    echo "<div class=\"alert alert-success\" role=\"alert\">
+                    <p>You have loved <strong>$beer_name</strong></p>
+                    <p><a href=\"BeerSearch.php\">Click to return to beers</a></p>
+                    </div>";
+                }
+                else{
+                    echo "<div class=\"alert alert-danger\" role=\"alert\">
+                        <p>We're sorry, there was an error trying to log $beer_name</p>
+                        <p><a href=\"BeerSearch.php\">Click to return to beers</a></p>
+                        </div>";
+                }
+                break;
+            case "later":
+                $sql = "INSERT IGNORE INTO `USER_LATER`(`BEER_ID`, `USERS_ID`) VALUES (?,?)";
+                $stmt = mysqli_prepare($dbc,$sql);
+                // 'ss' declares the types that we are inserting
+                mysqli_stmt_bind_param($stmt,'ss',$beer_id, $user_id);
+                mysqli_stmt_execute($stmt);
+                if(mysqli_stmt_affected_rows($stmt)) { //It worked
+                    echo "<div class=\"alert alert-success\" role=\"alert\">
+                    <p>You have marked <strong>$beer_name</strong> for later</p>
+                    <p><a href=\"BeerSearch.php\">Click to return to beers</a></p>
+                    </div>";
+                }
+                else{
+                    echo "<div class=\"alert alert-danger\" role=\"alert\">
+                        <p>We're sorry, there was an error trying to log $beer_name</p>
+                        <p><a href=\"BeerSearch.php\">Click to return to beers</a></p>
+                        </div>";
+                }
+                break;
+            default:
+                echo "<p>Error</p>";
+        }
+        include("includes/footer.php");
+        exit;
+
+    }
 ?>
 
 
@@ -99,6 +212,7 @@
     </form> 
 </div>
 
+
 <div class="container">
     <?php
     // Number of records to show per page:
@@ -128,7 +242,7 @@
     }
 
     // Query for the beers
-    $sql = "SELECT `BEER_NAME`,BREWER.BREWER_NAME,`BEER_DESCRIPTION`,CONCAT(BREWER.BREWER_CITY,', ' ,BREWER.BREWER_STATE) AS Location,`BEER_ABV`,`BEER_IBU`,`BEER_STYLE` \n"
+    $sql = "SELECT `BEER_ID`, `BEER_NAME`,BREWER.BREWER_NAME,`BEER_DESCRIPTION`,CONCAT(BREWER.BREWER_CITY,', ' ,BREWER.BREWER_STATE) AS Location,`BEER_ABV`,`BEER_IBU`,`BEER_STYLE` \n"
     . "FROM `BEER`\n"
     . "INNER JOIN BREWER on BEER.BREWER_ID=BREWER.BREWER_ID\n"
     . "ORDER by BEER_NAME\n"
@@ -137,6 +251,7 @@
     $counter = 0;
     while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
         $beer_name = $row['BEER_NAME'];
+        $beer_id = $row['BEER_ID'];
 
         // Get the beer rating from derivation
         $sql = "SELECT BEER_NAME AS beer, AVG(USER_POST.RATING) AS Rating\n"
@@ -160,7 +275,7 @@
         $abv = strval($abv)."%";
         $ibu = $beer->get_ibu();
         $style = $beer->get_style();
-        if ($counter % 4 === 0 || counter === 0){
+        if ($counter % 4 === 0 || $counter === 0){
             // This condition, starts a new row
             echo "
                 <div class=\"w3-row-padding\">
@@ -195,6 +310,7 @@
                                     <div class=\"w3-third \">
                                         <form method=\"POST\" action=\"BeerSearch.php\">
                                             <input type=\"hidden\" name=\"beer-name\" value=\"$name\">
+                                            <input type=\"hidden\" name=\"beer-id\" value=\"$beer_id\">
                                             <input type=\"hidden\" name=\"beer-maker\" value=\"$maker\">
                                             <input type=\"hidden\" name=\"log-type\" value=\"log\">
                                             <button type=\"submit\" class=\"btn btn-link btn-lg\">
@@ -205,6 +321,7 @@
                                     <div class=\"w3-third\">
                                         <form method=\"POST\" action=\"BeerSearch.php\">
                                             <input type=\"hidden\" name=\"beer-name\" value=\"$name\">
+                                            <input type=\"hidden\" name=\"beer-id\" value=\"$beer_id\">
                                             <input type=\"hidden\" name=\"beer-maker\" value=\"$maker\">
                                             <input type=\"hidden\" name=\"log-type\" value=\"love\">
                                             <button type=\"submit\" class=\"btn btn-link btn-lg\">
@@ -215,6 +332,7 @@
                                     <div class=\"w3-third\">
                                         <form method=\"POST\" action=\"BeerSearch.php\">
                                             <input type=\"hidden\" name=\"beer-name\" value=\"$name\">
+                                            <input type=\"hidden\" name=\"beer-id\" value=\"$beer_id\">
                                             <input type=\"hidden\" name=\"beer-maker\" value=\"$maker\">
                                             <input type=\"hidden\" name=\"log-type\" value=\"later\">
                                             <button type=\"submit\" class=\"btn btn-link btn-lg\">
@@ -262,6 +380,7 @@
                                     <div class=\"w3-third\">
                                         <form method=\"POST\" action=\"BeerSearch.php\">
                                             <input type=\"hidden\" name=\"beer-name\" value=\"$name\">
+                                            <input type=\"hidden\" name=\"beer-id\" value=\"$beer_id\">
                                             <input type=\"hidden\" name=\"beer-maker\" value=\"$maker\">
                                             <input type=\"hidden\" name=\"log-type\" value=\"log\">
                                             <button type=\"submit\" title=\"log\" class=\"btn btn-link btn-lg\">
@@ -272,6 +391,7 @@
                                     <div class=\"w3-third\">
                                         <form method=\"POST\" action=\"BeerSearch.php\">
                                             <input type=\"hidden\" name=\"beer-name\" value=\"$name\">
+                                            <input type=\"hidden\" name=\"beer-id\" value=\"$beer_id\">
                                             <input type=\"hidden\" name=\"beer-maker\" value=\"$maker\">
                                             <input type=\"hidden\" name=\"log-type\" value=\"love\">
                                             <button type=\"submit\" title=\"love\" class=\"btn btn-link btn-lg\">
@@ -282,6 +402,7 @@
                                     <div class=\"w3-third\">
                                         <form method=\"POST\" action=\"BeerSearch.php\">
                                             <input type=\"hidden\" name=\"beer-name\" value=\"$name\">
+                                            <input type=\"hidden\" name=\"beer-id\" value=\"$beer_id\">
                                             <input type=\"hidden\" name=\"beer-maker\" value=\"$maker\">
                                             <input type=\"hidden\" name=\"log-type\" value=\"later\">
                                             <button type=\"submit\" title=\"later\" class=\"btn btn-link btn-lg\">

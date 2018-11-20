@@ -94,7 +94,7 @@
                             class="form-control" required>
                         </div>
                         <div class="form-group w3-margin-bottom" style="text-align: center;">           
-                            <input type="submit" name="submit" value="Add" class="btn btn-primary">
+                            <input type="submit" name="submit" value="Login" class="btn btn-primary">
                         </div>
                 </fieldset>
                 </form>
