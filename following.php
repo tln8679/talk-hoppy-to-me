@@ -9,13 +9,39 @@
 <div class="w3-content w3-margin-top" style="max-width:1400px;">
 
 <?php
+    // Number of records to show per page:
+    $display = 10;
+    // Determine how many pages there are...
+    if (isset($_GET['p']) && is_numeric($_GET['p'])) { // Already been determined.
+        $pages = $_GET['p'];
+    } else { // Need to determine.
+        // Count the number of records:
+        $sql = "SELECT COUNT(`USERS_ID`) FROM `USERS`";
+        $r = mysqli_query($dbc, $sql);
+        $row = mysqli_fetch_array($r, MYSQLI_NUM);
+        $records = $row[0];
+        // Calculate the number of pages...
+        if ($records > $display) { // More than 1 page.
+            $pages = ceil ($records/$display);
+        } else {
+            $pages = 1;
+        }
+    } // End of p IF.
+
+    // Determine where in the database to start returning results...
+    if (isset($_GET['s']) && is_numeric($_GET['s'])) {
+        $start = $_GET['s'];
+    } else {
+        $start = 0;
+    }
+
     if (isset($_GET['id']) && is_numeric($_GET['id'])) { // Already been determined.
         $current_id = $_GET['id'];
         $sql = "SELECT USER_FRIENDS.USERS_ID, FRIEND_ID, CONCAT(USERS.FIRST_NAME,' ' ,USERS.LAST_NAME) AS FriendName, USERS.PHONE,USERS.EMAIL,CONCAT(USERS.CITY,', ' ,USERS.STATE) AS Location\n"
             . "FROM `USER_FRIENDS`\n"
             . "JOIN USERS on USER_FRIENDS.FRIEND_ID = USERS.USERS_ID\n"
             . "WHERE USER_FRIENDS.USERS_ID = $current_id \n"
-            . "ORDER BY USERS.FIRST_NAME";
+            . "ORDER BY USERS.FIRST_NAME LIMIT $start,$display";
             $r = mysqli_query($dbc, $sql);
             if(mysqli_num_rows($r)>0){ // user found
               while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
@@ -54,6 +80,30 @@
   
   <!-- End Page Container -->
 </div>
+<div class="container alert alert-info w3-margin-top" role="alert">
 <?php
+    // Make the links to other pages, if necessary.
+    if ($pages > 1) {
+        echo '<p>';
+        // Determine what page the script is on:
+        $current_page = ($start/$display) + 1;
+        // If it's not the first page, make a Previous link:
+        if ($current_page != 1) {
+            echo '<a href="UserSearch.php?s=' . ($start - $display) . '&p=' . $pages . '">Previous</a> ';
+        }
+        // Make all the numbered pages:
+        for ($i = 1; $i <= $pages; $i++) {
+            if ($i != $current_page) {
+                echo '<a href="UserSearch.php?s=' . (($display * ($i - 1))) . '&p=' . $pages . '">' . $i . '</a> ';
+            } else {
+                echo $i . ' ';
+            }
+        } // End of FOR loop.
+        // If it's not the last page, make a Next button:
+        if ($current_page != $pages) {
+            echo '<a href="UserSearch.php?s=' . ($start + $display) . '&p=' . $pages . '">Next</a>';
+        }
+        echo '</p>'; // Close the paragraph.
+    }
     include('includes/footer.php');
 ?>

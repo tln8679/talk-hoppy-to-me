@@ -99,10 +99,11 @@
 						<p>Please <a href=\"login.php\">login!</a></p>
 						</div>";
 					}
-					else
-					echo "<div class=\"alert alert-info\" role=\"alert\">
-						<p>We're sorry, we were not able to add you at this time.</p>
-						</div>";
+					else{
+						echo "<div class=\"alert alert-info\" role=\"alert\">
+							<p>We're sorry, we were not able to add you at this time.</p>
+							</div>";
+					}
 					include 'includes/footer.php';
 					exit;
 			}
@@ -191,5 +192,30 @@
     </div>
 </div>
 <?php
+
+	// Make the links to other pages, if necessary.
+	if ($pages > 1) {
+		echo '<p>';
+		// Determine what page the script is on:
+		$current_page = ($start/$display) + 1;
+		// If it's not the first page, make a Previous link:
+		if ($current_page != 1) {
+			echo '<a href="UserSearch.php?s=' . ($start - $display) . '&p=' . $pages . '">Previous</a> ';
+		}
+		// Make all the numbered pages:
+		for ($i = 1; $i <= $pages; $i++) {
+			if ($i != $current_page) {
+				echo '<a href="UserSearch.php?s=' . (($display * ($i - 1))) . '&p=' . $pages . '">' . $i . '</a> ';
+			} else {
+				echo $i . ' ';
+			}
+		} // End of FOR loop.
+		// If it's not the last page, make a Next button:
+		if ($current_page != $pages) {
+			echo '<a href="UserSearch.php?s=' . ($start + $display) . '&p=' . $pages . '">Next</a>';
+		}
+		echo '</p>'; // Close the paragraph.
+	}
+
     include('includes/footer.php');
 ?>

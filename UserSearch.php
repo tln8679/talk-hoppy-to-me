@@ -24,7 +24,30 @@
         }
         else return FALSE;
     }
+
+    if ($_SERVER['REQUEST_METHOD']=='POST') {
+        // Using prepared statements so we don't need to sanitize
+        $curr_user = $_SESSION['usersID'];
+        $friend_user_id = $_POST['userID'];
+        $friend_name = $_POST['friendName'];
+        $sql = "INSERT INTO `USER_FRIENDS`(`USERS_ID`,`FRIEND_ID`)VALUES(?,?)";
+        $stmt = mysqli_prepare($dbc,$sql);
+		// 'ss' declares the types that we are inserting
+        mysqli_stmt_bind_param($stmt,'ss',$curr_user, $friend_user_id);
+        mysqli_stmt_execute($stmt);
+        if(mysqli_stmt_affected_rows($stmt)) { //It worked
+            echo "<div class=\"alert alert-success\" role=\"alert\">
+            <p>You are now following <strong>$friend_name</strong></p>
+            </div>";
+        }
+        else{
+            echo "<div class=\"alert alert-info\" role=\"alert\">
+                <p>We're sorry, there was an error trying to follow $friend_name</p>
+                </div>";
+        }
+    }
 ?>
+
 <!-- Search form -->
 <div class="col-md-4 col-md-offset-4 w3-margin-bottom text-center">
     <form method="GET" action="UserSearch.php" class="justify-content-center">
@@ -106,7 +129,7 @@
                             echo
                             "<h4> 
                                 <div class=\"w3-text-indigo\">
-                                <form method=\"POST\" action=\"#INSERTfollower\">
+                                <form method=\"POST\" action=\"UserSearch.php\">
                                     <input type=\"hidden\" name=\"userID\" value=\"$id\">
                                     <input type=\"hidden\" name=\"friendName\" value=\"$friendName\">
                                     <label for=\"$friendName\">Click To Follow</label>
@@ -179,7 +202,7 @@
         ?>
     </div>
 
-        <script>
+ <script>
     function showMore(show_description) {
             show_description = show_description.toString();
             if (document.getElementById(show_description).style.display === "none") {
