@@ -61,34 +61,41 @@
         </div>
         <div class="w3-container">
           <h2><?php echo $current_user->getFirstName()." ".$current_user->getLastName();?></h2>
-          <p><i class="fa fa-briefcase fa-fw  w3-large w3-text-indigo"></i>Day drinker</p>
-          <p><i class="fa fa-home fa-fw  w3-large w3-text-indigo"></i><?php echo $current_user->getCity().", ".$current_user->getState();?></p>
-          <p><i class="fa fa-envelope fa-fw  w3-large w3-text-indigo"></i><?php echo $current_user->getEmail();?></p>
-          <p><i class="fa fa-phone fa-fw  w3-large w3-text-indigo"></i><?php echo $current_user->getPhoneNumber();?></p>
+          <p>Day drinker</p>
+          <p><?php echo $current_user->getCity().", ".$current_user->getState();?></p>
+          <p><?php echo $current_user->getEmail();?></p>
+          <p><?php echo $current_user->getPhoneNumber();?></p>
           <hr>
-
-          <p class="w3-large"><b><i class="fa fa-asterisk fa-fw  w3-text-indigo"></i>Favorite Styles</b></p>
-          <p>Stouts</p>
-          <div class="w3-light-grey w3-round-xlarge w3-small">
-            <div class="w3-container w3-center w3-round-xlarge w3-indigo" style="width:60%">60%</div>
-          </div>
-          <p>American Pale Ales</p>
-          <div class="w3-light-grey w3-round-xlarge w3-small">
-            <div class="w3-container w3-center w3-round-xlarge w3-indigo" style="width:25%">
-              <div class="w3-center w3-text-white">25%</div>
+          <p class="w3-large"><b>Most Logged Styles</b></p>
+          <?php
+          // Favorite styles = Most logged style from logged list
+            $sql = "SELECT BEER.BEER_STYLE AS BEER_STYLE,COUNT(BEER.BEER_STYLE) AS count, TRUNCATE(count(BEER.BEER_STYLE) * 100.0 / (select count(*) from USER_LOG),0) AS Percent\n"
+            . "FROM USER_LOG \n"
+            . "JOIN BEER USING (BEER_ID)\n"
+            . "WHERE USERS_ID = $current_id\n"
+            . "GROUP BY BEER.BEER_STYLE\n"
+            . "ORDER BY COUNT(BEER.BEER_STYLE) DESC";
+            $r = mysqli_query($dbc, $sql);
+            if(mysqli_num_rows($r)>0){ // user found
+              $counter = 0;
+              while (($row = mysqli_fetch_array($r)) && $counter < 5 ) {
+                $style = $row['BEER_STYLE'];
+                $num_logged = $row['count'];
+                $percent = $row['Percent'];
+                $counter++;
+          ?>
+            <p><?php echo $style.' ('.$num_logged.')'; ?></p>
+            <div class="w3-light-grey w3-round-xlarge w3-small">
+              <div class="w3-container w3-center w3-round-xlarge w3-indigo" style="width:<?php echo $percent; ?>%"><?php echo $percent; ?>%</div>
             </div>
-          </div>
-          <p>Kolsch</p>
-          <div class="w3-light-grey w3-round-xlarge w3-small">
-            <div class="w3-container w3-center w3-round-xlarge w3-indigo" style="width:10%">10%</div>
-          </div>
-          <p>Sours</p>
-          <div class="w3-light-grey w3-round-xlarge w3-small">
-            <div class="w3-container w3-center w3-round-xlarge w3-indigo" style="width:5%">5%</div>
-          </div>
-
+          <?php
+              }
+            }
+            else{
+              echo "oops";
+            }
+          ?>
           <hr>
-
           <p class="w3-large"><b>Following</b></p>
           <?php
             $sql = "SELECT USER_FRIENDS.USERS_ID, FRIEND_ID, CONCAT(USERS.FIRST_NAME,' ' ,USERS.LAST_NAME) AS FriendName \n"
@@ -164,7 +171,7 @@
         // Display the variables in the html 
         ?>
         <div class="w3-container">
-          <h6 class="w3-text-indigo"><i class="fa fa-calendar fa-fw "></i><?php echo $date; ?></h6>
+          <h6 class="w3-text-indigo"><?php echo $date; ?></h6>
           <h4 class="w3-opacity"><b><?php echo $beer_name; ?> by <?php echo $brewer_name; ?></b></h4>
           <p><b><span class="w3-opacity">Global rating: </span><span class="w3-text-amber"><?php echo $global_rating; ?></span></b></p>
           <p><b><span class="w3-opacity">I rate this a: </span><span class="w3-text-indigo"><?php echo $rating; ?></span></b></p>
@@ -216,7 +223,7 @@
         // Display the variables in the html 
         ?>
         <div class="w3-container">
-          <h6 class="w3-text-indigo"><i class="fa fa-calendar fa-fw "></i><?php echo $date; ?></h6>
+          <h6 class="w3-text-indigo"><?php echo $date; ?></h6>
           <h4 class="w3-opacity"><b><?php echo $beer_name; ?> by <?php echo $brewer_name; ?></b></h4>
           <p><b><span class="w3-opacity">Global rating: </span><span class="w3-text-amber"><?php echo $global_rating; ?></span></b></p>
           <hr>
@@ -269,7 +276,7 @@
         // Display the variables in the html 
         ?>
         <div class="w3-container">
-          <h6 class="w3-text-indigo"><i class="fa fa-calendar fa-fw "></i><?php echo $date; ?></h6>
+          <h6 class="w3-text-indigo"><?php echo $date; ?></h6>
           <h4 class="w3-opacity"><b><?php echo $beer_name; ?> by <?php echo $brewer_name; ?></b></h4>
           <p><b><span class="w3-opacity">Global rating: </span><span class="w3-text-amber"><?php echo $global_rating; ?></span></b></p>
           <hr>
