@@ -12,8 +12,8 @@
 	    if (!filter_var(trim($_POST['email']), FILTER_VALIDATE_EMAIL)) { //Either empty or invalid email will be considered missing
             $missing[] = 'email';
         }
-        if (!empty($_POST['password']))
-			$password = filter_var(trim($_POST['password']), FILTER_SANITIZE_STRING);
+        if (!empty($_POST['pwd']))
+			$password = filter_var(trim($_POST['pwd']), FILTER_SANITIZE_STRING);
 		else
             $missing[] = "Password is missing.";
         
@@ -90,8 +90,8 @@
                         <div class="form-group w3-margin-bottom" style="text-align: center;"> 
                             <label for="password">Password</label>
                             <span style="color:red">*</span>
-                            <input type="password" id="password" style="width:250px; margin: auto;" name="password"
-                            class="form-control" required>
+                            <input type="password" id="password" style="width:250px; margin: auto;" name="pwd" placeholder="New password" class="form-control"
+							required>
                         </div>
                         <div class="form-group w3-margin-bottom" style="text-align: center;">           
                             <input type="submit" name="submit" value="Login" class="btn btn-primary">
