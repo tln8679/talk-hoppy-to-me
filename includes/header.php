@@ -38,6 +38,7 @@
                         <li><a href="BeerSearch.php">Find Beers</a></li>
                         <li><a href="feed.php">My Feed</a></li>
                         <li><a href="profile.php">My Profile</a></li>
+                        <li><a href="UserSearch.php">Follow Friends</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <?php if (isset($_SESSION['email'])) { ?>

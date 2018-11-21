@@ -173,7 +173,7 @@
         ?>
         <div class="w3-container">
           <h6 class="w3-text-indigo"><?php echo $date; ?></h6>
-          <h4 class="w3-opacity"><b><?php echo $beer_name; ?> by <?php echo $brewer_name; ?></b></h4>
+          <h4 class="w3-opacity"><b><a href="BeerSearch.php?options=beer_name&criteria=<?php echo $beer_name; ?>"><?php echo $beer_name; ?></a> by <?php echo $brewer_name; ?></b></h4>
           <p><b><span class="w3-opacity">Global rating: </span><span class="w3-text-amber"><?php echo $global_rating; ?></span></b></p>
           <p><b><span class="w3-opacity">I rate this a: </span><span class="w3-text-indigo"><?php echo $rating; ?></span></b></p>
           <p><?php echo $comment; ?></p>
@@ -225,7 +225,7 @@
         ?>
         <div class="w3-container">
           <h6 class="w3-text-indigo"><?php echo $date; ?></h6>
-          <h4 class="w3-opacity"><b><?php echo $beer_name; ?> by <?php echo $brewer_name; ?></b></h4>
+          <h4 class="w3-opacity"><b><a href="BeerSearch.php?options=beer_name&criteria=<?php echo $beer_name; ?>"><?php echo $beer_name; ?></a> by <?php echo $brewer_name; ?></b></h4>
           <p><b><span class="w3-opacity">Global rating: </span><span class="w3-text-amber"><?php echo $global_rating; ?></span></b></p>
           <hr>
         </div>
@@ -278,7 +278,7 @@
         ?>
         <div class="w3-container">
           <h6 class="w3-text-indigo"><?php echo $date; ?></h6>
-          <h4 class="w3-opacity"><b><?php echo $beer_name; ?> by <?php echo $brewer_name; ?></b></h4>
+          <h4 class="w3-opacity"><b><a href="BeerSearch.php?options=beer_name&criteria=<?php echo $beer_name; ?>"><?php echo $beer_name; ?></a> by <?php echo $brewer_name; ?></b></h4>
           <p><b><span class="w3-opacity">Global rating: </span><span class="w3-text-amber"><?php echo $global_rating; ?></span></b></p>
           <hr>
         </div>

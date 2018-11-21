@@ -90,7 +90,7 @@
                         <div class="form-group w3-margin-bottom" style="text-align: center;"> 
                             <label for="password">Password</label>
                             <span style="color:red">*</span>
-                            <input type="password" id="password" style="width:250px; margin: auto;" name="password"  placeholder="Enter password"
+                            <input type="password" id="password" style="width:250px; margin: auto;" name="password"
                             class="form-control" required>
                         </div>
                         <div class="form-group w3-margin-bottom" style="text-align: center;">           
