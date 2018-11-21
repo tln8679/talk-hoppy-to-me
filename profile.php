@@ -92,7 +92,8 @@
               }
             }
             else{
-              echo "oops";
+              echo '<div class="alert alert-warning" role="alert"><p> Sorry!</p>
+            <p class="text-danger">No logged beers.<a href="BeerSearch.php">Click to search!</a></p></div>';
             }
           ?>
           <hr>

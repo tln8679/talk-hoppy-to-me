@@ -15,8 +15,13 @@
     if (isset($_GET['p']) && is_numeric($_GET['p'])) { // Already been determined.
         $pages = $_GET['p'];
     } else { // Need to determine.
+        if (isset($_GET['id']) && is_numeric($_GET['id'])) { // Already been determined.
+            $current_id = $_GET['id'];
+        }
+        else {echo '<div class="alert alert-warning" role="alert"><p> Sorry!</p>
+            <p class="text-danger">You have reached this page in error.</p></div>';;}
         // Count the number of records:
-        $sql = "SELECT COUNT(`USERS_ID`) FROM `USERS`";
+        $sql = "SELECT COUNT(`USERS_ID`) FROM `USER_FRIENDS` WHERE `USERS_ID`=$current_id";
         $r = mysqli_query($dbc, $sql);
         $row = mysqli_fetch_array($r, MYSQLI_NUM);
         $records = $row[0];
@@ -70,7 +75,7 @@
             }
             else { // user isnt following anyone
               echo '<div class="alert alert-warning" role="alert"><p> Sorry!</p>
-                   <p class="text-danger">Search users to follow.</p></div>';
+                   <p class="text-danger"><a href="UserSearch.php">Search users to follow.</a></p></div>';
             }
         }
 ?>
@@ -80,30 +85,32 @@
   
   <!-- End Page Container -->
 </div>
-<div class="container alert alert-info w3-margin-top" role="alert">
 <?php
-    // Make the links to other pages, if necessary.
-    if ($pages > 1) {
-        echo '<p>';
-        // Determine what page the script is on:
-        $current_page = ($start/$display) + 1;
-        // If it's not the first page, make a Previous link:
-        if ($current_page != 1) {
-            echo '<a href="UserSearch.php?s=' . ($start - $display) . '&p=' . $pages . '">Previous</a> ';
-        }
-        // Make all the numbered pages:
-        for ($i = 1; $i <= $pages; $i++) {
-            if ($i != $current_page) {
-                echo '<a href="UserSearch.php?s=' . (($display * ($i - 1))) . '&p=' . $pages . '">' . $i . '</a> ';
-            } else {
-                echo $i . ' ';
-            }
-        } // End of FOR loop.
-        // If it's not the last page, make a Next button:
-        if ($current_page != $pages) {
-            echo '<a href="UserSearch.php?s=' . ($start + $display) . '&p=' . $pages . '">Next</a>';
-        }
-        echo '</p>'; // Close the paragraph.
+  // Make the links to other pages, if necessary.
+  if ($pages > 1) {
+    echo '<div class="container alert alert-info w3-margin-top" role="alert">';
+    echo '<p>';
+    // Determine what page the script is on:
+    $current_page = ($start/$display) + 1;
+    // If it's not the first page, make a Previous link:
+    if ($current_page != 1) {
+      echo '<a href="log.php?s=' . ($start - $display) . '&p=' . $pages . '">Previous</a> ';
     }
-    include('includes/footer.php');
+    // Make all the numbered pages:
+    for ($i = 1; $i <= $pages; $i++) {
+      if ($i != $current_page) {
+          echo '<a href="log.php?s=' . (($display * ($i - 1))) . '&p=' . $pages . '">' . $i . '</a> ';
+      } 
+      else {
+        echo $i . ' ';
+     }
+    } // End of FOR loop.
+    // If it's not the last page, make a Next button:
+    if ($current_page != $pages) {
+      echo '<a href="log.php?s=' . ($start + $display) . '&p=' . $pages . '">Next</a>';
+    }
+    echo '</p>'; // Close the paragraph.
+    echo '</div>';
+    }
+  include('includes/footer.php');
 ?>
