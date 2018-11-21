@@ -4,6 +4,9 @@
     include('includes/header.php');
     require_once '../../mysqli_connect.php';
     require_once './beans/user.php';
+    ini_set('display_errors', 'On'); 
+    error_reporting(E_ALL); 
+    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
     
     //If we are viewing someone elses page 
     // We will link all friends an href like http://satoshi.cis.uncw.edu/~tln8679/talkhoppytome/profile.php?id=40 to view their profile
@@ -127,92 +130,162 @@
 
       <div class="w3-container w3-card w3-white w3-margin-bottom">
         <h2 class="w3-text-grey w3-padding-16">
-          <i class="fa fa-suitcase fa-fw  w3-xxlarge w3-text-indigo"></i>
           <span style="color:goldenrod;" class="glyphicon glyphicon-list">
           </span> 
           <a href="log.php">Logged</a>
         </h2>
+        <?php
+          // Get the users logged list
+          $sql = "SELECT DATE_FORMAT(USER_LOG.LOG_DATE,'%M %D, %Y') AS date, BEER.BEER_NAME AS BeerName, USER_POST.COMMENT AS comment, BREWER.BREWER_NAME AS BrewerName, USER_POST.RATING AS rating ,USER_LOG.BEER_ID as BeerId, LOG_DATE\n"
+          . "FROM USER_LOG\n"
+          . "JOIN BEER USING (BEER_ID)\n"
+          . "JOIN BREWER USING (BREWER_ID)\n"
+          . "INNER JOIN USER_POST ON USER_LOG.BEER_ID = USER_POST.BEER_ID AND USER_LOG.USERS_ID=USER_POST.USER_ID\n"
+          . "WHERE USER_LOG.USERS_ID =$current_id\n"
+          . "ORDER BY LOG_DATE DESC LIMIT 3";
+          $r = mysqli_query($dbc, $sql);
+            if(mysqli_num_rows($r)>0){ // worked
+              while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
+                $beer_name = $row['BeerName'];
+                $brewer_name = $row['BrewerName'];
+                $rating = $row['rating']."/5";
+                $comment = $row['comment'];
+                $date = $row['date'];
+                // Get the beer rating from derivation
+                $sub_sql = "SELECT BEER_NAME AS beer, AVG(USER_POST.RATING) AS Rating\n"
+                . " FROM `BEER` JOIN USER_POST USING (BEER_ID)\n"
+                . " WHERE BEER.BEER_NAME = \"$beer_name \"";
+                $sub_stmt = mysqli_query($dbc, $sub_sql);
+                while ($sub_record = mysqli_fetch_array($sub_stmt, MYSQLI_ASSOC)) {
+                    $global_rating = $sub_record['Rating'];
+                }
+                if (empty($global_rating)) $global_rating = "0 (No reviews yet)";
+                else $global_rating.="/5";
+        // Display the variables in the html 
+        ?>
         <div class="w3-container">
-          <h6 class="w3-text-indigo"><i class="fa fa-calendar fa-fw "></i>October 2018</span></h6>
-          <h5 class="w3-opacity"><b>Miller Lite by $beer->get_maker();</b></h5>
-          <p><b><span class="w3-opacity">Global rating: </span><span class="w3-text-amber">6/10</span></b></p>
-          <p><b><span class="w3-opacity">I rate this a: </span><span class="w3-text-indigo">7/10</span></b></p>
-          <p>Solid American Brew.</p>
+          <h6 class="w3-text-indigo"><i class="fa fa-calendar fa-fw "></i><?php echo $date; ?></h6>
+          <h4 class="w3-opacity"><b><?php echo $beer_name; ?> by <?php echo $brewer_name; ?></b></h4>
+          <p><b><span class="w3-opacity">Global rating: </span><span class="w3-text-amber"><?php echo $global_rating; ?></span></b></p>
+          <p><b><span class="w3-opacity">I rate this a: </span><span class="w3-text-indigo"><?php echo $rating; ?></span></b></p>
+          <p><?php echo $comment; ?></p>
           <hr>
         </div>
+        <?php
+            }
+          }
+          else{
+            echo '<div class="alert alert-warning" role="alert"><p> Sorry!</p>
+            <p class="text-danger">No logged beers.<a href="BeerSearch.php">Click to search!</a></p></div>';}
+// End logged list and then start loved list
+        ?>
         <div class="w3-container">
-          <h6 class="w3-text-indigo"><i class="fa fa-calendar fa-fw "></i>Mar 2012</h6>
-          <h5 class="w3-opacity"><b>Michelob Ultra by $beer->get_maker();</b></h5>
-          <p><b><span class="w3-opacity">Global rating: </span><span class="w3-text-amber">8/10</span></b></p>
-          <p><b><span class="w3-opacity">I rate this a: </span><span class="w3-text-indigo">7/10</span></b></p>
-          <p>Doesn't give me head aches.</p>
+          <h3 class="w3-text-indigo"><i class="fa fa-calendar fa-fw "><a href="log.php">View all</a></i></h3>
           <hr>
-        </div>
-        <div class="w3-container">
-          <h6 class="w3-text-indigo"><i class="fa fa-calendar fa-fw "></i>July 2018</h6>
-          <h5 class="w3-opacity"><b>Spotted Cow by New Glarus</b></h5>
-          <p><b><span class="w3-opacity">Global rating: </span><span class="w3-text-amber">10/10</span></b></p>
-          <p><b><span class="w3-opacity">I rate this a: </span><span class="w3-text-indigo">10/10</span></b></p>
-          <p>Amazing. </p><br>
         </div>
       </div>
 
       <div class="w3-container w3-card w3-white w3-margin-bottom">
         <h2 class="w3-text-grey w3-padding-16">
-        <i class="fa fa-certificate fa-fw  w3-xxlarge w3-text-indigo"></i>
+        
         <span style="color:goldenrod;" class="glyphicon glyphicon-heart"></span> 
         <a href="love.php">Loved</a>
         </h2>
+        <?php
+          unset($sql);
+          unset($r);
+          unset($sub_sql);
+          // Get the users logged list
+          $sql = "SELECT DATE_FORMAT(USER_LOVE.LOVE_DATE,'%M %D, %Y') AS date, BEER.BEER_NAME AS BeerName, BREWER.BREWER_NAME AS BrewerName, USER_LOVE.BEER_ID as BeerId FROM USER_LOVE JOIN BEER USING (BEER_ID) JOIN BREWER USING (BREWER_ID) WHERE USER_LOVE.USERS_ID = $current_id ORDER BY LOVE_DATE DESC LIMIT 3";
+          $r = mysqli_query($dbc, $sql);
+            if(mysqli_num_rows($r)>0){ // worked
+              while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
+                $beer_name = $row['BeerName'];
+                $brewer_name = $row['BrewerName'];
+                $date = $row['date'];
+                // Get the beer rating from derivation
+                $sub_sql = "SELECT BEER_NAME AS beer, AVG(USER_POST.RATING) AS Rating\n"
+                . " FROM `BEER` JOIN USER_POST USING (BEER_ID)\n"
+                . " WHERE BEER.BEER_NAME = \"$beer_name \"";
+                $sub_stmt = mysqli_query($dbc, $sub_sql);
+                while ($sub_record = mysqli_fetch_array($sub_stmt, MYSQLI_ASSOC)) {
+                    $global_rating = $sub_record['Rating'];
+                }
+                if (empty($global_rating)) $global_rating = "0 (No reviews yet)";
+                else $global_rating.="/5";
+        // Display the variables in the html 
+        ?>
         <div class="w3-container">
-          <h6 class="w3-text-indigo"><i class="fa fa-calendar fa-fw "></i>July 2018</h6>
-          <h5 class="w3-opacity"><b>Spotted Cow by New Glarus</b></h5>
-          <p><b><span class="w3-opacity">Global rating: </span><span class="w3-text-amber">10/10</span></b></p>
-          <p><b><span class="w3-opacity">I rate this a: </span><span class="w3-text-indigo">10/10</span></b></p>
-          <p>Amazing</p>
+          <h6 class="w3-text-indigo"><i class="fa fa-calendar fa-fw "></i><?php echo $date; ?></h6>
+          <h4 class="w3-opacity"><b><?php echo $beer_name; ?> by <?php echo $brewer_name; ?></b></h4>
+          <p><b><span class="w3-opacity">Global rating: </span><span class="w3-text-amber"><?php echo $global_rating; ?></span></b></p>
           <hr>
         </div>
+        <?php
+            }
+          }
+          else{
+            echo '<div class="alert alert-warning" role="alert"><p> Sorry!</p>
+            <p class="text-danger">No loved beers. <a href="BeerSearch.php">Click to search!</a></p></div>';}
+// End loved list and then start later list
+        ?>
         <div class="w3-container">
-          <h6 class="w3-text-indigo"><i class="fa fa-calendar fa-fw "></i>October 2013</h6>
-          <h5 class="w3-opacity"><b>Busch by $beer->get_maker();</b></h5>
-          <p><b><span class="w3-opacity">Global rating: </span><span class="w3-text-amber">4/10</span></b></p>
-          <p><b><span class="w3-opacity">I rate this a: </span><span class="w3-text-indigo">1/10</span></b></p>
-          <p>Watery and cheap</p>
+          <h3 class="w3-text-indigo"><i class="fa fa-calendar fa-fw "><a href="love.php">View all</a></i></h3>
           <hr>
-        </div>
-        <div class="w3-container">
-          <h6 class="w3-text-indigo"><i class="fa fa-calendar fa-fw "></i>Birth</h6>
-          <h5 class="w3-opacity"><b>Milwaukee's Best by $beer->get_maker();</b></h5>
-          <p><b><span class="w3-opacity">Global rating: </span><span class="w3-text-amber">6/10</span></b></p>
-          <p><b><span class="w3-opacity">I rate this a: </span><span class="w3-text-indigo">6/10</span></b></p>
-          <p>Best in Milwaukeee</p><br>
         </div>
       </div>
+
 
       <div class="w3-container w3-card w3-white">
         <h2 class="w3-text-grey w3-padding-16">
-          <i class="fa fa-certificate fa-fw  w3-xxlarge w3-text-indigo"></i>
+          
           <span style="color:goldenrod;" class="glyphicon glyphicon-star"></span> 
           <a href="later.php">Later</a>
         </h2>
+        <?php
+          // Get the users loved list
+          $sql = "SELECT DATE_FORMAT(USER_LATER.LATER_DATE,'%M %D, %Y') AS date, BEER.BEER_NAME AS BeerName, BREWER.BREWER_NAME AS BrewerName,USER_LATER.BEER_ID as BeerId\n"
+          . "FROM USER_LATER\n"
+          . "JOIN BEER USING (BEER_ID)\n"
+          . "JOIN BREWER USING (BREWER_ID)\n"
+          . "WHERE USER_LATER.USERS_ID =$current_id\n"
+          . "ORDER BY LATER_DATE DESC LIMIT 3";
+          $r = mysqli_query($dbc, $sql);
+            if(mysqli_num_rows($r)>0){ // worked
+              while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
+                $beer_name = $row['BeerName'];
+                $brewer_name = $row['BrewerName'];
+                $date = $row['date'];
+                // Get the beer rating from derivation
+                $sub_sql = "SELECT BEER_NAME AS beer, AVG(USER_POST.RATING) AS Rating\n"
+                . " FROM `BEER` JOIN USER_POST USING (BEER_ID)\n"
+                . " WHERE BEER.BEER_NAME = \"$beer_name \"";
+                $sub_stmt = mysqli_query($dbc, $sub_sql);
+                while ($sub_record = mysqli_fetch_array($sub_stmt, MYSQLI_ASSOC)) {
+                    $global_rating = $sub_record['Rating'];
+                }
+                if (empty($global_rating)) $global_rating = "0 (No reviews yet)";
+                else $global_rating.="/5";
+        // Display the variables in the html 
+        ?>
         <div class="w3-container">
-          <h6 class="w3-text-indigo"><i class="fa fa-calendar fa-fw "></i>July 2018</h6>
-          <h5 class="w3-opacity"><b>Two Women by New Glarus</b></h5>
-          <p><b><span class="w3-opacity">Global rating: </span><span class="w3-text-amber">10/10</span></b></p>
+          <h6 class="w3-text-indigo"><i class="fa fa-calendar fa-fw "></i><?php echo $date; ?></h6>
+          <h4 class="w3-opacity"><b><?php echo $beer_name; ?> by <?php echo $brewer_name; ?></b></h4>
+          <p><b><span class="w3-opacity">Global rating: </span><span class="w3-text-amber"><?php echo $global_rating; ?></span></b></p>
           <hr>
         </div>
+        <?php
+            }
+          }
+          else{
+            echo '<div class="alert alert-warning" role="alert"><p> Sorry!</p>
+            <p class="text-danger">No beers on your wish list. <a href="BeerSearch.php">Click to search!</a></p></div>';}
+// End later list
+        ?>
         <div class="w3-container">
-          <h6 class="w3-text-indigo"><i class="fa fa-calendar fa-fw "></i>October 2013</h6>
-          <h5 class="w3-opacity"><b>Moon Man by New Glarus;</b></h5>
-          <p><b><span class="w3-opacity">Global rating: </span><span class="w3-text-amber">4/10</span></b></p>
+          <h3 class="w3-text-indigo"><i class="fa fa-calendar fa-fw "><a href="later.php">View all</a></i></h3>
           <hr>
         </div>
-        <div class="w3-container">
-          <h6 class="w3-text-indigo"><i class="fa fa-calendar fa-fw "></i>Birth</h6>
-          <h5 class="w3-opacity"><b>Beach Trip by Wrightsville Beach Brewery;</b></h5>
-          <p><b><span class="w3-opacity">Global rating: </span><span class="w3-text-amber">6/10</span></b></p>
-        </div>
-      </div>
-
       <!-- End Right Column -->
     </div>
 
