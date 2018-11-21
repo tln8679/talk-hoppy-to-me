@@ -15,7 +15,6 @@
       $this->lastName=$lastName;
       $this->avatar=$avatar;
       $this->email=$email;
-      $this->password=$password;
       $this->phoneNumber=$phoneNumber;
       $this->city=$city;
       $this->state=$state;
