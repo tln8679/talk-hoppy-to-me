@@ -64,8 +64,8 @@
                                     <h5><b><span class=\"w3-opacity\">Phone: </span><span class=\"w3-text-amber\">$phone</span></b></h5>
                                     <h5><b><span class=\"w3-opacity\">Email: </span><span class=\"w3-text-amber\">$email</span></b></h5>
                                     <h4 class=\"w3-text-blue\"><i class=\"fa fa-calendar fa-fw \">"
-                                        . '<a href="profile.php?id=' . $id . '">View ' . $friendName . '\'s Profile</a>' ."</i>
-                                        <span style=\"color:DarkGoldenRod;\" class=\"glyphicon glyphicon-eye-open\"></span>
+                                        . '<a href="profile.php?id=' . $id . '">View ' . $friendName . '\'s Profile
+                                        <span style="color:DarkGoldenRod;" class="glyphicon glyphicon-eye-open"></span></a>' ."</i>
                                     </h4>
                                     <hr>
                                 </div>
