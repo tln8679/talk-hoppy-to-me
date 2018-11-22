@@ -80,6 +80,20 @@
 
     // SQL for adding a beer to logged/love/later
     if (isset($_POST['log_it'])){
+        // make sure the user is logged in
+        if (isset($_SESSION['email'])){
+            $current_id = $_SESSION['usersID'];
+            $current_user = new User ($_SESSION['firstName'],$_SESSION['lastName'],$_SESSION['avatar'],$_SESSION['email'],$_SESSION['phone'],$_SESSION['city'],$_SESSION['state'],$_SESSION['admin']);
+        }
+        // User hasn't logged in yet so they can't log anything
+        else {
+            $url = 'http://'. $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
+            $url = rtrim($url, '/\\');
+            $page = 'login.php';
+            $url .= '/' . $page;
+            header("Location: $url");
+            exit();
+        }
         $action = $_POST['log-type'];
         $beer_id = $_POST['beer-id'];
         $user_id = $_SESSION['usersID'];
