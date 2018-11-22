@@ -69,7 +69,7 @@
           <p class="w3-large"><b>Most Logged Styles</b></p>
           <?php
           // Favorite styles = Most logged style from logged list
-            $sql = "SELECT BEER.BEER_STYLE AS BEER_STYLE,COUNT(BEER.BEER_STYLE) AS count, TRUNCATE(count(BEER.BEER_STYLE) * 100.0 / (select count(*) from USER_LOG),0) AS Percent\n"
+            $sql = "SELECT BEER.BEER_STYLE AS BEER_STYLE,COUNT(BEER.BEER_STYLE) AS count, TRUNCATE(count(BEER.BEER_STYLE) * 100.0 / (select count(*) from USER_LOG WHERE USER_LOG.USERS_ID=" . $current_id . "),0) AS Percent\n"
             . "FROM USER_LOG \n"
             . "JOIN BEER USING (BEER_ID)\n"
             . "WHERE USERS_ID = $current_id\n"
@@ -155,6 +155,10 @@
             if(mysqli_num_rows($r)>0){ // worked
               while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
                 $beer_name = $row['BeerName'];
+                // query string to link the beer
+                $search_beer= explode(" ", $beer_name);
+                $beer_get= implode("+",$search_beer);
+
                 $brewer_name = $row['BrewerName'];
                 $rating = $row['rating']."/5";
                 $comment = $row['comment'];
@@ -173,7 +177,7 @@
         ?>
         <div class="w3-container">
           <h6 class="w3-text-indigo"><?php echo $date; ?></h6>
-          <h4 class="w3-opacity"><b><a href="BeerSearch.php?options=beer_name&criteria=<?php echo $beer_name; ?>"><?php echo $beer_name; ?></a> by <?php echo $brewer_name; ?></b></h4>
+          <h4 class="w3-opacity"><b><a href="BeerSearch.php?options=beer_name&criteria=<?php echo $beer_get; ?>"><?php echo $beer_name; ?></a> by <?php echo $brewer_name; ?></b></h4>
           <p><b><span class="w3-opacity">Global rating: </span><span class="w3-text-amber"><?php echo $global_rating; ?></span></b></p>
           <p><b><span class="w3-opacity">I rate this a: </span><span class="w3-text-indigo"><?php echo $rating; ?></span></b></p>
           <p><?php echo $comment; ?></p>
@@ -209,6 +213,10 @@
             if(mysqli_num_rows($r)>0){ // worked
               while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
                 $beer_name = $row['BeerName'];
+                // query string to link the beer
+                $search_beer= explode(" ", $beer_name);
+                $beer_get= implode("+",$search_beer);
+
                 $brewer_name = $row['BrewerName'];
                 $date = $row['date'];
                 // Get the beer rating from derivation
@@ -225,7 +233,7 @@
         ?>
         <div class="w3-container">
           <h6 class="w3-text-indigo"><?php echo $date; ?></h6>
-          <h4 class="w3-opacity"><b><a href="BeerSearch.php?options=beer_name&criteria=<?php echo $beer_name; ?>"><?php echo $beer_name; ?></a> by <?php echo $brewer_name; ?></b></h4>
+          <h4 class="w3-opacity"><b><a href="BeerSearch.php?options=beer_name&criteria=<?php echo $beer_get; ?>"><?php echo $beer_name; ?></a> by <?php echo $brewer_name; ?></b></h4>
           <p><b><span class="w3-opacity">Global rating: </span><span class="w3-text-amber"><?php echo $global_rating; ?></span></b></p>
           <hr>
         </div>
@@ -262,6 +270,10 @@
             if(mysqli_num_rows($r)>0){ // worked
               while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
                 $beer_name = $row['BeerName'];
+                // query string to link the beer
+                $search_beer= explode(" ", $beer_name);
+                $beer_get= implode("+",$search_beer);
+                
                 $brewer_name = $row['BrewerName'];
                 $date = $row['date'];
                 // Get the beer rating from derivation
@@ -278,7 +290,7 @@
         ?>
         <div class="w3-container">
           <h6 class="w3-text-indigo"><?php echo $date; ?></h6>
-          <h4 class="w3-opacity"><b><a href="BeerSearch.php?options=beer_name&criteria=<?php echo $beer_name; ?>"><?php echo $beer_name; ?></a> by <?php echo $brewer_name; ?></b></h4>
+          <h4 class="w3-opacity"><b><a href="BeerSearch.php?options=beer_name&criteria=<?php echo $beer_get; ?>"><?php echo $beer_name; ?></a> by <?php echo $brewer_name; ?></b></h4>
           <p><b><span class="w3-opacity">Global rating: </span><span class="w3-text-amber"><?php echo $global_rating; ?></span></b></p>
           <hr>
         </div>
@@ -299,7 +311,7 @@
 
     <!-- End Grid -->
   </div>
-
+</div>
   <!-- End Page Container -->
 </div>
 <?php
