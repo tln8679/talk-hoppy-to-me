@@ -35,10 +35,10 @@
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
                         <li><a href="index.php">Home</a></li>
-                        <li><a href="BeerSearch.php">Find Beers</a></li>
-                        <li><a href="feed.php">My Feed</a></li>
-                        <li><a href="profile.php">My Profile</a></li>
-                        <li><a href="UserSearch.php">Follow Friends</a></li>
+                        <li><a href="BeerSearch.php">Beers</a></li>
+                        <li><a href="feed.php">Feed</a></li>
+                        <li><a href="UserSearch.php">Following</a></li>
+                        <li><a href="profile.php">Profile</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <?php if (isset($_SESSION['email'])) { ?>
