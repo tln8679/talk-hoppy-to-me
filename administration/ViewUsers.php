@@ -66,17 +66,11 @@
         $start = 0;
     }
 
-    if (isset($_GET['name']) && is_string($_GET['name'])) {
-        // This if doesnt make any sense yet
-        $current_id = $_GET['id'];
-        // Search algorithm
-        // $sql = ;
-    }
-    else {
-        $sql = "SELECT USERS.USERS_ID, CONCAT(USERS.FIRST_NAME,' ' ,USERS.LAST_NAME) AS FriendName, USERS.PHONE,USERS.EMAIL,CONCAT(USERS.CITY,', ' ,USERS.STATE) AS Location\n"
-            . "FROM `USERS`\n"
-            . "ORDER BY USERS.FIRST_NAME ASC LIMIT $start,$display";
-    }
+
+
+    $sql = "SELECT USERS.USERS_ID, CONCAT(USERS.FIRST_NAME,' ' ,USERS.LAST_NAME) AS FriendName, USERS.PHONE,USERS.EMAIL,CONCAT(USERS.CITY,', ' ,USERS.STATE) AS Location\n"
+        . "FROM `USERS`\n"
+        . "ORDER BY USERS.FIRST_NAME ASC LIMIT $start,$display";
     $r = mysqli_query($dbc, $sql);
     if(mysqli_num_rows($r)>0){ // user found
       while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
