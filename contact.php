@@ -14,13 +14,13 @@
             </li>
             <br>
             <li>
-                <Label> <a href=#insertJacob target="_blank"/>Insert here</a></Label>
+                <Label> <a href=#insertJacob target="_blank"/>jacobtylert@gmail.com</a></Label>
             </li>
             <br>
             <li>
-                <label><a href=#insertYourLinkedIn/>LinkedIn-Jacob</a></label>
+                <label><a href=www.linkedin.com/in/jacob-tyler-thomas/>LinkedIn-Jacob</a></label>
             </li>
-            
+
         </ul>
     </section>
 <?php
