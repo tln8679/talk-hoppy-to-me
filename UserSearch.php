@@ -57,25 +57,6 @@
     }
 ?>
 
-<!-- Search form -->
-<div class="col-md-4 col-md-offset-4 w3-margin-bottom text-center">
-    <form method="GET" action="UserSearch.php" class="justify-content-center">
-        <fieldset>
-            <legend>
-                <h2>Search User</h2>
-            </legend>
-            <div class="form-group">
-                <div class="input-group w3-margin-bottom cntr-form">
-                    <input type="text" name="criteria" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                        <input type="submit" name="name" value="Go!" class="btn btn-primary">
-                    </span>
-                </div>
-                    <!-- /input-group --> 
-            </div>
-        </fieldset>
-    </form> 
-</div>
 
 <div class="container">
     <?php
