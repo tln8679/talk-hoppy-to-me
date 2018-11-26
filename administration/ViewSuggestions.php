@@ -16,22 +16,11 @@
         header("Location: $url");
         exit();
     }
-
-    // If the user is following the inputted friend id then return true
-    // mysqli requires you pass the connection in as a parameter
-
-    if(isset($_POST['deleteUser'])) {
-        // Using prepared statements so we don't need to sanitize
-        $friend_user_id = $_POST['userID'];
-        $sql = "DELETE FROM USERS WHERE USERS_ID= $friend_user_id";
-        $r = mysqli_query($dbc, $sql);
-        echo "<h2>" . " Number of users deleted: " . mysqli_affected_rows($dbc) . "</h2>";
-    }
 ?>
 
 
 <div class="container">
-    <h1 style="text-align: center;">Moderate Users</h1>
+    <h1 style="text-align: center;">View user suggestions</h1>
     <?php
     // Number of records to show per page:
     $display = 10;
@@ -40,7 +29,7 @@
         $pages = $_GET['p'];
     } else { // Need to determine.
         // Count the number of records:
-        $sql = "SELECT COUNT(`USERS_ID`) FROM `USERS`";
+        $sql = "SELECT COUNT(`USER_ID`) FROM `SUGGESTION`";
         $r = mysqli_query($dbc, $sql);
         $row = mysqli_fetch_array($r, MYSQLI_NUM);
         $records = $row[0];
@@ -59,67 +48,25 @@
         $start = 0;
     }
 
-    if (isset($_GET['name']) && is_string($_GET['name'])) {
-        // This if doesnt make any sense yet
-        $current_id = $_GET['id'];
-        // Search algorithm
-        // $sql = ;
-    }
-    else {
-        $sql = "SELECT USERS.USERS_ID, CONCAT(USERS.FIRST_NAME,' ' ,USERS.LAST_NAME) AS FriendName, USERS.PHONE,USERS.EMAIL,CONCAT(USERS.CITY,', ' ,USERS.STATE) AS Location\n"
-            . "FROM `USERS`\n"
-            . "ORDER BY USERS.FIRST_NAME ASC LIMIT $start,$display";
-    }
+    $sql = "SELECT `USER_ID`,`NATURE`,`COMMENT`,DATE_FORMAT(`DATE`,\"%M %d, %y\") AS DATE \n"
+    . "FROM `SUGGESTION` ORDER BY DATE DESC LIMIT $start,$display";
     $r = mysqli_query($dbc, $sql);
     if(mysqli_num_rows($r)>0){ // user found
       while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
-        $id = $row['USERS_ID'];
-        // if (isFollowing($_SESSION['usersID'],$id,$dbc)){
-        //    $following = TRUE;
-        // }
-        // else $following = FALSE;
-        $otherUser = $row['FriendName'];
-        $location = $row['Location'];
-        $email = $row['EMAIL'];
-        $phone = $row['PHONE'];
+        $user_id = $row['USER_ID'];
+        $nature = $row['NATURE'];
+        $comment = $row['COMMENT'];
+        $date = $row['DATE'];
         // <!-- The Grid -->
             echo "<div class=\"w3-row-padding\">
                 <div class=\"w3-container w3-card w3-white w3-margin-bottom\">
-                        <h2 class=\"w3-text-grey w3-padding-16\"><i class=\"fa fa-suitcase fa-fw w3-xxlarge w3-text-indigo\">$otherUser</i></h2>
-                        <div class=\"w3-container\"><hr>";
-
-                        // Delete user form
-                            echo
-                            "<h4>
-                                <div class=\"w3-text-indigo\">
-                                <form method=\"POST\" action=\"ViewUsers.php\">
-                                    <input type=\"hidden\" name=\"userID\" value=\"$id\">
-                                    <label for=\"$id\">Click To Delete</label>
-                                    <button id=\"$id\" type=\"submit\" name=\"deleteUser\" class=\"btn btn-link btn-lg\">
-                                        <span style=\"color:goldenrod;\" class=\"glyphicon glyphicon-remove\"></span>
-                                    </button>
-                                </form>
-                                </div>
-                            </h4><hr>";
-                            //Make a user an admin form
-                            echo
-                            "<h4>
-                                <div class=\"w3-text-indigo\">
-                                <form method=\"POST\" action=\"ViewUsers.php\">
-                                    <input type=\"hidden\" name=\"userID\" value=\"$id\">
-                                    <label for=\"$id\">Click To Make An Admin</label>
-                                    <button id=\"$id\" type=\"submit\" name=\"makeAdmin\" class=\"btn btn-link btn-lg\">
-                                        <span style=\"color:goldenrod;\" class=\"glyphicon glyphicon-plus\"></span>
-                                    </button>
-                                </form>
-                                </div>
-                            </h4><hr>";
-
-                        echo "<h5><b><span class=\"w3-opacity\">Location: </span><span class=\"w3-text-amber\">$location</span></b></h5>
-                            <h5><b><span class=\"w3-opacity\">Phone: </span><span class=\"w3-text-amber\">$phone</span></b></h5>
-                            <h5><b><span class=\"w3-opacity\">Email: </span><span class=\"w3-text-amber\">$email</span></b></h5>
+                        <h2 class=\"w3-text-grey w3-padding-16\"><i class=\"fa fa-suitcase fa-fw w3-xxlarge w3-text-indigo\">$user_id </i></h2>
+                        <div class=\"w3-container\"><hr>
+                        <h5><b><span class=\"w3-opacity\">Nature: </span><span class=\"w3-text-amber\">$nature</span></b></h5>
+                            <h5><b><span class=\"w3-opacity\">Suggestion: </span><span class=\"w3-text-amber\">$comment</span></b></h5>
+                            <h5><b><span class=\"w3-opacity\">Date: </span><span class=\"w3-text-amber\">$date</span></b></h5>
                             <h4 class=\"w3-text-blue\"><i class=\"fa fa-calendar fa-fw \">"
-                                . '<a href="profile.php?id=' . $id . '">View ' . $otherUser . '\'s Profile
+                                . '<a href="../profile.php?id=' . $user_id . '">View ' . $user_id . '\'s Profile
                                 <span style="color:DarkGoldenRod;" class="glyphicon glyphicon-eye-open"></a>' ."</i>
                                 </span>
                             </h4>
@@ -149,19 +96,19 @@
             $current_page = ($start/$display) + 1;
             // If it's not the first page, make a Previous link:
             if ($current_page != 1) {
-                echo '<a href="ViewUsers.php?s=' . ($start - $display) . '&p=' . $pages . '">Previous</a> ';
+                echo '<a href="ViewSuggestions.php?s=' . ($start - $display) . '&p=' . $pages . '">Previous</a> ';
             }
             // Make all the numbered pages:
             for ($i = 1; $i <= $pages; $i++) {
                 if ($i != $current_page) {
-                    echo '<a href="ViewUsers.php?s=' . (($display * ($i - 1))) . '&p=' . $pages . '">' . $i . '</a> ';
+                    echo '<a href="ViewSuggestions.php?s=' . (($display * ($i - 1))) . '&p=' . $pages . '">' . $i . '</a> ';
                 } else {
                     echo $i . ' ';
                 }
             } // End of FOR loop.
             // If it's not the last page, make a Next button:
             if ($current_page != $pages) {
-                echo '<a href="ViewUsers.php?s=' . ($start + $display) . '&p=' . $pages . '">Next</a>';
+                echo '<a href="ViewSuggestions.php?s=' . ($start + $display) . '&p=' . $pages . '">Next</a>';
             }
             echo '</p></div>'; // Close the paragraph.
         }
