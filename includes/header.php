@@ -37,7 +37,7 @@
                         <li><a href="index.php">Home</a></li>
                         <li><a href="BeerSearch.php">Beers</a></li>
                         <li><a href="feed.php">Feed</a></li>
-                        <li><a href="UserSearch.php">Following</a></li>
+                        <li><a href="UserSearch.php">Follow</a></li>
                         <li><a href="profile.php">Profile</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">

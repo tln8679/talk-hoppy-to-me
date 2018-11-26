@@ -59,6 +59,7 @@
 
 
 <div class="container">
+    <h1 style="text-align: center;">Find new friends</h1>
     <?php
     // Number of records to show per page:
     $display = 10;
