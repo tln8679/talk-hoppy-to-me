@@ -26,6 +26,13 @@
         $r = mysqli_query($dbc, $sql);
         echo "<h2>" . " Number of users deleted: " . mysqli_affected_rows($dbc) . "</h2>";
     }
+    // if(isset($_POST['makeAdmin'])) {
+    //     // Using prepared statements so we don't need to sanitize
+    //     $friend_user_id = $_POST['userID'];
+    //     $sql = "DELETE FROM USERS WHERE USERS_ID= $friend_user_id";
+    //     $r = mysqli_query($dbc, $sql);
+    //     echo "<h2>" . " Number of users deleted: " . mysqli_affected_rows($dbc) . "</h2>";
+    // }
 ?>
 
 
