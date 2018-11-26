@@ -194,23 +194,6 @@
         ?>
     </div>
 
- <script>
-    function showMore(show_description) {
-            show_description = show_description.toString();
-            if (document.getElementById(show_description).style.display === "none") {
-                // Change to hide
-                document.getElementById('link').innerHTML = "Hide description...";
-                // Show beer desciption
-                document.getElementById(show_description).style.display = "block";
-            }
-            else {
-                // back to original
-                document.getElementById('link').innerHTML = "Show description...";
-                document.getElementById(show_description).style.display = "none";
-            }
-        }
-</script>
-
 <?php
     include('includes/footer.php');
 ?>

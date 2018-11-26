@@ -1,4 +1,5 @@
 <?php
+    $page_title = 'View users!';
     // page for admin to view beers
     include('../includes/AdminHeader.php');
     require_once '../../../mysqli_connect.php'; //$dbc is the connection string set upon successful connection
@@ -139,10 +140,10 @@
     }
     ?>
     </div>
-    <div class="container alert alert-info w3-margin-top" role="alert">
         <?php
         // Make the links to other pages, if necessary.
         if ($pages > 1) {
+            echo '<div class="container alert alert-info w3-margin-top" role="alert">';
             echo '<p>';
             // Determine what page the script is on:
             $current_page = ($start/$display) + 1;
@@ -162,28 +163,10 @@
             if ($current_page != $pages) {
                 echo '<a href="ViewUsers.php?s=' . ($start + $display) . '&p=' . $pages . '">Next</a>';
             }
-            echo '</p>'; // Close the paragraph.
+            echo '</p></div>'; // Close the paragraph.
         }
         ?>
-    </div>
-
- <script>
-    function showMore(show_description) {
-            show_description = show_description.toString();
-            if (document.getElementById(show_description).style.display === "none") {
-                // Change to hide
-                document.getElementById('link').innerHTML = "Hide description...";
-                // Show beer desciption
-                document.getElementById(show_description).style.display = "block";
-            }
-            else {
-                // back to original
-                document.getElementById('link').innerHTML = "Show description...";
-                document.getElementById(show_description).style.display = "none";
-            }
-        }
-</script>
-
+    
 <?php
     include('../includes/footer.php');
 ?>
