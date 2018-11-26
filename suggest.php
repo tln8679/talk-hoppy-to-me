@@ -4,14 +4,32 @@
     *  this same page loads with a form to add a comment and confirm the addition. User taken to 
     *  log/love/or later.php to see their full list.
     */
-
-    $page_title = 'Beers, yum!';
+    
+    $page_title = 'Make a suggestion!';
+    // Session is set in the header
     include('includes/header.php');
     include("beans/suggestion.php");
     require_once '../../mysqli_connect.php';
+    ini_set('display_errors', 'On'); 
+    error_reporting(E_ALL); 
+    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
+    if (empty($_SESSION['email'])){
+        // User hasn't logged in and clicked "My profile", so send him to log in page
+        $url = 'http://'. $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
+        $url = rtrim($url, '/\\');
+        $page = 'login.php';
+        $url .= '/' . $page;
+        header("Location: $url");
+        exit();
+    }
 
 	if (isset($_POST['submit'])) {
-	
+        if (isset($_SESSION['usersID'])){
+            $curr_user = $_SESSION['usersID'];
+        }
+    
+        
 		// Create scalar variables for the form data:
 		if (!empty($_POST['suggestion']))
 			$suggestion = filter_var($_POST['suggestion'], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
@@ -19,7 +37,7 @@
 			$missing[] = "name";
 		$nature = $_POST['nature'];
 
-		if ($missing) { //There is at least one element in the $missing array
+		if (isset($missing)) { //There is at least one element in the $missing array
 			echo 'You forgot the following form item(s):<br>';
 			//output the contents of the array
 			foreach($missing as $missed){
@@ -27,14 +45,24 @@
 			}
 		}
 		else{
-      // This is where we will insert the suggestion into the database
-      // Admins will then be able to view the Suggestion
-
-			//Form was filled out completely and submitted. Print the submitted information:
-			echo "<p>Thank you, for the following comments:<br>";
-			echo "<pre>\"$suggestion\"</pre>"; //HTML pre is preformatted text. We are assuming the comment is non-malicious
-			include('includes/footer.php'); 
-			exit;
+            // This is where we insert the suggestion into the database
+            // Admins will then be able to view the Suggestion
+            $sql = "INSERT INTO `SUGGESTION` (`USER_ID`, `NATURE`, `COMMENT`) VALUES (?,?,?)";
+            $stmt = mysqli_prepare($dbc,$sql);
+            mysqli_stmt_bind_param($stmt,'sss',$curr_user, $nature, $suggestion);
+            mysqli_stmt_execute($stmt);
+            if(mysqli_stmt_affected_rows($stmt)) { //It worked
+                //Form was filled out completely and submitted. Print the submitted information:
+                echo "<p>Thank you, for the following comments:<br>";
+                echo "<pre>\"$suggestion\"</pre>"; //HTML pre is preformatted text. We are assuming the comment is non-malicious
+                include('includes/footer.php'); 
+                exit;
+            }
+            else{
+                echo "<div class=\"alert alert-info\" role=\"alert\">
+                    <p>We're sorry, there was an error trying to suggest: $suggestion</p>
+                    </div>";
+            }
 		}
 	}
 ?>
@@ -42,7 +70,7 @@
 <div class="w3-row-padding">
     <div class="w3-container w3-card w3-white w3-margin-bottom">
         <div class="w3-container">            
-            <form method="POST" action="login.php">
+            <form method="POST" action="suggest.php">
                 <fieldset>
                     <legend class="w3-text-grey w3-padding-16" style="text-align: center;">
                         <i class="fa fa-suitcase fa-fw w3-xxlarge w3-text-indigo">Make a suggestion!</i>
