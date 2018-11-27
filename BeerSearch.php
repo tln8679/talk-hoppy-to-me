@@ -375,8 +375,11 @@
                                     <!-- Shows and hides description -->
                                     <div id=\"$counter\" style=\"display:none;\">
                                         <p>$description</p><br>
-                                    </div>
-                                    <a href=\"javascript:showMore($counter)\" id=\"link\">Show description...</a>
+                                    </div>";
+                                    // In order to be html valid we can't use the same id twice
+                                    // Since there are only 16 beers on a page adding 1000 to the beer (overkill) ensures no duplicates
+                                    $js_counter = $counter + 1000;
+                                    echo "<a href=\"javascript:showMore($counter, $js_counter)\" id=\"$js_counter\">Show description...</a>
                                     <!-- This is where we will add the beer to the favorites table -->
                                     <h5 class=\"w3-opacity text-center\"><b>Log/Love/Later:</b></h5>
                                     <div class=\"w3-row-padding cntr-form\">
@@ -445,8 +448,11 @@
                                     <!-- Shows and hides description -->
                                     <div id=\"$counter\" style=\"display:none;\">
                                         <p>$description</p><br>
-                                    </div>
-                                    <a href=\"javascript:showMore($counter)\" id=\"link\">Show description...</a>
+                                    </div>";
+                                    // In order to be html valid we can't use the same id twice
+                                    // Since there are only 16 beers on a page adding 1000 to the beer (overkill) ensures no duplicates
+                                    $js_counter = $counter + 1000;
+                                    echo "<a href=\"javascript:showMore($counter, $js_counter)\" id=\"$js_counter\">Show description...</a>
                                     <!-- This is where we will add the beer to the favorites table --!>
                                     <h5 class=\"w3-opacity text-center\"><b>Log/Love/Later:</b></h5>
                                     <div class=\"w3-row-padding cntr-form\">
@@ -510,7 +516,7 @@
     // Make the links to other pages, if necessary.
     // Not going to paginate the search
     if ($pages > 1) {
-        echo '<p><div class="container alert alert-info w3-margin-top" role="alert">';
+        echo '<div class="container alert alert-info w3-margin-top" role="alert">';
         // Determine what page the script is on:
         $current_page = ($start/$display) + 1;
         // If it's not the first page, make a Previous link:
@@ -547,23 +553,22 @@
             if ($current_page != $pages) {
                 echo '<a href="BeerSearch.php?s=' . ($start + $display) . '&p=' . $pages . '&options=' . $option . '&criteria=' . $criteria .'">Next</a>';
             }
-            echo '</p></div>';
         }
-        echo '</p></div>'; // Close the paragraph.
+        echo '</div>'; // Close the paragraph.
     }
 ?>
 <script>
-    function showMore(show_description) {
+    function showMore(show_description, link_id) {
             show_description = show_description.toString();
             if (document.getElementById(show_description).style.display === "none") {
                 // Change to hide
-                document.getElementById('link').innerHTML = "Hide description...";
+                document.getElementById(link_id).innerHTML = "Hide description...";
                 // Show beer desciption
                 document.getElementById(show_description).style.display = "block";
             }
             else {
                 // back to original
-                document.getElementById('link').innerHTML = "Show description...";
+                document.getElementById(link_id).innerHTML = "Show description...";
                 document.getElementById(show_description).style.display = "none";
             }
         }
