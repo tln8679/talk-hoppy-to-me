@@ -103,8 +103,8 @@
       <div class="w3-container w3-card w3-white w3-margin-bottom">
           <h2 class="w3-text-grey w3-padding-16"><a href="profile.php?id=<?php echo $u_id; ?>"> <?php echo  $poster_name; ?></a></h2>
           <div class="w3-container">
-            <h6 class="w3-text-blue"><?php echo  $post_date; ?></a></span></h6>
-            <h5><span class="w3-text-amber">My rating: </span><span class="w3-text-indigo"><b><?php echo  $rating; ?></span></b></h5>
+            <h6 class="w3-text-blue"><?php echo  $post_date; ?></h6>
+            <h5><span class="w3-text-amber">My rating: </span><span class="w3-text-indigo"><b><?php echo  $rating; ?></b></span></h5>
             <h5><span class="w3-text-amber" ><b>Name: </b></span><span class="w3-text-indigo"><?php echo  $beer_name ?></span></h5>
             <h5> <span class="w3-text-amber" ><b>Brewer: </b></span><span class="w3-text-indigo"><?php echo  $brewer ?></span></h5>
             <p><?php echo  $comment ?></p>

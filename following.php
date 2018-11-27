@@ -80,10 +80,8 @@
         }
 ?>
     
-  <!-- End Grid -->
-</div>
   
-  <!-- End Page Container -->
+<!-- End Page Container -->
 </div>
 <?php
   // Make the links to other pages, if necessary.

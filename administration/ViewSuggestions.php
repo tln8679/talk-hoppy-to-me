@@ -65,10 +65,10 @@
                         <h5><b><span class=\"w3-opacity\">Nature: </span><span class=\"w3-text-amber\">$nature</span></b></h5>
                             <h5><b><span class=\"w3-opacity\">Suggestion: </span><span class=\"w3-text-amber\">$comment</span></b></h5>
                             <h5><b><span class=\"w3-opacity\">Date: </span><span class=\"w3-text-amber\">$date</span></b></h5>
-                            <h4 class=\"w3-text-blue\"><i class=\"fa fa-calendar fa-fw \">"
-                                . '<a href="../profile.php?id=' . $user_id . '">View ' . $user_id . '\'s Profile
-                                <span style="color:DarkGoldenRod;" class="glyphicon glyphicon-eye-open"></a>' ."</i>
-                                </span>
+                            <h4 class=\"w3-text-blue\">"
+                                . '<a href="../profile.php?id=' . $user_id . '"><i class="fa fa-calendar fa-fw ">View ' . $user_id . '\'s Profile</i>
+                                <span style="color:DarkGoldenRod;" class="glyphicon glyphicon-eye-open">' ."
+                                </span></a>
                             </h4>
                             <hr>
                         </div>

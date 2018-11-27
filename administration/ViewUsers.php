@@ -91,38 +91,36 @@
 
                         // Delete user form
                             echo
-                            "<h4>
-                                <div class=\"w3-text-indigo\">
+                            "<div class=\"w3-text-indigo\">
                                 <form method=\"POST\" action=\"ViewUsers.php\">
                                     <input type=\"hidden\" name=\"userID\" value=\"$id\">
-                                    <label for=\"$id\">Click To Delete</label>
+                                    <label for=\"$id\" style=\"cursor: pointer;\">Click To Delete</label>
                                     <button id=\"$id\" type=\"submit\" name=\"deleteUser\" class=\"btn btn-link btn-lg\">
                                         <span style=\"color:goldenrod;\" class=\"glyphicon glyphicon-remove\"></span>
                                     </button>
                                 </form>
-                                </div>
-                            </h4><hr>";
+                            </div>
+                            <hr>";
                             //Make a user an admin form
                             echo
-                            "<h4>
-                                <div class=\"w3-text-indigo\">
+                            "<div class=\"w3-text-indigo\">
                                 <form method=\"POST\" action=\"ViewUsers.php\">
-                                    <input type=\"hidden\" name=\"userID\" value=\"$id\">
-                                    <label for=\"$id\">Click To Make An Admin</label>
-                                    <button id=\"$id\" type=\"submit\" name=\"makeAdmin\" class=\"btn btn-link btn-lg\">
+                                    <input type=\"hidden\" name=\"userID\" value=\"$id-2\">
+                                    <label for=\"$id-2\" style=\"cursor: pointer;\">Click To Make An Admin</label>
+                                    <button id=\"$id-2\" type=\"submit\" name=\"makeAdmin\" class=\"btn btn-link btn-lg\">
                                         <span style=\"color:goldenrod;\" class=\"glyphicon glyphicon-plus\"></span>
                                     </button>
                                 </form>
-                                </div>
-                            </h4><hr>";
+                            </div>
+                            <hr>";
 
                         echo "<h5><b><span class=\"w3-opacity\">Location: </span><span class=\"w3-text-amber\">$location</span></b></h5>
                             <h5><b><span class=\"w3-opacity\">Phone: </span><span class=\"w3-text-amber\">$phone</span></b></h5>
                             <h5><b><span class=\"w3-opacity\">Email: </span><span class=\"w3-text-amber\">$email</span></b></h5>
-                            <h4 class=\"w3-text-blue\"><i class=\"fa fa-calendar fa-fw \">"
-                                . '<a href="profile.php?id=' . $id . '">View ' . $otherUser . '\'s Profile
-                                <span style="color:DarkGoldenRod;" class="glyphicon glyphicon-eye-open"></a>' ."</i>
-                                </span>
+                            <h4 class=\"w3-text-blue\">"
+                                . '<a href="profile.php?id=' . $id . '"><i class="fa fa-calendar fa-fw ">View ' . $otherUser . '\'s Profile</i>
+                                <span style="color:DarkGoldenRod;" class="glyphicon glyphicon-eye-open">' ."
+                                </span></a>
                             </h4>
                             <hr>
                         </div>

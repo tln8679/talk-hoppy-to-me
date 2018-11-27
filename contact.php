@@ -6,19 +6,19 @@
         <h1>Contact info: </h1>
         <ul>
             <li>
-                <Label> <a href=mailto:tlnoble94@gmail.com target="_blank"/>tlnoble94@gmail.com</a></Label>
+                <Label> <a href=mailto:tlnoble94@gmail.com target="_blank">tlnoble94@gmail.com</a></Label>
             </li>
-            <br>
+            
             <li>
-                <label><a href=https://www.linkedin.com/in/mrtaylornoble/>LinkedIn-Taylor</a></label>
+                <label><a href=https://www.linkedin.com/in/mrtaylornoble>LinkedIn-Taylor</a></label>
             </li>
-            <br>
+            
             <li>
-                <Label> <a href=#insertJacob target="_blank"/>jacobtylert@gmail.com</a></Label>
+                <Label> <a href=#insertJacob target="_blank">jacobtylert@gmail.com</a></Label>
             </li>
-            <br>
+            
             <li>
-                <label><a href=www.linkedin.com/in/jacob-tyler-thomas/>LinkedIn-Jacob</a></label>
+                <label><a href=www.linkedin.com/in/jacob-tyler-thomas>LinkedIn-Jacob</a></label>
             </li>
 
         </ul>

@@ -3,7 +3,7 @@
     *  This page displays all users and will have a search function.
     */
 
-    $page_title = 'Beers, yum!';
+    $page_title = 'Find friends!';
     include('includes/header.php');
     include("beans/beer.php");
     require_once '../../mysqli_connect.php';
@@ -118,18 +118,16 @@
                         // If following echo following, else echo hidden form to follow
                         if(!$following){
                             echo
-                            "<h4> 
-                                <div class=\"w3-text-indigo\">
+                            "<div class=\"w3-text-indigo\">
                                 <form method=\"POST\" action=\"UserSearch.php\">
                                     <input type=\"hidden\" name=\"userID\" value=\"$id\">
                                     <input type=\"hidden\" name=\"friendName\" value=\"$friendName\">
-                                    <label for=\"$friendName\">Click To Follow</label>
-                                    <button id=\"$friendName\" type=\"submit\" class=\"btn btn-link btn-lg\">
+                                    <label for=\"$id\" style=\"cursor: pointer;\">Click To Follow</label>
+                                    <button id=\"$id\" type=\"submit\" class=\"btn btn-link btn-lg\">
                                         <span style=\"color:goldenrod;\" class=\"glyphicon glyphicon-plus\"></span>
                                     </button>
                                 </form>
-                                </div>
-                            </h4>";
+                                </div>";
                         }
                         else{
                             echo
@@ -144,10 +142,10 @@
                         echo "<h5><b><span class=\"w3-opacity\">Location: </span><span class=\"w3-text-amber\">$location</span></b></h5>
                             <h5><b><span class=\"w3-opacity\">Phone: </span><span class=\"w3-text-amber\">$phone</span></b></h5>
                             <h5><b><span class=\"w3-opacity\">Email: </span><span class=\"w3-text-amber\">$email</span></b></h5>
-                            <h4 class=\"w3-text-blue\"><i class=\"fa fa-calendar fa-fw \">"
-                                . '<a href="profile.php?id=' . $id . '">View ' . $friendName . '\'s Profile
-                                <span style="color:DarkGoldenRod;" class="glyphicon glyphicon-eye-open"></a>' ."</i>
-                                </span>
+                            <h4 class=\"w3-text-blue\">"
+                                . '<a href="profile.php?id=' . $id . '"><i class="fa fa-calendar fa-fw">View ' . $friendName . '\'s Profile</i>
+                                <span style="color:DarkGoldenRod;" class="glyphicon glyphicon-eye-open">' ."
+                                </span></a>
                             </h4>
                             <hr>
                         </div>
