@@ -55,13 +55,18 @@
       <div class="w3-white w3-text-grey w3-card-4 w3-margin-bottom">
         <div class="w3-display-container">
           <?php $avatar_path = $current_user->getAvatar();?>
-          <img src="<?php echo dirname($_SERVER['PHP_SELF'])."/".$avatar_path ?>" style="width:100%" alt="Avatar">
+	  <img src="<?php echo dirname($_SERVER['PHP_SELF'])."/".$avatar_path ?>" style="width:100%" alt="We need a function to show images">
           <div class="w3-display-bottomleft w3-container w3-text-black">
           </div>
         </div>
         <div class="w3-container">
+		  <hr>
+		  <div style="text-align: center;">
+			<a href="pic_upload.php" class="btn btn-primary btn-sm" style="text-align:center;">New profile pic</a>
+		  </div>
+		  <hr>
+
           <h2><?php echo $current_user->getFirstName()." ".$current_user->getLastName();?></h2>
-          <p>Day drinker</p>
           <p><?php echo $current_user->getCity().", ".$current_user->getState();?></p>
           <p><?php echo $current_user->getEmail();?></p>
           <p><?php echo $current_user->getPhoneNumber();?></p>
