@@ -60,11 +60,15 @@
           </div>
         </div>
         <div class="w3-container">
+		<?php // Only display option to change the profile pic if viewing your own profile
+		 if (empty($_GET['id'])) { 
+		?>
 		  <hr>
 		  <div style="text-align: center;">
 			<a href="pic_upload.php" class="btn btn-primary btn-sm" style="text-align:center;">New profile pic</a>
 		  </div>
 		  <hr>
+		<?php } ?>
 
           <h2><?php echo $current_user->getFirstName()." ".$current_user->getLastName();?></h2>
           <p><?php echo $current_user->getCity().", ".$current_user->getState();?></p>
