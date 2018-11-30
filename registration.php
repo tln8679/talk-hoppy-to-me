@@ -125,7 +125,7 @@
                 <h2 class="w3-text-grey w3-padding-16" style="text-align: center;"><i class="fa fa-suitcase fa-fw w3-xxlarge w3-text-indigo">Thanks for joining!</i></h2>
             </legend>    
             <div class="w3-container">
-                <h4> 
+                
                     <form method="POST" action="registration.php">
                     <div class="form-group w3-margin-bottom" style="text-align: center;"> 
 						<p>
@@ -173,7 +173,7 @@
                     <div class="form-group w3-margin-bottom" style="text-align: center;"> 
 						<p>
 							<label for="phonetype">
-								<h4>Phone number</h4>
+								Phone number
 							</label>
 							<input type="text" class="form-control" style="width:250px; margin: auto;" name="phone" placeholder="9109999999" <?php if(isset($phone)) echo " value=\"$phone\"";?> maxlength="12" />
 							<select id="phonetype" name="phonetype">
@@ -187,7 +187,7 @@
                         <input type="submit" name="submit" value="Add" class="btn btn-primary">
                     </div>
                     </form>
-                </h4>
+                
             </div>
     </div>
 </div>
