@@ -9,8 +9,12 @@
     include('includes/header.php');
     require_once '../../mysqli_connect.php';
     require_once './beans/user.php';
-    // Current user
-    if (isset($_SESSION['email'])){
+    // Set current user to whoever's list we are viewing
+    if (isset($_GET['id'])){
+        $current_id = $_GET['id'];
+    }
+    // Default list will be the logged in user
+    else if (isset($_SESSION['email'])){
         $current_id = $_SESSION['usersID'];
         $current_user = new User ($_SESSION['firstName'],$_SESSION['lastName'],$_SESSION['avatar'],$_SESSION['email'],$_SESSION['phone'],$_SESSION['city'],$_SESSION['state'],$_SESSION['admin']);
     }
@@ -29,7 +33,7 @@
               $pages = $_GET['p'];
           } else { // Need to determine.
               // Count the number of records:
-              $sql = "SELECT COUNT(`USERS_ID`) FROM `USER_LOG`";
+              $sql = "SELECT COUNT(`USERS_ID`) FROM `USER_LOG` WHERE USERS_ID= $current_id";
               $r = mysqli_query($dbc, $sql);
               $row = mysqli_fetch_array($r, MYSQLI_NUM);
               $records = $row[0];
@@ -112,12 +116,12 @@
     $current_page = ($start/$display) + 1;
     // If it's not the first page, make a Previous link:
     if ($current_page != 1) {
-      echo '<a href="log.php?s=' . ($start - $display) . '&p=' . $pages . '">Previous</a> ';
+      echo '<a href="log.php?id='.$current_id.'&s=' . ($start - $display) . '&p=' . $pages . '">Previous</a> ';
     }
     // Make all the numbered pages:
     for ($i = 1; $i <= $pages; $i++) {
       if ($i != $current_page) {
-          echo '<a href="log.php?s=' . (($display * ($i - 1))) . '&p=' . $pages . '">' . $i . '</a> ';
+          echo '<a href="log.php?id='.$current_id.'&s=' . (($display * ($i - 1))) . '&p=' . $pages . '">' . $i . '</a> ';
       } 
       else {
         echo $i . ' ';
@@ -125,7 +129,7 @@
     } // End of FOR loop.
     // If it's not the last page, make a Next button:
     if ($current_page != $pages) {
-      echo '<a href="log.php?s=' . ($start + $display) . '&p=' . $pages . '">Next</a>';
+      echo '<a href="log.php?id='.$current_id.'&s=' . ($start + $display) . '&p=' . $pages . '">Next</a>';
     }
     echo '</p>'; // Close the paragraph.
     echo '</div>';
