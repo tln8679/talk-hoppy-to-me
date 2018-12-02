@@ -15,7 +15,7 @@
 
     // User has chosen to view only their friends and they are logged in
     if(isset($_GET['view'])){
-      $sql = "SELECT `USER_ID`, `RATING`, `COMMENT`, CONCAT(USERS.FIRST_NAME, ' ', USERS.LAST_NAME) AS poster_name, DATE_FORMAT(`POST_DATE`,'%h:%i %M %d, %y') AS DATE,BEER.BEER_NAME,BREWER.BREWER_NAME, USER_FRIENDS.FRIEND_ID\n"
+      $sql = "SELECT `USER_ID`, `RATING`, `COMMENT`, CONCAT(USERS.FIRST_NAME, ' ', USERS.LAST_NAME) AS poster_name, DATE_FORMAT(`POST_DATE`,'%M %d, %y') AS DATE,BEER.BEER_NAME,BREWER.BREWER_NAME, USER_FRIENDS.FRIEND_ID\n"
       . "FROM `USER_POST` \n"
       . "INNER JOIN USERS ON USER_POST.USER_ID = USERS.USERS_ID\n"
       . "INNER JOIN BEER ON USER_POST.BEER_ID = BEER.BEER_ID\n"
@@ -52,7 +52,7 @@
 <?php
   if (empty($sql)){
     // Global query if not in friend view
-    $sql = "SELECT `USER_ID`, `RATING`, `COMMENT`, CONCAT(USERS.FIRST_NAME, ' ', USERS.LAST_NAME) AS poster_name, DATE_FORMAT(`POST_DATE`,'%h:%i %M %d, %y') AS DATE,BEER.BEER_NAME,BREWER.BREWER_NAME\n"
+    $sql = "SELECT `USER_ID`, `RATING`, `COMMENT`, CONCAT(USERS.FIRST_NAME, ' ', USERS.LAST_NAME) AS poster_name, DATE_FORMAT(`POST_DATE`,'%M %d, %y') AS DATE,BEER.BEER_NAME,BREWER.BREWER_NAME\n"
       . "FROM `USER_POST` \n"
       . "INNER JOIN USERS ON USER_POST.USER_ID = USERS.USERS_ID\n"
       . "INNER JOIN BEER ON USER_POST.BEER_ID = BEER.BEER_ID\n"
