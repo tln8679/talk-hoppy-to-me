@@ -5,15 +5,20 @@
     *  the beer via one of the buttons.
     */
 
-	$page_title = 'Register!';
+	$page_title = 'Love List!';
     include('includes/header.php');
     require_once '../../mysqli_connect.php';
     require_once './beans/user.php';
-    // Current user
-    if (isset($_SESSION['email'])){
+    // Set current user to whoever's list we are viewing
+    if (isset($_GET['id'])){
+        $current_id = $_GET['id'];
+    }
+    // Default list will be the logged in user
+    else if (isset($_SESSION['email'])){
         $current_id = $_SESSION['usersID'];
         $current_user = new User ($_SESSION['firstName'],$_SESSION['lastName'],$_SESSION['avatar'],$_SESSION['email'],$_SESSION['phone'],$_SESSION['city'],$_SESSION['state'],$_SESSION['admin']);
     }
+    // Send to log in if no one is logged in
     else {
         $url = 'http://'. $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
         $url = rtrim($url, '/\\');
