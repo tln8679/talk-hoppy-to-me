@@ -8,7 +8,7 @@
     error_reporting(E_ALL); 
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
     
-    //If we are viewing someone elses page 
+    //If we are viewing someone elses page, 
     // We will link all friends an href like http://satoshi.cis.uncw.edu/~tln8679/talkhoppytome/profile.php?id=40 to view their profile
     if (isset($_GET['id']) && is_numeric($_GET['id'])) { // Already been determined.
       $current_id = $_GET['id'];
@@ -29,6 +29,7 @@
         echo '<div class="alert alert-warning" role="alert"><p> Sorry!</p>
              <p class="text-danger">Oops! This user does not exist.</p></div>';}
       }
+    // Case: User is logged in so set the curr ID to the session ID variable
     else if (isset($_SESSION['email'])){
       $current_id = $_SESSION['usersID'];
       $current_user = new User ($_SESSION['firstName'],$_SESSION['lastName'],$_SESSION['avatar'],$_SESSION['email'],$_SESSION['phone'],$_SESSION['city'],$_SESSION['state'],$_SESSION['admin']);
@@ -149,7 +150,7 @@
         <h2 class="w3-text-grey w3-padding-16">
           <span style="color:goldenrod;" class="glyphicon glyphicon-list">
           </span> 
-          <a href="log.php">Logged</a>
+          <a href="log.php?id=<?php echo $current_id; ?>">Logged</a>
         </h2>
         <?php
           // Get the users logged list
@@ -201,7 +202,7 @@
 // End logged list and then start loved list
         ?>
         <div class="w3-container">
-          <h3 class="w3-text-indigo"><i class="fa fa-calendar fa-fw "><a href="log.php">View all</a></i></h3>
+          <h3 class="w3-text-indigo"><i class="fa fa-calendar fa-fw "><a href="log.php?id=<?php echo $current_id; ?>">View all</a></i></h3>
           <hr>
         </div>
       </div>
@@ -210,7 +211,7 @@
         <h2 class="w3-text-grey w3-padding-16">
         
         <span style="color:goldenrod;" class="glyphicon glyphicon-heart"></span> 
-        <a href="love.php">Loved</a>
+        <a href="love.php?id=<?php echo $current_id; ?>">Loved</a>
         </h2>
         <?php
           unset($sql);
@@ -255,7 +256,7 @@
 // End loved list and then start later list
         ?>
         <div class="w3-container">
-          <h3 class="w3-text-indigo"><i class="fa fa-calendar fa-fw "><a href="love.php">View all</a></i></h3>
+          <h3 class="w3-text-indigo"><i class="fa fa-calendar fa-fw "><a href="love.php?id=<?php echo $current_id; ?>">View all</a></i></h3>
           <hr>
         </div>
       </div>
@@ -265,7 +266,7 @@
         <h2 class="w3-text-grey w3-padding-16">
           
           <span style="color:goldenrod;" class="glyphicon glyphicon-star"></span> 
-          <a href="later.php">Later</a>
+          <a href="later.php?id=<?php echo $current_id; ?>">Later</a>
         </h2>
         <?php
           // Get the users loved list
@@ -312,7 +313,7 @@
 // End later list
         ?>
         <div class="w3-container">
-          <h3 class="w3-text-indigo"><i class="fa fa-calendar fa-fw "><a href="later.php">View all</a></i></h3>
+          <h3 class="w3-text-indigo"><i class="fa fa-calendar fa-fw "><a href="later.php?id=<?php echo $current_id; ?>">View all</a></i></h3>
           <hr>
         </div>
       <!-- End Right Column -->
