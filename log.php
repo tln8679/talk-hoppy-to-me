@@ -56,9 +56,7 @@
       <div class="w3-container w3-card w3-white w3-margin-bottom">
         <h2 class="w3-text-grey w3-padding-16">
           <i class="fa fa-suitcase fa-fw  w3-xxlarge w3-text-indigo"></i>
-          <span style="color:goldenrod;" class="glyphicon glyphicon-list">
-          </span> 
-          <a href="log.php">Logged</a>
+          <span style="color:goldenrod;" class="glyphicon glyphicon-list"> Logged</span> 
         </h2>
         <?php
           // Get the users logged list

@@ -35,7 +35,7 @@
           $pages = $_GET['p'];
       } else { // Need to determine.
           // Count the number of records:
-          $sql = "SELECT COUNT(`USERS_ID`) FROM `USER_LOVE`";
+          $sql = "SELECT COUNT(`USERS_ID`) FROM `USER_LOVE` WHERE USERS_ID = $current_id";
           $r = mysqli_query($dbc, $sql);
           $row = mysqli_fetch_array($r, MYSQLI_NUM);
           $records = $row[0];
@@ -56,8 +56,7 @@
 ?>
 <div class="w3-container w3-card w3-white w3-margin-bottom">
     <h2 class="w3-text-grey w3-padding-16">    
-        <span style="color:goldenrod;" class="glyphicon glyphicon-heart"></span> 
-        <a href="love.php">Loved</a>
+        <span style="color:goldenrod;" class="glyphicon glyphicon-heart"> Loved</span>    
     </h2>
         <?php
           // Get the users logged list
@@ -105,19 +104,19 @@
             $current_page = ($start/$display) + 1;
             // If it's not the first page, make a Previous link:
             if ($current_page != 1) {
-                echo '<a href="love.php?s=' . ($start - $display) . '&p=' . $pages . '">Previous</a> ';
+                echo '<a href="love.php?id='.$current_id.'&s=' . ($start - $display) . '&p=' . $pages . '">Previous</a> ';
             }
             // Make all the numbered pages:
             for ($i = 1; $i <= $pages; $i++) {
                 if ($i != $current_page) {
-                    echo '<a href="love.php?s=' . (($display * ($i - 1))) . '&p=' . $pages . '">' . $i . '</a> ';
+                    echo '<a href="love.php?id='.$current_id.'&s=' . (($display * ($i - 1))) . '&p=' . $pages . '">' . $i . '</a> ';
                 } else {
                     echo $i . ' ';
                 }
             } // End of FOR loop.
             // If it's not the last page, make a Next button:
             if ($current_page != $pages) {
-                echo '<a href="love.php?s=' . ($start + $display) . '&p=' . $pages . '">Next</a>';
+                echo '<a href="love.php?id='.$current_id.'&s=' . ($start + $display) . '&p=' . $pages . '">Next</a>';
             }
             echo '</p>'; // Close the paragraph.
             echo '</div>';
