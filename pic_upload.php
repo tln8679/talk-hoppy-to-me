@@ -4,10 +4,10 @@
     include('includes/header.php');
     require_once '../../mysqli_connect.php';
     require_once './beans/user.php';
-    ini_set('display_errors', 'On'); 
-    error_reporting(E_ALL); 
+    ini_set('display_errors', 'On');
+    error_reporting(E_ALL);
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-    
+
     if (isset($_SESSION['email'])) {
 		$u_id = $_SESSION['usersID'];
 		$email = $_SESSION['email'];
@@ -15,7 +15,6 @@
 		if (isset($_POST['submit_picture'])) {
 			// Check for an uploaded file:
 			if (isset($_FILES['image'])) {
-				echo "<p>test</p>";
 				$folder = "../../profile_pictures";
 				$files = scandir($folder); // Read all the images into an array.
 
@@ -30,15 +29,15 @@
 							$full_path = $folder . "/$image_name";
 							unlink($full_path);
 						}
-					} 
-				} 
+					}
+				}
 
 				// Validate the type. Should be JPEG or PNG.
 				$allowed = array ('image/pjpeg', 'image/jpeg', 'image/JPG', 'image/X-PNG', 'image/PNG', 'image/png', 'image/x-png', 'imageheade/gif', 'image/GIF');
 				$name = $_FILES['image']['name'];
 				$type = $_FILES['image']['type'];
 				if (in_array($_FILES['image']['type'], $allowed)) {
-                
+
 					$name = $_FILES['image']['name'];
 					$type = $_FILES['image']['type'];
 					// Move the file over.
@@ -50,7 +49,6 @@
 					$image_name = $u_id.$ext;
 					// Save and alter user table
 					if (move_uploaded_file($_FILES['image']['tmp_name'], "$pic_path")) {
-						echo "<p>Success</p>";
 						// Alter the user table, column for picture file path
 						$sql = "UPDATE USERS SET AVATAR = '$pic_path' WHERE USERS_ID = ?";
 						$stmt = mysqli_prepare($dbc,$sql);
@@ -59,27 +57,24 @@
 						mysqli_stmt_execute($stmt);
 						$count = mysqli_affected_rows($dbc);
 						if ($count==1){
-							echo '<h2>The file '.$image_name.' has been uploaded!</h2>';
-							echo '<h3>And the file data has been saved.</h3>';
 							include ('create_thumb.php');
 						}
 						else {
 							// if no count, it was probably overwritten
 							echo '<h2>The file '.$image_name.' has been overwritten!</h2>';
-							echo '<h3>And the file data has been saved.</h3>';
 							include ('create_thumb.php');
-						} 
+						}
 
                     }
 					else { // Invalid type.
 						echo '<h2 class="warning">Please upload a , GIF, JPEG or PNG image.</h2>';
 					}
-                    
+
                 }
 			}
-					
+
 		}
-		
+
     }
 	else {
        echo "<h2>Need to login</h2>";
@@ -96,13 +91,13 @@
                         <legend class="w3-text-grey w3-padding-16" style="text-align: center;">
                             <i class="fa fa-suitcase fa-fw w3-xxlarge w3-text-indigo">Pic upload</i>
                         </legend>
-                        <div class="form-group w3-margin-bottom" style="text-align: center;">      
+                        <div class="form-group w3-margin-bottom" style="text-align: center;">
 							<span class="btn btn-default btn-file">
 								<input type="file" style="width:250px; margin: auto;" type="text" name="image" id="image" required>
 							</span>
 							<hr>
                         </div>
-                        <div class="form-group w3-margin-bottom" style="text-align: center;">           
+                        <div class="form-group w3-margin-bottom" style="text-align: center;">
                             <input type="submit" name="submit_picture" value="Upload" class="btn btn-primary">
                         </div>
 					</fieldset>
