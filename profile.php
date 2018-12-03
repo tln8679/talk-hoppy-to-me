@@ -4,11 +4,11 @@
     include('includes/header.php');
     require_once '../../mysqli_connect.php';
     require_once './beans/user.php';
-    ini_set('display_errors', 'On'); 
-    error_reporting(E_ALL); 
+    ini_set('display_errors', 'On');
+    error_reporting(E_ALL);
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-    
-    //If we are viewing someone elses page, 
+
+    //If we are viewing someone elses page,
     // We will link all friends an href like http://satoshi.cis.uncw.edu/~tln8679/talkhoppytome/profile.php?id=40 to view their profile
     if (isset($_GET['id']) && is_numeric($_GET['id'])) { // Already been determined.
       $current_id = $_GET['id'];
@@ -56,13 +56,13 @@
       <div class="w3-white w3-text-grey w3-card-4 w3-margin-bottom">
         <div class="w3-display-container">
           <?php $avatar_path = $current_user->getAvatar();?>
-	  <img src="<?php echo dirname($_SERVER['PHP_SELF'])."/".$avatar_path ?>" style="width:100%" alt="We need a function to show images">
+	  <img src="<?php echo dirname($_SERVER['PHP_SELF'])."/".$avatar_path ?>" style="width:100%" alt="User's profile pic">
           <div class="w3-display-bottomleft w3-container w3-text-black">
           </div>
         </div>
         <div class="w3-container">
 		<?php // Only display option to change the profile pic if viewing your own profile
-		 if (empty($_GET['id'])) { 
+		 if (empty($_GET['id'])) {
 		?>
 		  <hr>
 		  <div style="text-align: center;">
@@ -149,7 +149,7 @@
       <div class="w3-container w3-card w3-white w3-margin-bottom">
         <h2 class="w3-text-grey w3-padding-16">
           <span style="color:goldenrod;" class="glyphicon glyphicon-list">
-          </span> 
+          </span>
           <a href="log.php?id=<?php echo $current_id; ?>">Logged</a>
         </h2>
         <?php
@@ -183,7 +183,7 @@
                 }
                 if (empty($global_rating)) $global_rating = "0 (No reviews yet)";
                 else $global_rating.="/5";
-        // Display the variables in the html 
+        // Display the variables in the html
         ?>
         <div class="w3-container">
           <h6 class="w3-text-indigo"><?php echo $date; ?></h6>
@@ -209,8 +209,8 @@
 
       <div class="w3-container w3-card w3-white w3-margin-bottom">
         <h2 class="w3-text-grey w3-padding-16">
-        
-        <span style="color:goldenrod;" class="glyphicon glyphicon-heart"></span> 
+
+        <span style="color:goldenrod;" class="glyphicon glyphicon-heart"></span>
         <a href="love.php?id=<?php echo $current_id; ?>">Loved</a>
         </h2>
         <?php
@@ -239,7 +239,7 @@
                 }
                 if (empty($global_rating)) $global_rating = "0 (No reviews yet)";
                 else $global_rating.="/5";
-        // Display the variables in the html 
+        // Display the variables in the html
         ?>
         <div class="w3-container">
           <h6 class="w3-text-indigo"><?php echo $date; ?></h6>
@@ -264,8 +264,8 @@
 
       <div class="w3-container w3-card w3-white">
         <h2 class="w3-text-grey w3-padding-16">
-          
-          <span style="color:goldenrod;" class="glyphicon glyphicon-star"></span> 
+
+          <span style="color:goldenrod;" class="glyphicon glyphicon-star"></span>
           <a href="later.php?id=<?php echo $current_id; ?>">Later</a>
         </h2>
         <?php
@@ -283,7 +283,7 @@
                 // query string to link the beer
                 $search_beer= explode(" ", $beer_name);
                 $beer_get= implode("+",$search_beer);
-                
+
                 $brewer_name = $row['BrewerName'];
                 $date = $row['date'];
                 // Get the beer rating from derivation
@@ -296,7 +296,7 @@
                 }
                 if (empty($global_rating)) $global_rating = "0 (No reviews yet)";
                 else $global_rating.="/5";
-        // Display the variables in the html 
+        // Display the variables in the html
         ?>
         <div class="w3-container">
           <h6 class="w3-text-indigo"><?php echo $date; ?></h6>
