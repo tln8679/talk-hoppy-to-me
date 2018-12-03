@@ -27,6 +27,10 @@
         $r = mysqli_query($dbc, $sql);
         echo "<h2>" . " Number of users deleted: " . mysqli_affected_rows($dbc) . "</h2>";
     }
+
+    if(isset($_POST['makeAdmin'])) {
+      echo "This button currently has no functionality";
+    }
     // if(isset($_POST['makeAdmin'])) {
     //     // Using prepared statements so we don't need to sanitize
     //     $friend_user_id = $_POST['userID'];
@@ -165,7 +169,7 @@
             echo '</p></div>'; // Close the paragraph.
         }
         ?>
-    
+
 <?php
     include('../includes/footer.php');
 ?>
