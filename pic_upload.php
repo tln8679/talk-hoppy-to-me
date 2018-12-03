@@ -64,7 +64,8 @@
 							include ('create_thumb.php');
 						}
 						else {
-							echo '<h2>The file '.$image_name.' has been uploaded!</h2>';
+							// if no count, it was probably overwritten
+							echo '<h2>The file '.$image_name.' has been overwritten!</h2>';
 							echo '<h3>And the file data has been saved.</h3>';
 							include ('create_thumb.php');
 						} 
