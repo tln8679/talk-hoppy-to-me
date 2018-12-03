@@ -14,11 +14,9 @@
 		// Check if the form has been submitted:
 		if (isset($_POST['submit_picture'])) {
 			// Check for an uploaded file:
-			echo "<h1>$email ($u_id) uploaded</h1>";
-        
 			if (isset($_FILES['image'])) {
+				echo "<p>test</p>";
 				$folder = "../../profile_pictures";
-
 				$files = scandir($folder); // Read all the images into an array.
 
 				// If user is changing their profile picture, delete their current pic first
@@ -49,8 +47,10 @@
 					$pieces = explode(".", $name);
 					$ext = "." . $pieces[1];
 					$pic_path = "$folder/$u_id$ext";
+					$image_name = $u_id.$ext;
 					// Save and alter user table
 					if (move_uploaded_file($_FILES['image']['tmp_name'], "$pic_path")) {
+						echo "<p>Success</p>";
 						// Alter the user table, column for picture file path
 						$sql = "UPDATE USERS SET AVATAR = '$pic_path' WHERE USERS_ID = ?";
 						$stmt = mysqli_prepare($dbc,$sql);
@@ -59,9 +59,15 @@
 						mysqli_stmt_execute($stmt);
 						$count = mysqli_affected_rows($dbc);
 						if ($count==1){
-							echo "path updated";
+							echo '<h2>The file '.$image_name.' has been uploaded!</h2>';
+							echo '<h3>And the file data has been saved.</h3>';
+							include ('create_thumb.php');
 						}
-						else "Not sucessful!";
+						else {
+							echo '<h2>The file '.$image_name.' has been uploaded!</h2>';
+							echo '<h3>And the file data has been saved.</h3>';
+							include ('create_thumb.php');
+						} 
 
                     }
 					else { // Invalid type.
