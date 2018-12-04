@@ -4,6 +4,7 @@
 	include("beans/user.php");
 	require './includes/header.php';
 	require_once '../../mysqli_connect.php'; //$dbc is the connection string set upon successful connection
+	require_once 'secure_conn.php';
 	$error_message = array();
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		if (!empty($_POST['fname']))
@@ -183,6 +184,10 @@
 							</select>
 						</p>
 					</div>
+					<div class="form-check w3-margin-bottom" style="text-align: center;">
+						<input type="checkbox" class="form-check-input" id="terms">
+						<label class="form-check-label" for="terms">Read the <a href="privacypolicy.php">terms</a> and agree </label>
+					</div>
                     <div class="form-group w3-margin-bottom" style="text-align: center;">           
                         <input type="submit" name="submit" value="Add" class="btn btn-primary">
                     </div>
@@ -192,30 +197,5 @@
     </div>
 </div>
 <?php
-
-	// Make the links to other pages, if necessary.
-	if ($pages > 1) {
-		echo '<p>';
-		// Determine what page the script is on:
-		$current_page = ($start/$display) + 1;
-		// If it's not the first page, make a Previous link:
-		if ($current_page != 1) {
-			echo '<a href="UserSearch.php?s=' . ($start - $display) . '&p=' . $pages . '">Previous</a> ';
-		}
-		// Make all the numbered pages:
-		for ($i = 1; $i <= $pages; $i++) {
-			if ($i != $current_page) {
-				echo '<a href="UserSearch.php?s=' . (($display * ($i - 1))) . '&p=' . $pages . '">' . $i . '</a> ';
-			} else {
-				echo $i . ' ';
-			}
-		} // End of FOR loop.
-		// If it's not the last page, make a Next button:
-		if ($current_page != $pages) {
-			echo '<a href="UserSearch.php?s=' . ($start + $display) . '&p=' . $pages . '">Next</a>';
-		}
-		echo '</p>'; // Close the paragraph.
-	}
-
     include('includes/footer.php');
 ?>
