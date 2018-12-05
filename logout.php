@@ -1,5 +1,5 @@
 <?php
-    /*
+/*
     a. Check for an existing session
     b. Check for a specific $_SESSION variable you have stored at login
     c. If it is set:
@@ -11,25 +11,25 @@
     logged out
     d. If it is not set: Set the $message variable(s) to indicate that the user has reached the
     page in error. 
-    */
-    require 'includes/header.php';
+*/
+require 'includes/header.php';
 ?>
     <main>
-<?php 
-    if (isset($_SESSION['email'])) {
-        session_unset();
-        session_destroy();
-        setcookie('PHPSESSID', '',time()-3600, '/'); 
-        $url = 'http://'. $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
-		$url = rtrim($url, '/\\');
-		$page = 'login.php';
-		$url .= '/' . $page;
-		header("Location: $url");
-		exit();	
-	}
+<?php
+if (isset($_SESSION['email'])) {
+    session_unset();
+    session_destroy();
+    setcookie('PHPSESSID', '', time() - 3600, '/');
+    $url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
+    $url = rtrim($url, '/\\');
+    $page = 'login.php';
+    $url.= '/' . $page;
+    header("Location: $url");
+    exit();
+}
 ?>
 </main>
 <?php // Include the footer and quit the script:
-    include ('./includes/footer.php'); 
+include ('./includes/footer.php');
 ?>
 

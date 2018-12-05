@@ -94,6 +94,5 @@
 <h2>Contact Us</h2>
 <p>If you have any questions about this Privacy Policy, please contact us:</p>
 <ul>
-            <li>By visiting this page on our website: <a href="suggest.php">talkhoppytome.com/suggest.php</a></li>
-      
-        </ul>
+    <li>By visiting this page on our website: <a href="suggest.php">talkhoppytome.com/suggest.php</a></li>      
+</ul>
