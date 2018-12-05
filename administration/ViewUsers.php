@@ -4,9 +4,6 @@ $page_title = 'View users!';
 include ('../includes/AdminHeader.php');
 require_once '../../../mysqli_connect.php'; //$dbc is the connection string set upon successful connection
 require ('../beans/beer.php');
-ini_set('display_errors', 'On');
-error_reporting(E_ALL);
-mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 if (empty($_SESSION['email'])) {
     // User hasn't logged in and clicked "My profile", so send him to log in page
     $url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
@@ -26,15 +23,8 @@ if (isset($_POST['deleteUser'])) {
     echo "<h2>" . " Number of users deleted: " . mysqli_affected_rows($dbc) . "</h2>";
 }
 if (isset($_POST['makeAdmin'])) {
-    echo "This button currently has no functionality";
+    echo "<h4>This action is currently not supported.</h4>";
 }
-// if(isset($_POST['makeAdmin'])) {
-//     // Using prepared statements so we don't need to sanitize
-//     $friend_user_id = $_POST['userID'];
-//     $sql = "DELETE FROM USERS WHERE USERS_ID= $friend_user_id";
-//     $r = mysqli_query($dbc, $sql);
-//     echo "<h2>" . " Number of users deleted: " . mysqli_affected_rows($dbc) . "</h2>";
-// }
 
 ?>
 

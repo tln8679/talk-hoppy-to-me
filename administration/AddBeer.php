@@ -4,9 +4,7 @@
 $page_title = 'Add beer!';
 include ('../includes/AdminHeader.php');
 require_once '../../../mysqli_connect.php'; //$dbc is the connection string set upon successful connection
-ini_set('display_errors', 'On');
-error_reporting(E_ALL);
-mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!empty($_POST['beer'])) $name = trim($_POST['beer']);
     else $error_message[] = "You forgot the beer name";

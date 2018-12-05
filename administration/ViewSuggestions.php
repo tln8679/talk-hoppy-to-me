@@ -4,9 +4,7 @@ $page_title = 'View suggestions!';
 include ('../includes/AdminHeader.php');
 require_once '../../../mysqli_connect.php'; //$dbc is the connection string set upon successful connection
 require ('../beans/beer.php');
-ini_set('display_errors', 'On');
-error_reporting(E_ALL);
-mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
 if (empty($_SESSION['email'])) {
     // User hasn't logged in and clicked "My profile", so send him to log in page
     $url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
