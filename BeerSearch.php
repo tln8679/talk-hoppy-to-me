@@ -232,6 +232,7 @@ if (isset($_POST['log_it'])) {
 if (isset($_GET['options'])) {
     $option = $_GET['options'];
     if (isset($_GET['criteria'])) {
+        // Escape because prepared statements and pagination is no fun together
         $criteria = mysqli_real_escape_string($dbc, trim($_GET['criteria']));
     }
     // Don't allow a blank search
