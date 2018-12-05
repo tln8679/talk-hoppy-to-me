@@ -1,4 +1,5 @@
 <?php
+    require_once 'reg_conn.php';
     $page_title = 'You, yum!';
 	// Include header html here
     include('includes/header.php');

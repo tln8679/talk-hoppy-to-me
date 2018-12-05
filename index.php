@@ -1,4 +1,6 @@
-<?php $page_title = 'Beer, yum!'; // Include header html here
+<?php
+require_once 'reg_conn.php'; 
+$page_title = 'Beer, yum!'; // Include header html here
 include('includes/header.php'); ?>
 
 <div class="page-header"><h1>What are you drinking tonight?</h1></div>

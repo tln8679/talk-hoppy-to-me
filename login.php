@@ -1,4 +1,5 @@
 <?php
+    require_once 'secure_conn.php';
     $page_title = 'Login, yum!';
 	// Include header html here
     include('includes/header.php');

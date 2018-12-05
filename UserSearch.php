@@ -2,7 +2,7 @@
     /* 
     *  This page displays all users and will have a search function.
     */
-
+    require_once 'reg_conn.php';
     $page_title = 'Find friends!';
     include('includes/header.php');
     include("beans/beer.php");
