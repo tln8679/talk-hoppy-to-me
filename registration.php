@@ -18,9 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // We could process city
     if (!empty($_POST['city'])) $city = filter_var(trim($_POST['city']), FILTER_SANITIZE_STRING);
     else $error_message[] = "City is missing.";
-    // We could process state
-    if (!empty($_POST['state'])) $state = filter_var(trim($_POST['state']), FILTER_SANITIZE_STRING);
-    else $error_message[] = "State is missing.";
+    //   Select always set
+    $state = $_POST['state'];
     // Phone
     if (!empty($_POST['phone'])) {
         // Remove any non-digits
@@ -143,12 +142,64 @@ else echo "placeholder=\"First name\"" ?> class="form-control" required>
 							<span style="color:red">*</span>
 							<input type="text" id="city" name="city" style="width:250px; margin: auto;" placeholder="City" class="form-control" <?php if (isset($city)) echo " value=\"$city\""; ?> max-length="50" required>
 						</p>
-						<p>
-
-							<label for="state">State</label>
-							<span style="color:red">*</span>
-							<input type="text" id="state" name="state" style="width:250px; margin: auto;" placeholder="State" class="form-control" <?php if (isset($state)) echo " value=\"$state\""; ?> max-length="2" required>
-						</p>
+						<P> 
+                        <label>State</label>
+                            <br>
+                            <select id="state" name="state">
+                                <option value="AL">AL</option>
+                                <option value="AK">AK</option>
+                                <option value="AR">AR</option>
+                                <option value="AZ">AZ</option>
+                                <option value="CA">CA</option>
+                                <option value="CO">CO</option>
+                                <option value="CT">CT</option>
+                                <option value="DC">DC</option>
+                                <option value="DE">DE</option>
+                                <option value="FL">FL</option>
+                                <option value="GA">GA</option>
+                                <option value="HI">HI</option>
+                                <option value="IA">IA</option>
+                                <option value="ID">ID</option>
+                                <option value="IL">IL</option>
+                                <option value="IN">IN</option>
+                                <option value="KS">KS</option>
+                                <option value="KY">KY</option>
+                                <option value="LA">LA</option>
+                                <option value="MA">MA</option>
+                                <option value="MD">MD</option>
+                                <option value="ME">ME</option>
+                                <option value="MI">MI</option>
+                                <option value="MN">MN</option>
+                                <option value="MO">MO</option>
+                                <option value="MS">MS</option>
+                                <option value="MT">MT</option>
+                                <option value="NC">NC</option>
+                                <option value="NE">NE</option>
+                                <option value="NH">NH</option>
+                                <option value="NJ">NJ</option>
+                                <option value="NM">NM</option>
+                                <option value="NV">NV</option>
+                                <option value="NY">NY</option>
+                                <option value="ND">ND</option>
+                                <option value="OH">OH</option>
+                                <option value="OK">OK</option>
+                                <option value="OR">OR</option>
+                                <option value="PA">PA</option>
+                                <option value="RI">RI</option>
+                                <option value="SC">SC</option>
+                                <option value="SD">SD</option>
+                                <option value="TN">TN</option>
+                                <option value="TX">TX</option>
+                                <option value="UT">UT</option>
+                                <option value="VT">VT</option>
+                                <option value="VA">VA</option>
+                                <option value="WA">WA</option>
+                                <option value="WI">WI</option>
+                                <option value="WV">WV</option>
+                                <option value="WY">WY</option>
+                                <option value="00">Imported</option>
+                            </select>
+                        </p>
 					</div>
                     <div class="form-group w3-margin-bottom" style="text-align: center;"> 
 						<p>

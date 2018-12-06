@@ -133,7 +133,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <option value="WI">WI</option>
                             <option value="WV">WV</option>
                             <option value="WY">WY</option>
-                            <option value="Imported">Imported</option>
+                            <option value="00">Imported</option>
                         </select>
                     </div>
                     <div class="form-group w3-margin-bottom" style="text-align: center;">           
