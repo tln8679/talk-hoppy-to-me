@@ -5,9 +5,6 @@ $page_title = 'Your feed, yum!';
 include ('includes/header.php');
 require_once '../../mysqli_connect.php';
 require_once './beans/user.php';
-ini_set('display_errors', 'On');
-error_reporting(E_ALL);
-mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 if (isset($_SESSION['email'])) {
     $current_id = $_SESSION['usersID'];
     $current_user = new User($_SESSION['firstName'], $_SESSION['lastName'], $_SESSION['avatar'], $_SESSION['email'], $_SESSION['phone'], $_SESSION['city'], $_SESSION['state'], $_SESSION['admin']);

@@ -4,9 +4,7 @@ $page_title = 'New pic!';
 include ('includes/header.php');
 require_once '../../mysqli_connect.php';
 require_once './beans/user.php';
-ini_set('display_errors', 'On');
-error_reporting(E_ALL);
-mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
 if (isset($_SESSION['email'])) {
     $u_id = $_SESSION['usersID'];
     $email = $_SESSION['email'];

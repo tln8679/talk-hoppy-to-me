@@ -9,9 +9,6 @@ $page_title = 'Beers, yum!';
 include ('includes/header.php');
 include ("beans/beer.php");
 require_once '../../mysqli_connect.php';
-ini_set('display_errors', 'On');
-error_reporting(E_ALL);
-mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 // This form displays if the user has selected a beer to add to a list and then exits
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && empty($_POST['log_it'])) {
     $beer_name = $_POST['beer-name'];

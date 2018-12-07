@@ -7,9 +7,7 @@ $page_title = 'Find friends!';
 include ('includes/header.php');
 include ("beans/beer.php");
 require_once '../../mysqli_connect.php';
-ini_set('display_errors', 'On');
-error_reporting(E_ALL);
-mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
 if (empty($_SESSION['email'])) {
     // User hasn't logged in and clicked "My profile", so send him to log in page
     $url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
