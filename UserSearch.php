@@ -86,7 +86,7 @@ if (isset($_GET['name']) && is_string($_GET['name'])) {
     // $sql = ;
     
 } else {
-    $sql = "SELECT USERS.USERS_ID, CONCAT(USERS.FIRST_NAME,' ' ,USERS.LAST_NAME) AS FriendName, USERS.PHONE,USERS.EMAIL,CONCAT(USERS.CITY,', ' ,USERS.STATE) AS Location\n" . "FROM `USERS`\n" . "ORDER BY USERS.FIRST_NAME ASC LIMIT $start,$display";
+    $sql = "SELECT USERS.USERS_ID, USERS.AVATAR, CONCAT(USERS.FIRST_NAME,' ' ,USERS.LAST_NAME) AS FriendName, USERS.PHONE,USERS.EMAIL,CONCAT(USERS.CITY,', ' ,USERS.STATE) AS Location\n" . "FROM `USERS`\n" . "ORDER BY USERS.FIRST_NAME ASC LIMIT $start,$display";
 }
 $r = mysqli_query($dbc, $sql);
 if (mysqli_num_rows($r) > 0) { // user found
@@ -99,11 +99,14 @@ if (mysqli_num_rows($r) > 0) { // user found
         $location = $row['Location'];
         $email = $row['EMAIL'];
         $phone = $row['PHONE'];
+        $avatar_path = $row['AVATAR'];
         // <!-- The Grid -->
         echo "<div class=\"w3-row-padding\">
                 <div class=\"w3-container w3-card w3-white w3-margin-bottom\">
-                        <h2 class=\"w3-text-grey w3-padding-16\"><i class=\"fa fa-suitcase fa-fw w3-xxlarge w3-text-indigo\">$friendName</i></h2>
-                        <div class=\"w3-container\">";
+                        <h2 class=\"w3-text-grey w3-padding-16\"><i class=\"fa fa-suitcase fa-fw w3-xxlarge w3-text-indigo\">$friendName</i></h2>"; ?>
+                        <img src="<?php echo dirname($_SERVER['PHP_SELF']) . "/" . $avatar_path ?>" style="width:20%" alt="User's profile pic">
+                        <hr>
+                        <?php echo "<div class=\"w3-container\">";
         // If following echo following, else echo hidden form to follow
         if (!$following) {
             echo "<div class=\"w3-text-indigo\">

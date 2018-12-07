@@ -2,7 +2,7 @@
 //include file from upload_image.php
 //creates a thumbnail from an uploaded image
 //before executing this file, create a folder in the site images folder named /user_thumbs
-define('MAX_SIZE', 300); // The higher this value, the cripser the photo
+define('MAX_SIZE', 400); // The higher this value, the cripser the photo
 define('SUFFIX', '_thb');
 $path = "$folder/$image_name";
 $size = getimagesize($path);

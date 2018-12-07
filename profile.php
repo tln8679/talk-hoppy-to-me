@@ -5,9 +5,6 @@ $page_title = 'User profile!';
 include ('includes/header.php');
 require_once '../../mysqli_connect.php';
 require_once './beans/user.php';
-ini_set('display_errors', 'On');
-error_reporting(E_ALL);
-mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 //If we are viewing someone elses page,
 // We will link all friends an href like http://satoshi.cis.uncw.edu/~tln8679/talkhoppytome/profile.php?id=40 to view their profile
 if (isset($_GET['id']) && is_numeric($_GET['id'])) { // Already been determined.
@@ -32,6 +29,14 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) { // Already been determined.
 // Case: User is logged in so set the curr ID to the session ID variable
 else if (isset($_SESSION['email'])) {
     $current_id = $_SESSION['usersID'];
+    // User might have changed their picture so update the session variable
+    $sql = "SELECT `AVATAR` FROM `USERS` WHERE `USERS_ID` =" . $current_id;
+    $result = mysqli_query($dbc, $sql);
+    if (mysqli_num_rows($result) == 1) { 
+      $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+      unset($_SESSION['avatar']);
+      $_SESSION['avatar'] = $row['AVATAR'];
+    }
     $current_user = new User($_SESSION['firstName'], $_SESSION['lastName'], $_SESSION['avatar'], $_SESSION['email'], $_SESSION['phone'], $_SESSION['city'], $_SESSION['state'], $_SESSION['admin']);
 }
 // User hasn't logged in and clicked "My profile", so send him to log in page
