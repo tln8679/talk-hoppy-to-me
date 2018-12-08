@@ -5,7 +5,7 @@
 <html lang="en">
 
 <head>
-    <!--Taylor Noble-->
+    <!--Taylor Noble, Jacob Thomas-->
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta charset="utf-8">
     <title>
