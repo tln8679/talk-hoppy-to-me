@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <div class="w3-row-padding">
     <div class="w3-container w3-card w3-white w3-margin-bottom">
         <div class="w3-container"> 
-            <form method="POST" action="AddBeer.php">
+            <form method="POST" action="AddBrewer.php">
                 <fieldset>
                     <legend class="w3-text-grey w3-padding-16" style="text-align: center;">
                         <i class="fa fa-suitcase fa-fw w3-xxlarge w3-text-indigo">Add a brewer</i>
