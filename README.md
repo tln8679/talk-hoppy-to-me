@@ -15,3 +15,4 @@ A delete suggestion function should be added to administration/ViewSuggestions.p
 
 
 ## Final ERD:
+![Alt text](imgs/ERD.jpeg?raw=true "MySQL Entity Relation Diagram")
