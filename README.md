@@ -1,12 +1,5 @@
 # talk-hoppy-to-me
 
-## Limited screen shots:
-![Alt text](imgs/1.png?raw=true "BeerSearch.php")
-![Alt text](imgs/2.png?raw=true "profile.php")
-![Alt text](imgs/3.png?raw=true "UserSearch.php")
-![Alt text](imgs/4.png?raw=true "AddBrewer.php")
-
-
 ## Overview:
 Talkhoppyto.me is a “mobile-first” designed web applications for beer connoisseurs to share their hobby. 
 A new visitor to the website would first register their account. Upon registration, the user can upload a profile picture. The profile picture could then be changed at any point. The user can search through a database of over 800 beers and either log a beer, love a beer, or save it for later. Logging the beer creates a user post, which includes a given rating and a comment. This post will show up in the global feed and the rating will update the beers average rating.
@@ -23,3 +16,16 @@ A delete suggestion function should be added to administration/ViewSuggestions.p
 
 ## Final ERD:
 ![Alt text](imgs/ERD.jpeg?raw=true "MySQL Entity Relation Diagram")
+
+## Limited screen shots:
+### Beer search
+![Alt text](imgs/1.png?raw=true "BeerSearch.php")
+
+### Profile
+![Alt text](imgs/2.png?raw=true "profile.php")
+
+### User search
+![Alt text](imgs/3.png?raw=true "UserSearch.php")
+
+### Add brewer
+![Alt text](imgs/4.png?raw=true "AddBrewer.php")
