@@ -9,7 +9,7 @@ If the user cannot find a certain beer, they can go to the suggestions page that
 Talkhoppyto.me also has an interface for admins. If the user is logged in as an admin they will see a toggle in the footer of the page. From the admin interface, the admin can view all suggestions ordered by oldest. The admin can then add breweries and new beers. The admin can also view all users and choose to delete a user, if needed. 
 
 ## Known problems:
-Talkhoppyto.me does not have a password change or forgot password functions. If a user forgets their password, they will need to create a new account.
+Talkhoppyto.me is written without a framework and may be difficult to maintain. Talkhoppyto.me does not have a password change or forgot password functions. If a user forgets their password, they will need to create a new account.
 Talkhoppyto.me allows a user to love a beer that they have not logged yet. We could in the future use a trigger to disallow or use some php processing to send an error message. Talkhoppyto.me does have a similar trigger to remove beers from the Later list, if the user had put that beer in his later list to try.
 A delete suggestion function should be added to administration/ViewSuggestions.php
 
