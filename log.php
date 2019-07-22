@@ -6,6 +6,7 @@
 */
 $page_title = 'Your Log!';
 include ('includes/header.php');
+require_once 'secure_conn.php';
 require_once '../../mysqli_connect.php';
 require_once './beans/user.php';
 // Set current user to whoever's list we are viewing

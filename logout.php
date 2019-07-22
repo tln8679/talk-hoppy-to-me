@@ -13,6 +13,7 @@
     page in error. 
 */
 require 'includes/header.php';
+require_once 'secure_conn.php';
 ?>
     <main>
 <?php

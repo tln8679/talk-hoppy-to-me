@@ -1,6 +1,7 @@
 <?php
 $page_title = 'Credits!';
 include ('includes/header.php');
+require_once 'secure_conn.php';
 ?>
     <section>
         <h1>Credits:</h1>

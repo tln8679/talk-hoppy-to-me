@@ -6,6 +6,7 @@
 */
 $page_title = 'Make a suggestion!';
 // Session is set in the header
+require_once 'secure_conn.php';
 include ('includes/header.php');
 include ("beans/suggestion.php");
 require_once '../../mysqli_connect.php';

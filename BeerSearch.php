@@ -4,7 +4,7 @@
  *  this same page loads with a form to add a comment and confirm the addition. User taken to
  *  log/love/or later.php to see their full list.
 */
-require_once 'reg_conn.php';
+require_once 'secure_conn.php';
 $page_title = 'Beers, yum!';
 include ('includes/header.php');
 require_once ("beans/beer.php");

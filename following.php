@@ -1,5 +1,6 @@
 <?php
 $page_title = 'Following!';
+require_once 'secure_conn.php';
 // Include header html here
 include ('includes/header.php');
 require_once '../../mysqli_connect.php';

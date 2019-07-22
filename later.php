@@ -4,6 +4,7 @@
  *  The input variables come from BeerSearch.php when the user adds
  *  the beer via one of the buttons.
 */
+require_once 'secure_conn.php';
 $page_title = 'Later List!';
 include ('includes/header.php');
 require_once '../../mysqli_connect.php';

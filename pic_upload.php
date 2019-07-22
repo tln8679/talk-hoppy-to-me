@@ -4,6 +4,10 @@ $page_title = 'New pic!';
 include ('includes/header.php');
 require_once '../../mysqli_connect.php';
 require_once './beans/user.php';
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+require_once 'secure_conn.php';
 
 if (isset($_SESSION['email'])) {
     $u_id = $_SESSION['usersID'];
@@ -60,7 +64,7 @@ if (isset($_SESSION['email'])) {
                         include ('create_thumb.php');
                     }
                 } else { // Invalid type.
-                    echo '<h2 class="warning">Please upload a , GIF, JPEG or PNG image.</h2>';
+                    echo '<h2 class="warning">Please upload a GIF, JPEG or PNG image.</h2>';
                 }
             } // Check for an error:
             if ($_FILES['image']['error'] > 0) {

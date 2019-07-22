@@ -2,7 +2,7 @@
 /*
  *  This page displays all users and will have a search function.
 */
-require_once 'reg_conn.php';
+require_once 'secure_conn.php';
 $page_title = 'Find friends!';
 include ('includes/header.php');
 include ("beans/beer.php");
@@ -102,7 +102,7 @@ if (mysqli_num_rows($r) > 0) { // user found
         echo "<div class=\"w3-row-padding\">
                 <div class=\"w3-container w3-card w3-white w3-margin-bottom\">
                         <h2 class=\"w3-text-grey w3-padding-16\"><i class=\"fa fa-suitcase fa-fw w3-xxlarge w3-text-indigo\">$friendName</i></h2>"; ?>
-                        <img src="<?php echo dirname($_SERVER['PHP_SELF']) . "/" . $avatar_path ?>" style="width:20%" alt="User's profile pic">
+                        <img src="<?php echo "http://".$_SERVER["SERVER_NAME"]."/". $avatar_path ?>" style="width:20%" alt="User's profile pic">
                         <hr>
                         <?php echo "<div class=\"w3-container\">";
         // If following echo following, else echo hidden form to follow

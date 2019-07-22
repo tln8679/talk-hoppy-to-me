@@ -1,3 +1,4 @@
+<?php>require_once 'secure_conn.php';?>
 <h1>Privacy Policy</h1>
 
 

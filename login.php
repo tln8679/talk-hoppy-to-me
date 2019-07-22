@@ -5,6 +5,7 @@ $page_title = 'Login, yum!';
 include ('includes/header.php');
 require_once '../../mysqli_connect.php';
 require_once './beans/user.php';
+require_once 'secure_conn.php';
 ?>
 
 <?php

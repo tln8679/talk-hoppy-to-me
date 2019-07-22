@@ -8,6 +8,7 @@ $page_title = 'Love List!';
 include ('includes/header.php');
 require_once '../../mysqli_connect.php';
 require_once './beans/user.php';
+require_once 'secure_conn.php';
 // Set current user to whoever's list we are viewing
 if (isset($_GET['id'])) {
     $current_id = $_GET['id'];

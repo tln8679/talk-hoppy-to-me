@@ -1,5 +1,5 @@
 <?php
-require_once 'reg_conn.php';
+require_once 'secure_conn.php';
 $page_title = 'User profile!';
 // Include header html here
 include ('includes/header.php');
@@ -61,7 +61,7 @@ else {
       <div class="w3-white w3-text-grey w3-card-4 w3-margin-bottom">
         <div class="w3-display-container">
           <?php $avatar_path = $current_user->getAvatar(); ?>
-	  <img src="<?php echo dirname($_SERVER['PHP_SELF']) . "/" . $avatar_path ?>" style="width:100%" alt="User's profile pic">
+	  <img src="<?php echo "http://".$_SERVER["SERVER_NAME"]."/". $avatar_path ?>" style="width:100%" alt="User's profile pic">
           <div class="w3-display-bottomleft w3-container w3-text-black">
           </div>
         </div>

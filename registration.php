@@ -4,6 +4,9 @@ include ("beans/user.php");
 require './includes/header.php';
 require_once '../../mysqli_connect.php'; //$dbc is the connection string set upon successful connection
 require_once 'secure_conn.php';
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 $error_message = array();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!empty($_POST['fname'])) $first = filter_var(trim($_POST['fname']), FILTER_SANITIZE_STRING);
@@ -40,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Need to also add a default avatar image to images and then insert that path for every user
     if (empty($error_message)) {
         require_once '../../mysqli_connect.php'; //$dbc is the connection string set upon successful connection
-        $newUser = new User($first, $last, "/imgs/user.png", $email, $phone, $city, $state);
+        $newUser = new User($first, $last, "/imgs/user.png", $email, $phone, $city, $state, 0);
         $q = "SELECT * FROM USERS WHERE EMAIL = ?";
         $stmt = mysqli_prepare($dbc, $q);
         mysqli_stmt_bind_param($stmt, 's', $email);
